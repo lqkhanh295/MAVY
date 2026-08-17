@@ -222,12 +222,6 @@ export default function HeroSection() {
                   priority
                   unoptimized
                 />
-
-                {/* Cinematic Golden Light Sweep on Entrance & Hover */}
-                {triggerEntranceSweep && (
-                  <div className="light-sweep-beam animate-light-sweep" />
-                )}
-                <div className="light-sweep-beam group-hover-light-sweep" />
               </motion.div>
             </motion.div>
 

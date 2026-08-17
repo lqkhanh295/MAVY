@@ -125,9 +125,6 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
                       unoptimized
                     />
                   </motion.div>
-
-                  {/* Single Light Sweep on Card Hover */}
-                  <div className="light-sweep-beam group-hover-light-sweep" />
                 </div>
 
                 {/* Product Content Body */}
@@ -220,9 +217,6 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
                         className="object-contain p-2"
                         unoptimized
                       />
-
-                      {/* Single Light Sweep on Modal Open */}
-                      <div className="light-sweep-beam animate-light-sweep" />
                     </div>
 
                     <div className="md:col-span-7 space-y-3">
