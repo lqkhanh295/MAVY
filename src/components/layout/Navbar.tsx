@@ -75,11 +75,11 @@ export default function Navbar() {
           {/* Action CTA */}
           <div className="hidden sm:flex items-center gap-3 shrink-0">
             <a
-              href="tel:19008899"
+              href="tel:090132517"
               className="flex items-center gap-2 px-4 py-2 rounded-lg bg-navy-800 border border-navy-600 text-xs font-bold text-gold hover:bg-navy-700 transition-colors whitespace-nowrap"
             >
               <IoCallOutline className="w-4 h-4 text-gold" />
-              <span>1900 8899</span>
+              <span>090 132 517</span>
             </a>
 
             <a
@@ -119,11 +119,11 @@ export default function Navbar() {
             ))}
             <div className="pt-2 flex flex-col gap-2">
               <a
-                href="tel:19008899"
+                href="tel:090132517"
                 className="flex items-center justify-center gap-2 py-2.5 rounded-lg bg-navy-800 text-gold text-xs font-bold border border-navy-600"
               >
                 <IoCallOutline className="w-4 h-4" />
-                <span>Hotline 1900 8899 (Giao 2 Giờ)</span>
+                <span>Hotline 090 132 517 (Giao 2 Giờ)</span>
               </a>
               <a
                 href="#products"

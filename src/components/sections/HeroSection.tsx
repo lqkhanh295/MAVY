@@ -266,7 +266,7 @@ export default function HeroSection() {
                   Bộ Ba Signature
                 </div>
                 <div className="text-xs text-ink-light/60 mt-0.5">
-                  Cua Gạch Năm Căn • Tôm Sú Phú Quốc • Mực Một Nắng
+                  Cua Tươi Năm Căn • Tôm Sú Đông Lạnh • Mực Trứng Đông Lạnh
                 </div>
               </div>
             </motion.div>

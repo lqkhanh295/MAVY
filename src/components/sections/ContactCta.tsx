@@ -1,7 +1,7 @@
 "use client";
 
 import { BRAND_INFO } from "@/data/brandInfo";
-import { IoCallOutline, IoTimeOutline, IoLocationOutline, IoShieldCheckmarkOutline } from "react-icons/io5";
+import { IoCallOutline, IoTimeOutline, IoLocationOutline } from "react-icons/io5";
 
 export default function ContactCta() {
   return (
@@ -25,7 +25,7 @@ export default function ContactCta() {
               </h2>
 
               <p className="text-sm sm:text-base text-ink-light/85 leading-relaxed">
-                Hải sản được đóng thùng xốp chuyên dụng kèm túi đá gel kháng khuẩn, giữ trọn độ tươi giòn trong suốt quá trình vận chuyển. Hỗ trợ giao hỏa tốc 2 giờ tại TP.HCM & Hà Nội.
+                Hải sản được đóng thùng xốp chuyên dụng kèm túi đá gel kháng khuẩn, giữ trọn độ tươi giòn trong suốt quá trình vận chuyển. Hỗ trợ giao hỏa tốc 2 giờ tại TP.HCM.
               </p>
 
               {/* 3 Ordering Guarantees */}
@@ -50,10 +50,10 @@ export default function ContactCta() {
               <div className="space-y-1">
                 <div className="text-xs uppercase tracking-wider text-ink-light/70 font-semibold">Tổng Đài Tư Vấn & Đặt Hàng</div>
                 <a
-                  href="tel:19008899"
+                  href="tel:090132517"
                   className="text-3xl sm:text-4xl font-black text-gold hover:text-gold-hover transition-colors block"
                 >
-                  1900 8899
+                  090 132 517
                 </a>
                 <p className="text-xs text-ink-light/60">Phục vụ từ 07:00 – 21:30 (Cả Thứ 7, Chủ Nhật & Ngày Lễ)</p>
               </div>
@@ -61,21 +61,17 @@ export default function ContactCta() {
               <div className="space-y-3 pt-4 border-t border-navy-800 text-xs text-ink-light/80">
                 <div className="flex items-start gap-2.5">
                   <IoLocationOutline className="w-4 h-4 text-gold shrink-0 mt-0.5" />
-                  <span><strong>Kho TP.HCM:</strong> {BRAND_INFO.storeLocations[0].address}</span>
-                </div>
-                <div className="flex items-start gap-2.5">
-                  <IoLocationOutline className="w-4 h-4 text-gold shrink-0 mt-0.5" />
-                  <span><strong>Kho Hà Nội:</strong> {BRAND_INFO.storeLocations[1].address}</span>
+                  <span><strong>Địa chỉ:</strong> {BRAND_INFO.address}</span>
                 </div>
               </div>
 
               <div className="pt-2">
                 <a
-                  href="tel:19008899"
+                  href="tel:090132517"
                   className="w-full py-3.5 rounded-xl bg-gold text-navy-950 font-bold text-sm hover:bg-gold-hover transition-colors shadow flex items-center justify-center gap-2"
                 >
                   <IoCallOutline className="w-4 h-4" />
-                  <span>Gọi Đặt Hàng Ngay (1900 8899)</span>
+                  <span>Gọi Đặt Hàng Ngay (090 132 517)</span>
                 </a>
               </div>
             </div>

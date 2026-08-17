@@ -21,8 +21,8 @@ export default function Footer() {
                 />
               </div>
               <div>
-                <span className="text-2xl font-black tracking-tight text-white block">
-                  MAVY <span className="text-gold">SEAFOOD</span>
+                <span className="text-xl font-black tracking-tight text-white block">
+                  Công ty cổ phần Mavy Seafood
                 </span>
                 <span className="text-[10px] tracking-wider uppercase text-ink-light/70 block">
                   Hải Sản Chuẩn Thượng Hạng
@@ -31,12 +31,18 @@ export default function Footer() {
             </div>
 
             <p className="text-xs text-ink-light/70 leading-relaxed max-w-sm">
-              Đơn vị phân phối Cua Cà Mau gạch son, Tôm Sú biển tự nhiên và Mực một nắng Cô Tô chuẩn xuất khẩu. Cam kết bao ăn 1 đổi 1 và giao nhanh trong 2 giờ.
+              Đơn vị phân phối Cua tươi Cà Mau, Tôm sú đông lạnh và Mực trứng đông lạnh chuẩn xuất khẩu. Cam kết bao ăn 1 đổi 1 và giao nhanh trong 2 giờ.
             </p>
 
-            <div className="pt-2 text-xs text-gold font-semibold flex items-center gap-2">
-              <IoShieldCheckmarkOutline className="w-4 h-4" />
-              <span>Chứng nhận HACCP & ISO 22000:2018</span>
+            <div className="space-y-1.5 pt-1 text-xs text-ink-light/80">
+              <div className="flex items-start gap-2">
+                <IoLocationOutline className="w-4 h-4 text-gold shrink-0 mt-0.5" />
+                <span>Đường 379, Phường Tăng Nhơn Phú A, Thành phố Thủ Đức, Tp Hồ Chí Minh</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <IoShieldCheckmarkOutline className="w-4 h-4 text-gold shrink-0" />
+                <span className="text-gold font-semibold">Chứng nhận HACCP & ISO 22000:2018</span>
+              </div>
             </div>
           </div>
 
@@ -46,27 +52,27 @@ export default function Footer() {
             <ul className="space-y-2 text-xs">
               <li>
                 <a href="#products" className="hover:text-gold transition-colors">
-                  Cua Biển Cà Mau
+                  Cua Tươi Cà Mau
                 </a>
               </li>
               <li>
                 <a href="#products" className="hover:text-gold transition-colors">
-                  Tôm Sú Biển Thiên Nhiên
+                  Tôm Sú Đông Lạnh
                 </a>
               </li>
               <li>
                 <a href="#products" className="hover:text-gold transition-colors">
-                  Mực Một Nắng Cô Tô
+                  Mực Trứng Đông Lạnh
                 </a>
               </li>
               <li>
                 <a href="#culinary-studio" className="hover:text-gold transition-colors">
-                  Công Thức Món Ngon
+                  Công Thức Bếp Trưởng AI
                 </a>
               </li>
               <li>
                 <a href="#video-showcase" className="hover:text-gold transition-colors">
-                  Thước Phim MAVY
+                  Thước Phim Thực Địa
                 </a>
               </li>
             </ul>
@@ -88,23 +94,28 @@ export default function Footer() {
           <div className="space-y-3">
             <h4 className="text-sm font-bold text-white uppercase tracking-wider">Tổng Đài Đặt Hàng</h4>
             <div className="space-y-2 text-xs">
-              <p className="text-lg font-bold text-gold flex items-center gap-1.5">
+              <a
+                href="tel:090132517"
+                className="text-lg font-bold text-gold flex items-center gap-1.5 hover:underline"
+              >
                 <IoCallOutline className="w-4 h-4" />
-                <span>1900 8899</span>
-              </p>
-              <p className="text-ink-light/80">0988 123 456 (Zalo / Hotline)</p>
+                <span>090 132 517</span>
+              </a>
               <p className="text-ink-light/70">Giờ mở cửa: 7:30 - 21:30 (Cả CN & Ngày lễ)</p>
-              <p className="text-ink-light/70 flex items-center gap-1">
-                <IoMailOutline className="w-3.5 h-3.5" />
-                <span>contact@mavyseafood.vn</span>
-              </p>
+              <a
+                href="mailto:mavy.info@gmail.com"
+                className="text-ink-light/70 flex items-center gap-1.5 hover:text-gold transition-colors"
+              >
+                <IoMailOutline className="w-3.5 h-3.5 text-gold" />
+                <span>mavy.info@gmail.com</span>
+              </a>
             </div>
           </div>
         </div>
 
         {/* Bottom copyright */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-ink-light/60">
-          <p>© {new Date().getFullYear()} MAVY SEAFOOD. Tất cả quyền được bảo lưu.</p>
+          <p>© {new Date().getFullYear()} Công ty cổ phần Mavy Seafood. Tất cả quyền được bảo lưu.</p>
           <p className="flex items-center gap-1">
             <IoHeartOutline className="w-3.5 h-3.5 text-gold" />
             <span>Tận tâm vì từng bữa cơm ngon gia đình Việt</span>

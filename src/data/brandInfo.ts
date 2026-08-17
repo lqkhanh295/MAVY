@@ -1,15 +1,13 @@
 export const BRAND_INFO = {
-  name: "MAVY SEAFOOD",
+  name: "Công ty cổ phần Mavy Seafood",
   slogan: "Tinh Hoa Hải Sản Biển Sạch Cho Mọi Gian Bếp Việt",
   shortDesc:
-    "Thương hiệu tiên phong cung cấp Cua Cà Mau, Tôm Sú thiên nhiên & Mực một nắng chuẩn xuất khẩu, áp dụng công nghệ cấp đông siêu tốc IQF -40°C giữ trọn vị tươi nguyên.",
-  hotline: "1900 8899 - 0988 123 456",
-  email: "contact@mavyseafood.vn",
-  address: "Showroom: 168 Bến Vân Đồn, Quận 4, TP. Hồ Chí Minh",
+    "Thương hiệu tiên phong phân phối Cua tươi Cà Mau, Tôm sú đông lạnh & Mực trứng đông lạnh chuẩn xuất khẩu, áp dụng công nghệ cấp đông siêu tốc IQF -40°C giữ trọn vị tươi nguyên.",
+  hotline: "090 132 517",
+  email: "mavy.info@gmail.com",
+  address: "Đường 379, Phường Tăng Nhơn Phú A, Thành phố Thủ Đức, Tp Hồ Chí Minh",
   storeLocations: [
-    { city: "TP. Hồ Chí Minh", address: "168 Bến Vân Đồn, P.6, Quận 4", phone: "0988 123 456" },
-    { city: "Hà Nội", address: "88 Trần Duy Hưng, Cầu Giấy", phone: "0988 654 321" },
-    { city: "Đà Nẵng", address: "45 Nguyễn Văn Linh, Hải Châu", phone: "0988 789 101" },
+    { city: "TP. Hồ Chí Minh", address: "Đường 379, Phường Tăng Nhơn Phú A, Thành phố Thủ Đức, Tp Hồ Chí Minh", phone: "090 132 517" },
   ],
   commitments: [
     {
