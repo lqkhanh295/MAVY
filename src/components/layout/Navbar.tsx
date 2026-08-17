@@ -18,11 +18,11 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: "Phim Tài Liệu", href: "#video-showcase" },
     { name: "Sản Phẩm", href: "#products" },
     { name: "Xưởng Ẩm Thực", href: "#culinary-studio" },
-    { name: "Về MAVY", href: "#about" },
     { name: "Tiêu Chuẩn & So Sánh", href: "#standards" },
+    { name: "Phim Tài Liệu", href: "#video-showcase" },
+    { name: "Về MAVY", href: "#about" },
     { name: "Liên Hệ", href: "#contact" },
   ];
 
