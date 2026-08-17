@@ -48,30 +48,41 @@ export default function ContactCta() {
             {/* Right: Direct Hotline & Location Action Box */}
             <div className="lg:col-span-5 bg-navy-950 rounded-2xl border border-navy-800 p-6 sm:p-8 space-y-6 text-center lg:text-left">
               <div className="space-y-1">
-                <div className="text-xs uppercase tracking-wider text-ink-light/70 font-semibold">Tổng Đài Tư Vấn & Đặt Hàng</div>
+                <div className="text-xs uppercase tracking-wider text-ink-light/70 font-semibold">Tổng Đài Tư Vấn & Đặt Hàng Zalo</div>
                 <a
-                  href="tel:0901325178"
+                  href={BRAND_INFO.zaloUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-3xl sm:text-4xl font-black text-gold hover:text-gold-hover transition-colors block"
+                  title="Bấm để nhắn tin qua Zalo"
                 >
-                  090 132 517
+                  {BRAND_INFO.hotline}
                 </a>
-                <p className="text-xs text-ink-light/60">Phục vụ từ 07:00 – 21:30 (Cả Thứ 7, Chủ Nhật & Ngày Lễ)</p>
+                <p className="text-xs text-ink-light/60">Tư vấn trực tiếp 07:00 – 21:30 (Cả Thứ 7, CN & Ngày Lễ)</p>
               </div>
 
               <div className="space-y-3 pt-4 border-t border-navy-800 text-xs text-ink-light/80">
-                <div className="flex items-start gap-2.5">
-                  <IoLocationOutline className="w-4 h-4 text-gold shrink-0 mt-0.5" />
-                  <span><strong>Địa chỉ:</strong> {BRAND_INFO.address}</span>
-                </div>
+                <a
+                  href={BRAND_INFO.mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-2.5 hover:text-gold transition-colors group cursor-pointer text-left"
+                  title="Bấm để xem địa chỉ trên Google Maps"
+                >
+                  <IoLocationOutline className="w-4 h-4 text-gold shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
+                  <span><strong>Địa chỉ:</strong> <span className="group-hover:underline">{BRAND_INFO.address}</span></span>
+                </a>
               </div>
 
               <div className="pt-2">
                 <a
-                  href="tel:0901325178"
+                  href={BRAND_INFO.zaloUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-full py-3.5 rounded-xl bg-gold text-navy-950 font-bold text-sm hover:bg-gold-hover transition-colors shadow flex items-center justify-center gap-2"
                 >
                   <IoCallOutline className="w-4 h-4" />
-                  <span>Gọi Đặt Hàng Ngay (090 132 517)</span>
+                  <span>Nhắn Zalo Đặt Hàng Ngay ({BRAND_INFO.hotline})</span>
                 </a>
               </div>
             </div>

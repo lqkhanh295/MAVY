@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { IoShieldCheckmarkOutline, IoCallOutline, IoMailOutline, IoLocationOutline, IoHeartOutline } from "react-icons/io5";
+import { BRAND_INFO } from "@/data/brandInfo";
 
 export default function Footer() {
   return (
@@ -35,10 +36,18 @@ export default function Footer() {
             </p>
 
             <div className="space-y-2 pt-1 text-xs text-ink-light/80">
-              <div className="flex items-start gap-2">
-                <IoLocationOutline className="w-4 h-4 text-gold shrink-0 mt-0.5" />
-                <span className="leading-relaxed">Đường 379, Phường Tăng Nhơn Phú A, Thành phố Thủ Đức, Tp Hồ Chí Minh</span>
-              </div>
+              <a
+                href={BRAND_INFO.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-2 hover:text-gold transition-colors group cursor-pointer"
+                title="Bấm để xem địa chỉ trên Google Maps"
+              >
+                <IoLocationOutline className="w-4 h-4 text-gold shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
+                <span className="leading-relaxed group-hover:underline">
+                  {BRAND_INFO.address}
+                </span>
+              </a>
               <div className="flex items-center gap-2">
                 <IoShieldCheckmarkOutline className="w-4 h-4 text-gold shrink-0" />
                 <span className="text-gold font-semibold">Chứng nhận HACCP & ISO 22000:2018</span>
@@ -92,22 +101,24 @@ export default function Footer() {
 
           {/* Contact Col */}
           <div className="space-y-3">
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider">Tổng Đài Đặt Hàng</h4>
+            <h4 className="text-sm font-bold text-white uppercase tracking-wider">Liên Hệ & Đặt Hàng</h4>
             <div className="space-y-2 text-xs">
               <a
-                href="tel:0901325178"
-                className="text-lg font-bold text-gold flex items-center gap-1.5 hover:underline"
+                href={BRAND_INFO.zaloUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-base font-bold text-gold flex items-center gap-1.5 hover:underline"
               >
                 <IoCallOutline className="w-4 h-4" />
-                <span>090 132 517</span>
+                <span>Zalo: {BRAND_INFO.hotline}</span>
               </a>
-              <p className="text-ink-light/70">Giờ mở cửa: 7:30 - 21:30 (Cả CN & Ngày lễ)</p>
+              <p className="text-ink-light/70">Tư vấn & Giao hỏa tốc 2H (7:30 - 21:30)</p>
               <a
-                href="mailto:mavy.info@gmail.com"
+                href={`mailto:${BRAND_INFO.email}`}
                 className="text-ink-light/70 flex items-center gap-1.5 hover:text-gold transition-colors"
               >
                 <IoMailOutline className="w-3.5 h-3.5 text-gold" />
-                <span>mavy.info@gmail.com</span>
+                <span>{BRAND_INFO.email}</span>
               </a>
             </div>
           </div>
