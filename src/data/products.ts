@@ -90,7 +90,7 @@ export const SIGNATURE_PRODUCTS: Product[] = [
       "Mực trứng đông lạnh MAVY được đánh bắt vào mùa sinh sản khi mực ôm trọn túi trứng béo bùi. Cấp đông siêu tốc IQF -40°C khóa chặt độ giòn sần sật và vị ngọt đậm đà của biển cả.",
     price: "319.000 VNĐ",
     unit: "1 kg",
-    image: "/assets/image/muc-mot-nang.png",
+    image: "/assets/image/muc.png",
     badge: "Đậm Vị Biển",
     origin: "Vùng biển Cô Tô - Quảng Ninh",
     soldCount: "9.320+ kg",
