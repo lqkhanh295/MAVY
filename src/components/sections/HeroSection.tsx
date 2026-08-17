@@ -140,10 +140,10 @@ export default function HeroSection() {
             {/* Main Headline */}
             <motion.h1
               variants={textItemVariants}
-              className="text-4xl sm:text-5xl md:text-6xl font-black text-white leading-[1.12] tracking-tight"
+              className="text-4xl sm:text-5xl md:text-6xl font-black text-white leading-[1.2] sm:leading-[1.22] md:leading-[1.25] tracking-tight pb-1"
             >
-              Hải Sản Tự Nhiên <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold via-[#FFD066] to-gold">
+              Hải Sản Tự Nhiên <br className="hidden sm:inline" />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold via-[#FFD066] to-gold inline-block mt-1 sm:mt-0">
                 Chuẩn Vị Ngọt Nguyên Bản
               </span>
             </motion.h1>
@@ -151,7 +151,7 @@ export default function HeroSection() {
             {/* Value Proposition Description */}
             <motion.p
               variants={textItemVariants}
-              className="text-base sm:text-lg text-ink-light/80 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal"
+              className="text-sm sm:text-base md:text-lg text-ink-light/85 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal"
             >
               MAVY tuyển chọn trực tiếp tại bến Năm Căn và Phú Quốc, cấp đông siêu tốc <strong>IQF -40°C</strong> trong 12 phút. Cam kết dây trói &lt;20g, 0% hóa chất, bảo hành 1 đổi 1 và giao nhanh trong 2 giờ.
             </motion.p>

@@ -63,7 +63,7 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
   return (
     <section id="products" className="py-24 bg-navy-950 border-b border-navy-800 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-navy-900 border border-navy-800 text-xs font-semibold text-gold">
@@ -129,11 +129,11 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
 
                 {/* Product Content Body */}
                 <div className="space-y-4 flex-1 flex flex-col justify-between pt-2">
-                  <div className="space-y-1.5">
-                    <h3 className="text-xl font-bold text-white group-hover:text-gold transition-colors leading-snug line-clamp-1">
+                  <div className="space-y-2">
+                    <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-gold transition-colors leading-snug">
                       {product.name}
                     </h3>
-                    <p className="text-xs text-ink-light/60 line-clamp-2 leading-relaxed font-normal">
+                    <p className="text-xs text-ink-light/75 line-clamp-2 leading-relaxed font-normal">
                       {product.description}
                     </p>
                   </div>
@@ -300,7 +300,7 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
                   </a>
 
                   <a
-                    href="tel:090132517"
+                    href="tel:0901325178"
                     className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-gold text-navy-950 font-bold text-xs hover:bg-gold-hover transition-colors text-center"
                   >
                     Đặt Mua Giao 2 Giờ (Hotline 090 132 517)

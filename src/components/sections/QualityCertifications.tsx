@@ -74,7 +74,7 @@ export default function QualityCertifications() {
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm">
+            <table className="w-full text-left text-sm min-w-[600px]">
               <thead className="bg-navy-900 text-xs font-bold uppercase tracking-wider text-ink-light/70 border-b border-navy-800">
                 <tr>
                   <th className="p-4 sm:p-5 w-1/4">Tiêu Chí</th>
@@ -85,14 +85,14 @@ export default function QualityCertifications() {
               <tbody className="divide-y divide-navy-800/60">
                 {comparisonData.map((row, idx) => (
                   <tr key={idx} className="hover:bg-navy-900/50 transition-colors">
-                    <td className="p-4 sm:p-5 font-semibold text-white">{row.criteria}</td>
-                    <td className="p-4 sm:p-5 text-ink-light bg-navy-800/20 font-medium">
+                    <td className="p-4 sm:p-5 font-semibold text-white align-top leading-relaxed">{row.criteria}</td>
+                    <td className="p-4 sm:p-5 text-ink-light bg-navy-800/20 font-medium align-top leading-relaxed">
                       <div className="flex items-start gap-2">
                         <IoCheckmarkOutline className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                         <span>{row.mavy}</span>
                       </div>
                     </td>
-                    <td className="p-4 sm:p-5 text-ink-light/70">
+                    <td className="p-4 sm:p-5 text-ink-light/70 align-top leading-relaxed">
                       <div className="flex items-start gap-2">
                         <IoCloseOutline className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
                         <span>{row.traditional}</span>

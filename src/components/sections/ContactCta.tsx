@@ -7,11 +7,11 @@ export default function ContactCta() {
   return (
     <section id="contact" className="py-24 bg-navy-950 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Main Dispatch Card */}
         <div className="bg-navy-900 border-2 border-navy-600 rounded-3xl p-8 sm:p-12 shadow-2xl">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            
+
             {/* Left: Ordering Info */}
             <div className="lg:col-span-7 space-y-6">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-navy-950 border border-navy-800 text-xs font-semibold text-gold">
@@ -50,7 +50,7 @@ export default function ContactCta() {
               <div className="space-y-1">
                 <div className="text-xs uppercase tracking-wider text-ink-light/70 font-semibold">Tổng Đài Tư Vấn & Đặt Hàng</div>
                 <a
-                  href="tel:090132517"
+                  href="tel:0901325178"
                   className="text-3xl sm:text-4xl font-black text-gold hover:text-gold-hover transition-colors block"
                 >
                   090 132 517
@@ -67,7 +67,7 @@ export default function ContactCta() {
 
               <div className="pt-2">
                 <a
-                  href="tel:090132517"
+                  href="tel:0901325178"
                   className="w-full py-3.5 rounded-xl bg-gold text-navy-950 font-bold text-sm hover:bg-gold-hover transition-colors shadow flex items-center justify-center gap-2"
                 >
                   <IoCallOutline className="w-4 h-4" />

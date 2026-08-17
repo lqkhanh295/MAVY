@@ -31,13 +31,13 @@ export default function Footer() {
             </div>
 
             <p className="text-xs text-ink-light/70 leading-relaxed max-w-sm">
-              Đơn vị phân phối Cua tươi Cà Mau, Tôm sú đông lạnh và Mực trứng đông lạnh chuẩn xuất khẩu. Cam kết bao ăn 1 đổi 1 và giao nhanh trong 2 giờ.
+              Đơn vị phân phối Cua gạch, Tôm sú đông lạnh và Mực trứng đông lạnh chuẩn xuất khẩu. Cam kết bao ăn 1 đổi 1 và giao nhanh trong 2 giờ.
             </p>
 
-            <div className="space-y-1.5 pt-1 text-xs text-ink-light/80">
+            <div className="space-y-2 pt-1 text-xs text-ink-light/80">
               <div className="flex items-start gap-2">
                 <IoLocationOutline className="w-4 h-4 text-gold shrink-0 mt-0.5" />
-                <span>Đường 379, Phường Tăng Nhơn Phú A, Thành phố Thủ Đức, Tp Hồ Chí Minh</span>
+                <span className="leading-relaxed">Đường 379, Phường Tăng Nhơn Phú A, Thành phố Thủ Đức, Tp Hồ Chí Minh</span>
               </div>
               <div className="flex items-center gap-2">
                 <IoShieldCheckmarkOutline className="w-4 h-4 text-gold shrink-0" />
@@ -95,7 +95,7 @@ export default function Footer() {
             <h4 className="text-sm font-bold text-white uppercase tracking-wider">Tổng Đài Đặt Hàng</h4>
             <div className="space-y-2 text-xs">
               <a
-                href="tel:090132517"
+                href="tel:0901325178"
                 className="text-lg font-bold text-gold flex items-center gap-1.5 hover:underline"
               >
                 <IoCallOutline className="w-4 h-4" />
