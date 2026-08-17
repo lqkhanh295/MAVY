@@ -27,13 +27,13 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
   };
 
   const cardScrollVariants: Variants = {
-    hidden: { opacity: 0, y: 32, scale: 0.96 },
+    hidden: { opacity: 0, y: 24, scale: 0.97 },
     visible: {
       opacity: 1,
       y: 0,
       scale: 1,
       transition: {
-        duration: 0.65,
+        duration: 0.55,
         ease: [0.22, 1, 0.36, 1],
       },
     },
@@ -46,17 +46,17 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
       opacity: 1,
       transition: {
         staggerChildren: 0.08,
-        delayChildren: 0.25,
+        delayChildren: 0.2,
       },
     },
   };
 
   const modalInfoItem: Variants = {
-    hidden: { opacity: 0, y: 12 },
+    hidden: { opacity: 0, y: 10 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.4, ease: "easeOut" },
+      transition: { duration: 0.35, ease: "easeOut" },
     },
   };
 
@@ -77,7 +77,7 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
           </p>
         </div>
 
-        {/* 3 Product Cards Grid with Staggered Scroll-In & Hover Light Sweep */}
+        {/* 3 Product Cards Grid with Lightweight Refined Aesthetic */}
         <motion.div
           variants={gridContainerVariants}
           initial="hidden"
@@ -95,24 +95,23 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
                 layoutId={`product-card-${product.id}`}
                 whileHover={{ y: -6 }}
                 transition={{ duration: 0.25, ease: "easeOut" }}
-                className="bg-navy-900 rounded-2xl border border-navy-800 overflow-hidden flex flex-col justify-between hover:border-gold/60 transition-colors cursor-pointer group h-full shadow-lg"
+                className="bg-navy-900/60 rounded-3xl border border-navy-800/80 p-6 overflow-hidden flex flex-col justify-between hover:border-gold/50 hover:bg-navy-900/90 transition-all duration-300 cursor-pointer group h-full shadow-lg"
                 onClick={() => setSelectedProduct(product)}
               >
-                {/* Product Photo Container with Hover Light Sweep */}
-                <div className="relative aspect-[4/3] bg-navy-950/60 p-6 flex items-center justify-center border-b border-navy-800 overflow-hidden">
-                  {/* Origin Tag */}
-                  <div className="absolute top-4 left-4 z-10 px-2.5 py-1 rounded bg-navy-800 text-gold text-xs font-semibold border border-navy-600">
-                    {product.origin}
+                {/* Top Metadata Header (Minimalist & Sleek) */}
+                <div className="flex items-center justify-between gap-2 pb-2">
+                  <div className="text-[11px] font-semibold tracking-wider text-gold uppercase">
+                    {product.category} • {product.origin}
                   </div>
-
-                  {/* Badge */}
-                  <div className="absolute top-4 right-4 z-10 px-2.5 py-1 rounded bg-navy-900 text-ink-light text-xs font-medium border border-navy-800">
+                  <span className="text-[10px] text-ink-light/60 px-2 py-0.5 rounded-full border border-navy-800 bg-navy-950/60">
                     {product.badge}
-                  </div>
+                  </span>
+                </div>
 
-                  {/* Animated Product Image */}
+                {/* Product Photo Container with Smooth Ambient Light */}
+                <div className="relative aspect-[4/3] w-full my-3 flex items-center justify-center overflow-hidden rounded-2xl bg-navy-950/40 border border-navy-800/40">
                   <motion.div
-                    className="relative w-full h-full flex items-center justify-center"
+                    className="relative w-full h-full p-4 flex items-center justify-center"
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.35, ease: "easeOut" }}
                   >
@@ -121,7 +120,7 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
                       alt={product.name}
                       fill
                       sizes="(max-width: 1024px) 100vw, 33vw"
-                      className="object-contain filter drop-shadow-[0_8px_20px_rgba(0,0,0,0.5)]"
+                      className="object-contain filter drop-shadow-[0_10px_24px_rgba(0,0,0,0.5)]"
                       priority
                       unoptimized
                     />
@@ -131,34 +130,31 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
                   <div className="light-sweep-beam group-hover-light-sweep" />
                 </div>
 
-                {/* Product Editorial Body */}
-                <div className="p-6 space-y-4 flex-1 flex flex-col justify-between">
-                  <div className="space-y-2">
-                    <div className="text-xs font-bold text-gold uppercase tracking-wider">
-                      {product.category}
-                    </div>
-                    <h3 className="text-2xl font-bold text-white group-hover:text-gold transition-colors">
+                {/* Product Content Body */}
+                <div className="space-y-4 flex-1 flex flex-col justify-between pt-2">
+                  <div className="space-y-1.5">
+                    <h3 className="text-xl font-bold text-white group-hover:text-gold transition-colors leading-snug line-clamp-1">
                       {product.name}
                     </h3>
-                    <p className="text-xs sm:text-sm text-ink-light/70 leading-relaxed line-clamp-2">
+                    <p className="text-xs text-ink-light/60 line-clamp-2 leading-relaxed font-normal">
                       {product.description}
                     </p>
                   </div>
 
-                  {/* Price & Unit */}
-                  <div className="pt-3 border-t border-navy-800/80 flex items-baseline justify-between">
+                  {/* Price & Weight Detail */}
+                  <div className="pt-3 border-t border-navy-800/60 flex items-baseline justify-between">
                     <div>
                       <span className="text-2xl font-black text-gold">{product.price}</span>
-                      <span className="text-xs text-ink-light/60 ml-1">/ {product.unit}</span>
+                      <span className="text-xs text-ink-light/50 font-normal ml-1.5">/ {product.unit}</span>
                     </div>
-                    <span className="text-xs text-ink-light/50">Dây trói &lt; 20g</span>
+                    <span className="text-[11px] text-ink-light/50 font-medium">Dây trói &lt; 20g</span>
                   </div>
 
-                  {/* Interactive Action Button */}
+                  {/* Refined Sleek CTA Link */}
                   <div className="pt-2">
-                    <div className="w-full py-2.5 px-4 rounded-xl bg-navy-800 text-white text-xs font-semibold group-hover:bg-gold group-hover:text-navy-950 transition-colors border border-navy-600 flex items-center justify-center gap-2">
-                      <span>Xem Chi Tiết Quy Cách & Dinh Dưỡng</span>
-                      <IoArrowForwardOutline className="w-3.5 h-3.5" />
+                    <div className="flex items-center justify-between text-xs font-medium text-ink-light/80 group-hover:text-gold transition-colors pt-2 border-t border-navy-800/40">
+                      <span>Xem quy cách & dinh dưỡng</span>
+                      <IoArrowForwardOutline className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
                     </div>
                   </div>
                 </div>
@@ -167,7 +163,7 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
           ))}
         </motion.div>
 
-        {/* Shared-Element Transition Modal (Editorial Product Dossier + Tiered Reveal) */}
+        {/* Shared-Element Transition Modal (Editorial Product Dossier) */}
         <AnimatePresence>
           {selectedProduct && (
             <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-sm">
@@ -184,7 +180,7 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
               <motion.div
                 layoutId={`product-card-${selectedProduct.id}`}
                 transition={{ duration: 0.35, ease: "easeOut" }}
-                className="relative w-full max-w-3xl bg-navy-950 border-2 border-navy-600 rounded-3xl overflow-hidden shadow-2xl max-h-[90vh] flex flex-col z-10"
+                className="relative w-full max-w-3xl bg-navy-950 border border-navy-700 rounded-3xl overflow-hidden shadow-2xl max-h-[90vh] flex flex-col z-10"
               >
                 {/* Header */}
                 <div className="px-6 py-4 bg-navy-900 border-b border-navy-800 flex items-center justify-between">
@@ -216,7 +212,7 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
                     variants={modalInfoItem}
                     className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center border-b border-navy-800 pb-6"
                   >
-                    <div className="md:col-span-5 relative aspect-square bg-navy-900/60 rounded-2xl border border-navy-800 p-4 flex items-center justify-center overflow-hidden">
+                    <div className="md:col-span-5 relative aspect-square bg-navy-900/40 rounded-2xl border border-navy-800 p-4 flex items-center justify-center overflow-hidden">
                       <Image
                         src={selectedProduct.image}
                         alt={selectedProduct.name}
