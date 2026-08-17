@@ -1,185 +1,88 @@
 "use client";
 
-import { useState } from "react";
-import { IoCallOutline, IoLocationOutline, IoMailOutline, IoSend, IoCheckmarkCircle } from "react-icons/io5";
 import { BRAND_INFO } from "@/data/brandInfo";
+import { IoCallOutline, IoTimeOutline, IoLocationOutline, IoShieldCheckmarkOutline } from "react-icons/io5";
 
 export default function ContactCta() {
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    productInterest: "Cua Biển Cà Mau",
-    note: "",
-  });
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formData.phone) return;
-    setSubmitted(true);
-  };
-
   return (
     <section id="contact" className="py-24 bg-[#00153d] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          {/* Left Column: Contact Details & Showrooms */}
-          <div className="lg:col-span-6 space-y-8">
-            <div className="space-y-3">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#073372] border border-[#164082] text-xs font-bold text-[#F2A900]">
-                <IoCallOutline className="w-4 h-4" />
-                <span>LIÊN HỆ & TƯ VẤN ĐẶT HÀNG</span>
+        
+        {/* Main Dispatch Card */}
+        <div className="bg-[#051e48] border-2 border-[#164082] rounded-3xl p-8 sm:p-12 shadow-2xl">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            
+            {/* Left: Ordering Info */}
+            <div className="lg:col-span-7 space-y-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#00153d] border border-[#073372] text-xs font-semibold text-[#F2A900]">
+                <IoTimeOutline className="w-4 h-4" />
+                <span>GIAO HÀNG TẬN NƠI TRONG 2 GIỜ</span>
               </div>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
-                Sẵn Sàng Phục Vụ <span className="text-[#F2A900]">Bữa Tiệc Hải Sản</span> Của Bạn
+
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-white leading-tight">
+                Đặt Hải Sản Tươi Sống & <br />
+                <span className="text-[#F2A900]">Giao Tận Cửa Hôm Nay</span>
               </h2>
-              <p className="text-sm sm:text-base text-[#E8EEF9]/80 leading-relaxed">
-                Đội ngũ tư vấn viên MAVY luôn túc trực hỗ trợ chọn size cua, tôm, mực tươi ngon nhất và giao hàng hỏa tốc trong 2 giờ.
+
+              <p className="text-sm sm:text-base text-[#E8EEF9]/85 leading-relaxed">
+                Hải sản được đóng thùng xốp chuyên dụng kèm túi đá gel kháng khuẩn, giữ trọn độ tươi giòn trong suốt quá trình vận chuyển. Hỗ trợ giao hỏa tốc 2 giờ tại TP.HCM & Hà Nội.
               </p>
-            </div>
 
-            {/* Quick Contact Cards */}
-            <div className="space-y-4">
-              <a
-                href="tel:19008899"
-                className="flex items-center gap-4 p-4 rounded-xl bg-[#051e48] border border-[#073372] hover:border-[#F2A900]/60 transition-colors group"
-              >
-                <div className="w-12 h-12 rounded-xl bg-[#F2A900] text-[#00153d] flex items-center justify-center font-bold shrink-0 shadow-md">
-                  <IoCallOutline className="w-6 h-6" />
+              {/* 3 Ordering Guarantees */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+                <div className="bg-[#00153d] p-3.5 rounded-xl border border-[#073372]">
+                  <div className="font-bold text-white text-xs">Bao Ăn 1 Đổi 1</div>
+                  <p className="text-[11px] text-[#E8EEF9]/70 mt-1">Đổi mới 100% trong 24h nếu cua ốp nước hoặc tôm không chắc thịt.</p>
                 </div>
-                <div>
-                  <div className="text-xs text-[#E8EEF9]/70">Tổng đài đặt hàng miễn phí (7h30 - 21h30)</div>
-                  <div className="text-lg font-extrabold text-white group-hover:text-[#F2A900] transition-colors">
-                    1900 8899 - 0988 123 456
-                  </div>
+                <div className="bg-[#00153d] p-3.5 rounded-xl border border-[#073372]">
+                  <div className="font-bold text-white text-xs">Dây Trói Dưới 20g</div>
+                  <p className="text-[11px] text-[#E8EEF9]/70 mt-1">Trọng lượng minh bạch, không độn dây vải ngấm nước.</p>
                 </div>
-              </a>
-
-              <div className="flex items-center gap-4 p-4 rounded-xl bg-[#051e48] border border-[#073372]">
-                <div className="w-12 h-12 rounded-xl bg-[#073372] text-[#F2A900] flex items-center justify-center font-bold shrink-0 border border-[#164082]">
-                  <IoMailOutline className="w-6 h-6" />
-                </div>
-                <div>
-                  <div className="text-xs text-[#E8EEF9]/70">Hòm thư tiếp nhận hợp tác & phản hồi</div>
-                  <div className="text-base font-bold text-white">contact@mavyseafood.vn</div>
+                <div className="bg-[#00153d] p-3.5 rounded-xl border border-[#073372]">
+                  <div className="font-bold text-white text-xs">Chuẩn IQF -40°C</div>
+                  <p className="text-[11px] text-[#E8EEF9]/70 mt-1">Dễ tách rời từng con, không cần rã đông cả túi lớn.</p>
                 </div>
               </div>
             </div>
 
-            {/* Showroom Locations */}
-            <div className="bg-[#051e48] p-6 rounded-2xl border border-[#073372] space-y-4">
-              <h3 className="text-sm font-bold text-[#F2A900] uppercase tracking-wider flex items-center gap-2">
-                <IoLocationOutline className="w-4 h-4" />
-                <span>Hệ Thống Showroom & Kho Lạnh MAVY</span>
-              </h3>
-
-              <div className="space-y-3">
-                {BRAND_INFO.storeLocations.map((store, i) => (
-                  <div key={i} className="text-xs border-b border-[#073372]/60 pb-2.5 last:border-0 last:pb-0">
-                    <div className="font-bold text-white text-sm">{store.city}</div>
-                    <div className="text-[#E8EEF9]/80 mt-0.5">{store.address}</div>
-                    <div className="text-[#F2A900] font-medium mt-0.5">Hotline: {store.phone}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column: Order Consultation Form */}
-          <div className="lg:col-span-6 bg-[#051e48] p-8 rounded-2xl border-2 border-[#073372] shadow-2xl space-y-6">
-            <div className="space-y-2">
-              <h3 className="text-2xl font-bold text-white">Đăng Ký Tư Vấn & Đặt Hải Sản</h3>
-              <p className="text-xs text-[#E8EEF9]/70">
-                Để lại thông tin, chuyên viên MAVY sẽ liên hệ lại ngay trong 5 phút để xác nhận size và thời gian giao hàng.
-              </p>
-            </div>
-
-            {submitted ? (
-              <div className="py-12 text-center space-y-4 bg-[#00153d] rounded-xl border border-[#073372] p-6">
-                <div className="w-16 h-16 rounded-full bg-[#073372] text-[#F2A900] flex items-center justify-center mx-auto border border-[#F2A900]">
-                  <IoCheckmarkCircle className="w-8 h-8" />
-                </div>
-                <h4 className="text-xl font-bold text-white">Đăng Ký Thành Công!</h4>
-                <p className="text-sm text-[#E8EEF9]/80 max-w-sm mx-auto">
-                  Cảm ơn quý khách. Chuyên viên MAVY sẽ gọi điện tới số <strong>{formData.phone}</strong> trong ít phút!
-                </p>
-                <button
-                  onClick={() => setSubmitted(false)}
-                  className="px-5 py-2 rounded-lg bg-[#073372] text-xs font-semibold text-white hover:bg-[#0c4494] transition-colors"
+            {/* Right: Direct Hotline & Location Action Box */}
+            <div className="lg:col-span-5 bg-[#00153d] rounded-2xl border border-[#073372] p-6 sm:p-8 space-y-6 text-center lg:text-left">
+              <div className="space-y-1">
+                <div className="text-xs uppercase tracking-wider text-[#E8EEF9]/70 font-semibold">Tổng Đài Tư Vấn & Đặt Hàng</div>
+                <a
+                  href="tel:19008899"
+                  className="text-3xl sm:text-4xl font-black text-[#F2A900] hover:text-[#d99700] transition-colors block"
                 >
-                  Gửi yêu cầu khác
-                </button>
+                  1900 8899
+                </a>
+                <p className="text-xs text-[#E8EEF9]/60">Phục vụ từ 07:00 – 21:30 (Cả Thứ 7, Chủ Nhật & Ngày Lễ)</p>
               </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <label className="block text-xs font-semibold text-[#E8EEF9] mb-1.5">
-                    Họ và tên của bạn *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="VD: Anh Hoàng / Chị Linh"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-[#00153d] border border-[#073372] text-white placeholder-[#E8EEF9]/40 text-sm focus:outline-none focus:border-[#F2A900] transition-colors"
-                  />
-                </div>
 
-                <div>
-                  <label className="block text-xs font-semibold text-[#E8EEF9] mb-1.5">
-                    Số điện thoại nhận hàng *
-                  </label>
-                  <input
-                    type="tel"
-                    required
-                    placeholder="VD: 0988 123 456"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-[#00153d] border border-[#073372] text-white placeholder-[#E8EEF9]/40 text-sm focus:outline-none focus:border-[#F2A900] transition-colors"
-                  />
+              <div className="space-y-3 pt-4 border-t border-[#073372] text-xs text-[#E8EEF9]/80">
+                <div className="flex items-start gap-2.5">
+                  <IoLocationOutline className="w-4 h-4 text-[#F2A900] shrink-0 mt-0.5" />
+                  <span><strong>Kho TP.HCM:</strong> {BRAND_INFO.storeLocations[0].address}</span>
                 </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-[#E8EEF9] mb-1.5">
-                    Sản phẩm bạn đang quan tâm
-                  </label>
-                  <select
-                    value={formData.productInterest}
-                    onChange={(e) => setFormData({ ...formData, productInterest: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-[#00153d] border border-[#073372] text-white text-sm focus:outline-none focus:border-[#F2A900] transition-colors"
-                  >
-                    <option value="Cua Biển Cà Mau">Cua Biển Cà Mau Gạch Son (580k/kg)</option>
-                    <option value="Tôm Sú Biển">Tôm Sú Biển Thiên Nhiên VIP (420k/500g)</option>
-                    <option value="Mực Một Nắng">Mực Một Nắng Cô Tô Chuẩn Vị (360k/500g)</option>
-                    <option value="Combo 3 Món Hải Sản">Combo Thượng Hạng Cả 3 Sản Phẩm</option>
-                  </select>
+                <div className="flex items-start gap-2.5">
+                  <IoLocationOutline className="w-4 h-4 text-[#F2A900] shrink-0 mt-0.5" />
+                  <span><strong>Kho Hà Nội:</strong> {BRAND_INFO.storeLocations[1].address}</span>
                 </div>
+              </div>
 
-                <div>
-                  <label className="block text-xs font-semibold text-[#E8EEF9] mb-1.5">
-                    Ghi chú thêm (địa chỉ nhận, thời gian giao...)
-                  </label>
-                  <textarea
-                    rows={3}
-                    placeholder="VD: Giao trước 18h tối nay tại Quận 1, đóng thùng xốp giúp mình..."
-                    value={formData.note}
-                    onChange={(e) => setFormData({ ...formData, note: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-[#00153d] border border-[#073372] text-white placeholder-[#E8EEF9]/40 text-sm focus:outline-none focus:border-[#F2A900] transition-colors resize-none"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full py-3.5 px-6 rounded-xl bg-[#F2A900] text-[#00153d] font-bold text-sm hover:bg-[#d99700] transition-colors shadow-lg shadow-black/30 flex items-center justify-center gap-2 active:scale-98"
+              <div className="pt-2">
+                <a
+                  href="tel:19008899"
+                  className="w-full py-3.5 rounded-xl bg-[#F2A900] text-[#00153d] font-bold text-sm hover:bg-[#d99700] transition-colors shadow flex items-center justify-center gap-2"
                 >
-                  <IoSend className="w-4 h-4" />
-                  <span>Xác Nhận Đặt Tư Vấn Ngay</span>
-                </button>
-              </form>
-            )}
+                  <IoCallOutline className="w-4 h-4" />
+                  <span>Gọi Đặt Hàng Ngay (1900 8899)</span>
+                </a>
+              </div>
+            </div>
+
           </div>
         </div>
+
       </div>
     </section>
   );

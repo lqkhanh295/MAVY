@@ -14,7 +14,6 @@ export default function VideoShowcase() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
-  const [hasError, setHasError] = useState(false);
 
   const togglePlay = () => {
     if (videoRef.current) {
@@ -25,14 +24,8 @@ export default function VideoShowcase() {
         const playPromise = videoRef.current.play();
         if (playPromise !== undefined) {
           playPromise
-            .then(() => {
-              setIsPlaying(true);
-              setHasError(false);
-            })
-            .catch((err) => {
-              console.warn("Video play caught safely:", err);
-              setIsPlaying(false);
-            });
+            .then(() => setIsPlaying(true))
+            .catch(() => setIsPlaying(false));
         }
       }
     }
@@ -46,110 +39,104 @@ export default function VideoShowcase() {
   };
 
   const handleFullscreen = () => {
-    if (videoRef.current) {
-      if (videoRef.current.requestFullscreen) {
-        videoRef.current.requestFullscreen().catch(() => {});
-      }
+    if (videoRef.current && videoRef.current.requestFullscreen) {
+      videoRef.current.requestFullscreen().catch(() => {});
     }
   };
 
   return (
-    <section id="video-showcase" className="py-20 bg-[#051e48] border-y border-[#073372] relative overflow-hidden">
-      {/* Background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-[#073372]/50 blur-[140px] pointer-events-none" />
-
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="video-showcase" className="py-20 bg-[#051e48] border-y border-[#073372] relative">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#073372] border border-[#164082] text-xs font-semibold text-[#F2A900]">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#00153d] border border-[#073372] text-xs font-semibold text-[#F2A900]">
             <IoFilmOutline className="w-3.5 h-3.5" />
-            <span>Thước Phim Tài Liệu Thương Hiệu</span>
+            <span>THƯỚC PHIM THỰC ĐỊA</span>
           </div>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white">
-            Hành Trình Tinh Hoa Từ <span className="text-[#F2A900]">Biển Khơi Đến Bàn Ăn</span>
+            Quy Trình Đánh Bắt & <span className="text-[#F2A900]">Cấp Đông Trên Tàu</span>
           </h2>
-          <p className="text-sm sm:text-base text-[#E8EEF9]/80">
-            Khám phá quy trình đánh bắt nghiêm ngặt, chọn lọc khắt khe và công nghệ cấp đông IQF -40°C giúp hải sản MAVY giữ trọn hương vị tươi giòn nguyên bản.
+          <p className="text-sm sm:text-base text-[#E8EEF9]/80 leading-relaxed">
+            Xem thực tế quy trình kiểm định chất lượng và công nghệ cấp đông siêu tốc IQF -40°C giúp giữ trọn vẹn độ tươi giòn nguyên bản của hải sản MAVY.
           </p>
         </div>
 
-        {/* Video Player Card */}
-        <div className="relative rounded-2xl overflow-hidden bg-[#00153d] border-2 border-[#073372] shadow-2xl group">
-          {/* Main Video */}
+        {/* Clean Video Player Card */}
+        <div className="rounded-2xl overflow-hidden bg-[#00153d] border-2 border-[#073372] shadow-xl">
+          {/* Main Video Element */}
           <div className="relative aspect-video w-full bg-black flex items-center justify-center">
             <video
               ref={videoRef}
               poster="/assets/video/poster.jpg"
               playsInline
-              preload="auto"
+              preload="metadata"
               muted={isMuted}
               loop
               className="w-full h-full object-cover"
               onPlay={() => setIsPlaying(true)}
               onPause={() => setIsPlaying(false)}
-              onError={(e) => {
-                console.warn("Video element load notice handled gracefully");
-              }}
             >
               <source src="/assets/video/FINAL3_light.mp4" type="video/mp4" />
-              Trình duyệt của bạn không hỗ trợ phát video HTML5.
+              Trình duyệt không hỗ trợ phát video HTML5.
             </video>
 
-            {/* Overlay Play Button when Paused */}
+            {/* Play Button Overlay */}
             {!isPlaying && (
               <div
                 onClick={togglePlay}
-                className="absolute inset-0 bg-[#00153d]/50 flex flex-col items-center justify-center cursor-pointer transition-opacity z-20"
+                className="absolute inset-0 bg-[#00153d]/40 flex flex-col items-center justify-center cursor-pointer z-10 transition-opacity"
               >
-                <div className="w-20 h-20 rounded-full bg-[#F2A900] text-[#00153d] flex items-center justify-center shadow-xl transform transition-transform group-hover:scale-110 active:scale-95">
-                  <IoPlay className="w-9 h-9 text-[#00153d] ml-1" />
+                <div className="w-16 h-16 rounded-full bg-[#F2A900] text-[#00153d] flex items-center justify-center shadow-lg transform transition-transform hover:scale-105 active:scale-95">
+                  <IoPlay className="w-8 h-8 text-[#00153d] ml-1" />
                 </div>
-                <p className="mt-4 text-sm font-semibold text-white tracking-wide uppercase bg-[#073372]/80 px-4 py-1.5 rounded-full border border-[#164082]">
-                  Nhấn để xem thước phim MAVY
-                </p>
+                <span className="mt-3 text-xs font-semibold text-white bg-[#073372]/90 px-3.5 py-1 rounded-full border border-[#164082]">
+                  Nhấn để xem phim tài liệu MAVY
+                </span>
               </div>
             )}
           </div>
 
-          {/* Video Control Bar */}
-          <div className="px-6 py-4 bg-[#00153d] border-t border-[#073372] flex flex-wrap items-center justify-between gap-4">
+          {/* Controls Bar */}
+          <div className="px-6 py-3.5 bg-[#00153d] border-t border-[#073372] flex items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               <button
                 onClick={togglePlay}
-                className="p-2.5 rounded-lg bg-[#073372] text-white hover:bg-[#0c4494] transition-colors"
+                className="p-2 rounded-lg bg-[#073372] text-white hover:bg-[#0c4494] transition-colors"
                 aria-label={isPlaying ? "Tạm dừng" : "Phát"}
               >
-                {isPlaying ? <IoPause className="w-5 h-5 text-[#F2A900]" /> : <IoPlay className="w-5 h-5 text-[#F2A900]" />}
+                {isPlaying ? <IoPause className="w-4 h-4 text-[#F2A900]" /> : <IoPlay className="w-4 h-4 text-[#F2A900]" />}
               </button>
 
               <button
                 onClick={toggleMute}
-                className="p-2.5 rounded-lg bg-[#073372] text-white hover:bg-[#0c4494] transition-colors"
+                className="p-2 rounded-lg bg-[#073372] text-white hover:bg-[#0c4494] transition-colors"
                 aria-label={isMuted ? "Bật tiếng" : "Tắt tiếng"}
               >
-                {isMuted ? <IoVolumeMuteOutline className="w-5 h-5 text-[#E8EEF9]" /> : <IoVolumeHighOutline className="w-5 h-5 text-[#F2A900]" />}
+                {isMuted ? <IoVolumeMuteOutline className="w-4 h-4 text-[#E8EEF9]" /> : <IoVolumeHighOutline className="w-4 h-4 text-[#F2A900]" />}
               </button>
 
-              <span className="text-xs sm:text-sm text-[#E8EEF9]/80 font-medium">
-                MAVY SEAFOOD • Official Brand Film
+              <span className="text-xs text-[#E8EEF9]/80 font-medium">
+                Thước Phim Tài Liệu Chuỗi Cung Ứng MAVY
               </span>
             </div>
 
             <div className="flex items-center gap-3">
-              <span className="hidden sm:inline-block text-xs text-[#F2A900] bg-[#073372] px-3 py-1 rounded-md border border-[#164082]">
-                Full HD 1080p • Chuẩn IQF -40°C
+              <span className="hidden sm:inline-block text-xs text-[#F2A900] bg-[#051e48] px-3 py-1 rounded border border-[#073372]">
+                Chuẩn IQF -40°C
               </span>
 
               <button
                 onClick={handleFullscreen}
-                className="p-2.5 rounded-lg bg-[#073372] text-white hover:bg-[#0c4494] transition-colors"
+                className="p-2 rounded-lg bg-[#073372] text-white hover:bg-[#0c4494] transition-colors"
                 aria-label="Toàn màn hình"
               >
-                <IoExpandOutline className="w-5 h-5 text-[#E8EEF9]" />
+                <IoExpandOutline className="w-4 h-4 text-[#E8EEF9]" />
               </button>
             </div>
           </div>
         </div>
+
       </div>
     </section>
   );

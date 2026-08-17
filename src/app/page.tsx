@@ -1,106 +1,54 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Navbar from "@/components/layout/Navbar";
 import HeroSection from "@/components/sections/HeroSection";
-import VideoShowcase from "@/components/sections/VideoShowcase";
 import ProductsSection from "@/components/sections/ProductsSection";
-import RecipeShowcase from "@/components/sections/RecipeShowcase";
-import AboutStorySection from "@/components/sections/AboutStorySection";
 import QualityCertifications from "@/components/sections/QualityCertifications";
+import RecipeShowcase from "@/components/sections/RecipeShowcase";
+import VideoShowcase from "@/components/sections/VideoShowcase";
+import AboutStorySection from "@/components/sections/AboutStorySection";
 import ContactCta from "@/components/sections/ContactCta";
 import Footer from "@/components/layout/Footer";
-import ChatWidget from "@/components/chatbot/ChatWidget";
-import PageIntroReveal from "@/components/ui/PageIntroReveal";
 
 export default function Home() {
-  const [isChatOpen, setIsChatOpen] = useState(false);
-  const [chatInitialQuery, setChatInitialQuery] = useState<string | undefined>(undefined);
+  const [selectedProductForChef, setSelectedProductForChef] = useState<string>("");
 
-  // Đảm bảo luôn cuộn lên đầu trang (0, 0) khi tải hoặc làm mới trang
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      if ("scrollRestoration" in window.history) {
-        window.history.scrollRestoration = "manual";
-      }
-      window.scrollTo(0, 0);
-    }
-  }, []);
-
-  const handleOpenChatWithQuery = (query: string) => {
-    setChatInitialQuery(query);
-    setIsChatOpen(true);
-  };
-
-  const handleOpenChat = () => {
-    setChatInitialQuery(undefined);
-    setIsChatOpen(true);
-  };
-
-  const handleScrollToProduct = (productId: string) => {
-    const el = document.getElementById("products");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
+  const handleSelectProductForChef = (productName: string) => {
+    setSelectedProductForChef(productName);
   };
 
   return (
-    <main className="min-h-screen bg-[#00153d] text-white selection:bg-[#F2A900] selection:text-[#00153d] relative">
-      {/* Cinematic Opening Intro Reveal Animation */}
-      <PageIntroReveal />
+    <div className="min-h-screen bg-[#00153d] text-white flex flex-col selection:bg-[#F2A900] selection:text-[#00153d]">
+      {/* 1. Header Navigation */}
+      <Navbar />
 
-      {/* Navigation Bar */}
-      <Navbar
-        onOpenChat={handleOpenChat}
-        onOpenConsultModal={() => {
-          const el = document.getElementById("contact");
-          if (el) el.scrollIntoView({ behavior: "smooth" });
-        }}
-      />
+      {/* 2. Main Content Flow */}
+      <main className="flex-grow">
+        {/* Hero: What is MAVY & Core Value Proposition */}
+        <HeroSection />
 
-      {/* Hero Section with Signature 3D Floating Reveal */}
-      <HeroSection
-        onOpenChat={handleOpenChat}
-        onSelectProduct={handleScrollToProduct}
-      />
+        {/* Products: What should I buy? Detailed specs & pricing */}
+        <ProductsSection onSelectProductForChef={handleSelectProductForChef} />
 
-      {/* Brand Film Video Showcase */}
-      <VideoShowcase />
+        {/* Standards & Transparency: Why trust MAVY vs traditional market? */}
+        <QualityCertifications />
 
-      {/* Signature Products Section (Cua, Tôm Sú, Mực) */}
-      <ProductsSection
-        onAskChefWithProduct={(productName) =>
-          handleOpenChatWithQuery(`Gợi ý các món ngon nhất làm từ ${productName}`)
-        }
-      />
+        {/* Culinary Workshop: Embedded AI Master Chef & Recipe Collection */}
+        <RecipeShowcase initialIngredientQuery={selectedProductForChef} />
 
-      {/* Culinary Inspiration & Recipe Showcase */}
-      <RecipeShowcase
-        onOpenChat={handleOpenChat}
-        onAskChefRecipe={(recipeTitle) =>
-          handleOpenChatWithQuery(`Bếp trưởng hướng dẫn mẹo nấu món: ${recipeTitle}`)
-        }
-      />
+        {/* Video Documentary: On-boat harvesting & IQF technology */}
+        <VideoShowcase />
 
-      {/* Brand Story & IQF Flash Freeze Technology */}
-      <AboutStorySection />
+        {/* Brand Origin & 4 Golden Commitments */}
+        <AboutStorySection />
 
-      {/* Certifications (HACCP, ISO 22000) & Customer Testimonials */}
-      <QualityCertifications />
+        {/* Contact & 2-Hour Dispatch Fulfillment */}
+        <ContactCta />
+      </main>
 
-      {/* Contact & Consultation Booking Form */}
-      <ContactCta />
-
-      {/* Footer */}
+      {/* 3. Footer */}
       <Footer />
-
-      {/* Floating AI Master Chef Widget */}
-      <ChatWidget
-        isOpen={isChatOpen}
-        onToggle={() => setIsChatOpen(!isChatOpen)}
-        onClose={() => setIsChatOpen(false)}
-        initialQuery={chatInitialQuery}
-      />
-    </main>
+    </div>
   );
 }
