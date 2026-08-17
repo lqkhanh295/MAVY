@@ -26,13 +26,13 @@ export default function FloatingChatButton({ isOpen, onClick }: FloatingChatButt
       }}
       whileTap={{ scale: 0.96 }}
       onClick={onClick}
-      className="fixed bottom-6 right-6 z-40 flex items-center gap-3 px-4 py-2.5 rounded-full bg-navy-900/95 border border-gold/60 text-gold shadow-2xl backdrop-blur-md hover:border-gold hover:bg-navy-850 transition-colors duration-200 cursor-grab active:cursor-grabbing select-none touch-none group"
+      className="fixed bottom-6 right-6 z-40 flex items-center gap-3 px-4 py-2.5 rounded-full bg-navy-900 border border-navy-700 text-teal shadow-xl hover:border-teal hover:bg-navy-800 transition-colors duration-200 cursor-grab active:cursor-grabbing select-none touch-none group"
       aria-label="Mở Bếp Trưởng AI"
       title="Bấm để mở hoặc kéo thả di chuyển khắp màn hình"
     >
       {/* Refined Chef Icon Container */}
-      <div className="w-8 h-8 rounded-full bg-navy-950 border border-gold/60 flex items-center justify-center text-gold group-hover:border-gold group-hover:scale-105 transition-all pointer-events-none">
-        <IoRestaurantOutline className="w-4 h-4 text-gold" />
+      <div className="w-8 h-8 rounded-full bg-navy-950 border border-navy-700 flex items-center justify-center text-teal group-hover:border-teal group-hover:scale-105 transition-all pointer-events-none">
+        <IoRestaurantOutline className="w-4 h-4 text-teal" />
       </div>
 
       {/* Typography */}

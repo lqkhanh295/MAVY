@@ -109,11 +109,6 @@ export default function HeroSection() {
       ref={sectionRef}
       className="relative min-h-[92vh] flex flex-col justify-center pt-32 pb-20 md:pt-36 md:pb-24 bg-navy-950 border-b border-navy-800 overflow-hidden"
     >
-      {/* Underwater Caustic Atmosphere with Volumetric Depth & Scroll Parallax */}
-      <motion.div
-        style={{ y: scrollBgY }}
-        className="absolute inset-0 caustic-ambient pointer-events-none"
-      />
       <div className="absolute inset-0 bg-gradient-to-b from-navy-950/70 via-transparent to-navy-950 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
@@ -132,8 +127,8 @@ export default function HeroSection() {
           >
             {/* Sourcing Tag Badge */}
             <motion.div variants={textItemVariants} className="inline-block">
-              <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-navy-900 border border-gold/40 text-xs font-semibold text-gold shadow-md backdrop-blur-sm">
-                <span className="w-2 h-2 rounded-full bg-gold animate-pulse" />
+              <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-navy-900 border border-navy-700 text-xs font-semibold text-teal shadow-sm">
+                <span className="w-2 h-2 rounded-full bg-teal" />
                 <span>Nguồn Hải Sản Tự Nhiên Tuyển Chọn Trực Tiếp Tại Bến</span>
               </div>
             </motion.div>
@@ -198,21 +193,21 @@ export default function HeroSection() {
               </a>
             </motion.div>
 
-            {/* Premium Social Proof Trust Capsule Card */}
+            {/* Clean Professional Social Proof Trust Capsule Card */}
             <motion.div
               variants={textItemVariants}
-              className="mt-6 p-3 sm:p-4 rounded-2xl bg-gradient-to-r from-navy-900/95 via-navy-900/80 to-navy-900/95 border border-teal/40 shadow-[0_10px_30px_-5px_rgba(15,163,177,0.18)] backdrop-blur-md hover:border-teal/60 transition-all duration-300"
+              className="mt-6 p-3.5 sm:p-4 rounded-2xl bg-navy-900 border border-navy-700 shadow-lg"
             >
               <div className="grid grid-cols-3 gap-2 sm:gap-4 divide-x divide-navy-700/80 items-center text-center">
                 {/* Stat 1: Đơn đã giao */}
                 <div className="flex flex-col items-center justify-center px-1 sm:px-2 space-y-0.5">
                   <div className="flex items-center gap-1.5 text-teal">
-                    <IoBagCheckOutline className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 text-teal-soft" />
+                    <IoBagCheckOutline className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 text-teal" />
                     <span className="text-base sm:text-xl font-black tracking-tight text-white">
                       <AnimeCounter targetValue={128450} suffix="+" />
                     </span>
                   </div>
-                  <span className="text-[11px] sm:text-xs text-ink-light/85 font-medium whitespace-nowrap">
+                  <span className="text-[11px] sm:text-xs text-ink-light/80 font-medium whitespace-nowrap">
                     Đơn Đã Giao
                   </span>
                 </div>
@@ -220,12 +215,12 @@ export default function HeroSection() {
                 {/* Stat 2: Feedback 5 sao */}
                 <div className="flex flex-col items-center justify-center px-1 sm:px-2 space-y-0.5">
                   <div className="flex items-center gap-1.5 text-teal">
-                    <IoChatboxEllipsesOutline className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 text-teal-soft" />
+                    <IoChatboxEllipsesOutline className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 text-teal" />
                     <span className="text-base sm:text-xl font-black tracking-tight text-white">
                       <AnimeCounter targetValue={15820} suffix="+" />
                     </span>
                   </div>
-                  <span className="text-[11px] sm:text-xs text-ink-light/85 font-medium whitespace-nowrap">
+                  <span className="text-[11px] sm:text-xs text-ink-light/80 font-medium whitespace-nowrap">
                     Feedback 5★
                   </span>
                 </div>
@@ -238,7 +233,7 @@ export default function HeroSection() {
                       4.9<span className="text-xs sm:text-sm text-ink-light/60 font-normal">/5</span>
                     </span>
                   </div>
-                  <span className="text-[11px] sm:text-xs text-teal-soft font-semibold whitespace-nowrap">
+                  <span className="text-[11px] sm:text-xs text-teal font-semibold whitespace-nowrap">
                     99.4% Hài Lòng
                   </span>
                 </div>
@@ -275,16 +270,6 @@ export default function HeroSection() {
                 }}
                 className="relative w-full max-w-lg aspect-[4/3] flex items-center justify-center cursor-pointer group"
               >
-                {/* Dynamic Backlight Halo (Breathing Ocean Aura) */}
-                <motion.div
-                  animate={{
-                    scale: [1, 1.08, 1],
-                    opacity: isHovered ? [0.55, 0.7, 0.55] : [0.3, 0.45, 0.3],
-                  }}
-                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute inset-0 rounded-full bg-gradient-to-tr from-navy-700/60 via-gold/15 to-cyan-500/15 filter blur-3xl pointer-events-none"
-                />
-
                 {/* Hydrodynamic Ocean Buoyancy Float Motion */}
                 <motion.div
                   animate={{

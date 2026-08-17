@@ -12,6 +12,7 @@ const config: Config = {
         navy: {
           950: "#00153d", // Deep Ocean Nền chính
           900: "#041c48", // Deep Ocean Nền thẻ, surface
+          850: "#05255c", // Surface hover
           800: "#073372", // Deep Ocean Nền thứ cấp, border phụ
           700: "#0c4494", // Hover state
           600: "#164082", // Border chính
@@ -19,7 +20,7 @@ const config: Config = {
         teal: {
           DEFAULT: "#0FA3B1", // Vibrant Teal chính (CTA, accents, prices, badges)
           hover: "#0c8894",
-          soft: "#8ED9D1",    // Soft Teal (ingredient tags, glow, particles, gradients)
+          soft: "#8ED9D1",    // Soft Teal (ingredient tags, text accents)
           light: "#B8EBE5",
         },
         coral: {
@@ -56,12 +57,6 @@ const config: Config = {
         display: ["var(--font-be-vietnam-pro)", "'Be Vietnam Pro'", "sans-serif"],
       },
       boxShadow: {
-        "teal-subtle": "0 4px 20px -2px rgba(15, 163, 177, 0.25)",
-        "teal-glow": "0 0 35px rgba(15, 163, 177, 0.35)",
-        "coral-subtle": "0 4px 20px -2px rgba(15, 163, 177, 0.25)",
-        "coral-glow": "0 0 35px rgba(15, 163, 177, 0.35)",
-        "gold-subtle": "0 4px 20px -2px rgba(15, 163, 177, 0.25)",
-        "gold-glow": "0 0 35px rgba(15, 163, 177, 0.35)",
         "card-navy": "0 10px 30px -5px rgba(0, 10, 30, 0.6)",
       },
     },

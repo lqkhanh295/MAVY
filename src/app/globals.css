@@ -41,68 +41,6 @@ h1, h2, h3, h4, h5, h6 {
   background: #0FA3B1;
 }
 
-/* Natural Ambient Caustic Glow */
-@keyframes causticDrift {
-  0% {
-    transform: translate(0, 0) scale(1);
-    opacity: 0.25;
-  }
-  50% {
-    transform: translate(-3%, 2%) scale(1.05);
-    opacity: 0.4;
-  }
-  100% {
-    transform: translate(0, 0) scale(1);
-    opacity: 0.25;
-  }
-}
-
-.caustic-ambient {
-  background: radial-gradient(circle at 65% 45%, rgba(12, 68, 148, 0.5) 0%, rgba(0, 21, 61, 0) 65%),
-              radial-gradient(circle at 20% 60%, rgba(7, 51, 114, 0.4) 0%, rgba(0, 21, 61, 0) 60%);
-  animation: causticDrift 14s ease-in-out infinite;
-}
-
-/* Subtle Golden Shimmer for Cards on Hover */
-@keyframes lightSweep {
-  0% {
-    transform: translateX(-160%) skewX(-20deg);
-    opacity: 0;
-  }
-  20% {
-    opacity: 0.85;
-  }
-  80% {
-    opacity: 0.85;
-  }
-  100% {
-    transform: translateX(260%) skewX(-20deg);
-    opacity: 0;
-  }
-}
-
-.light-sweep-beam {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 60%;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(242, 169, 0, 0.2) 30%,
-    rgba(255, 255, 255, 0.6) 50%,
-    rgba(242, 169, 0, 0.2) 70%,
-    transparent 100%
-  );
-  pointer-events: none;
-  z-index: 20;
-}
-
-.group:hover .group-hover-light-sweep {
-  animation: lightSweep 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
 /* Animation Utilities */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(6px); }
@@ -129,11 +67,5 @@ h1, h2, h3, h4, h5, h6 {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-  .caustic-ambient,
-  .light-sweep-beam,
-  .group-hover-light-sweep {
-    animation: none !important;
-    display: none !important;
   }
 }
