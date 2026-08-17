@@ -82,7 +82,7 @@ export default function RecipeShowcase({ onOpenChat }: RecipeShowcaseProps) {
             <IoRestaurantOutline className="w-3.5 h-3.5" />
             <span>XƯỞNG ẨM THỰC MAVY</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-[1.3] sm:leading-[1.35] tracking-tight">
             Nấu Chuẩn Vị Tại Nhà <span className="text-gold">Cùng Bí Quyết Bếp Trưởng</span>
           </h2>
           <p className="text-sm sm:text-base text-ink-light/80 leading-relaxed">
@@ -93,7 +93,7 @@ export default function RecipeShowcase({ onOpenChat }: RecipeShowcaseProps) {
         {/* 4-Stage Cooking Process Stepper */}
         <div className="mb-16 bg-navy-900 border border-navy-800 rounded-3xl p-6 sm:p-8">
           <div className="text-center max-w-2xl mx-auto mb-8 space-y-1.5">
-            <h3 className="text-lg sm:text-xl font-bold text-white uppercase tracking-wider">
+            <h3 className="text-lg sm:text-xl font-bold text-white uppercase tracking-wider leading-snug">
               4 Giai Đoạn Nấu Hải Sản Đạt Chuẩn Mọng Nước
             </h3>
             <p className="text-xs text-ink-light/60">Nhấp chọn từng giai đoạn để xem bí quyết xử lý nhiệt và khử tanh từ Bếp Trưởng.</p>

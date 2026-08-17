@@ -19,7 +19,7 @@ export default function ContactCta() {
                 <span>GIAO HÀNG TẬN NƠI TRONG 2 GIỜ</span>
               </div>
 
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-white leading-tight">
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-white leading-[1.3] sm:leading-[1.35] tracking-tight">
                 Đặt Hải Sản Tươi Sống & <br />
                 <span className="text-gold">Giao Tận Cửa Hôm Nay</span>
               </h2>

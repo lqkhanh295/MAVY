@@ -57,7 +57,7 @@ export default function QualityCertifications() {
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-navy-950 border border-navy-800 text-xs font-semibold text-gold">
             <span>MINH BẠCH TIÊU CHUẨN NGUỒN GỐC</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-[1.3] sm:leading-[1.35] tracking-tight">
             Tại Sao Nên Chọn <span className="text-gold">Hải Sản MAVY?</span>
           </h2>
           <p className="text-base text-ink-light/80 leading-relaxed">
@@ -68,7 +68,7 @@ export default function QualityCertifications() {
         {/* Direct Comparison Table */}
         <div className="mb-20 bg-navy-950 rounded-2xl border border-navy-800 overflow-hidden shadow-xl">
           <div className="p-6 bg-navy-800/50 border-b border-navy-800">
-            <h3 className="text-xl font-bold text-white">
+            <h3 className="text-xl font-bold text-white leading-snug">
               Bảng So Sánh Minh Bạch: Hải Sản MAVY vs Hải Sản Chợ Truyền Thống
             </h3>
           </div>

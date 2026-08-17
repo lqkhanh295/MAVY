@@ -69,7 +69,7 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-navy-900 border border-navy-800 text-xs font-semibold text-gold">
             <span>BỘ 3 SẢN PHẨM SIGNATURE</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-[1.3] sm:leading-[1.35] tracking-tight">
             Bộ Ba Hải Sản <span className="text-gold">Tuyển Chọn Tự Nhiên</span>
           </h2>
           <p className="text-sm sm:text-base text-ink-light/80 leading-relaxed">

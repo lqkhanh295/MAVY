@@ -84,7 +84,7 @@ export default function VideoShowcase() {
             <IoFilmOutline className="w-3.5 h-3.5" />
             <span>THƯỚC PHIM THỰC ĐỊA</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white leading-[1.3] sm:leading-[1.35] tracking-tight">
             Quy Trình Đánh Bắt & <span className="text-gold">Cấp Đông Trên Tàu</span>
           </h2>
           <p className="text-sm sm:text-base text-ink-light/80 leading-relaxed">

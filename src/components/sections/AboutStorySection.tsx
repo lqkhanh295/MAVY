@@ -53,7 +53,7 @@ export default function AboutStorySection() {
               <span>CÂU CHUYỆN THƯƠNG HIỆU</span>
             </div>
 
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-[1.3] sm:leading-[1.35] tracking-tight">
               Tâm Huyết Giữ Trọn <br />
               <span className="text-gold">Vị Ngọt Đại Dương</span>
             </h2>
