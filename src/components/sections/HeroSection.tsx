@@ -1,35 +1,39 @@
 "use client";
 
-import { useState, useRef, MouseEvent } from "react";
+import { useState, useEffect, useRef, MouseEvent } from "react";
 import Image from "next/image";
 import { motion, useMotionValue, useSpring, useTransform, type Variants } from "framer-motion";
 import { IoArrowDownOutline, IoShieldCheckmarkOutline, IoSparklesOutline } from "react-icons/io5";
 
 export default function HeroSection() {
   const [isHovered, setIsHovered] = useState(false);
+  const [triggerEntranceSweep, setTriggerEntranceSweep] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
-  // 3D Mouse Parallax Tilt Values
+  // Trigger single golden light sweep right as the product ascends and becomes sharp (~900ms)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setTriggerEntranceSweep(true);
+    }, 900);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Clean 3D Mouse Parallax Tilt (Without any ugly cursor blobs)
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const springConfig = { stiffness: 150, damping: 20, mass: 0.1 };
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [12, -12]), springConfig);
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-14, 14]), springConfig);
-  const shineX = useSpring(useTransform(mouseX, [-0.5, 0.5], ["-50%", "150%"]), springConfig);
-  const shineY = useSpring(useTransform(mouseY, [-0.5, 0.5], ["-50%", "150%"]), springConfig);
+  const springConfig = { stiffness: 140, damping: 20, mass: 0.1 };
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [10, -10]), springConfig);
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-12, 12]), springConfig);
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
     const clientX = e.clientX - rect.left;
     const clientY = e.clientY - rect.top;
     
-    // Normalized [-0.5, 0.5]
-    mouseX.set((clientX / width) - 0.5);
-    mouseY.set((clientY / height) - 0.5);
+    mouseX.set((clientX / rect.width) - 0.5);
+    mouseY.set((clientY / rect.height) - 0.5);
   };
 
   const handleMouseLeave = () => {
@@ -45,7 +49,7 @@ export default function HeroSection() {
       opacity: 1,
       transition: {
         staggerChildren: 0.1,
-        delayChildren: 0.1,
+        delayChildren: 0.15,
       },
     },
   };
@@ -58,6 +62,27 @@ export default function HeroSection() {
       transition: {
         duration: 0.55,
         ease: [0.22, 1, 0.36, 1],
+      },
+    },
+  };
+
+  // Cinematic Product Emergence Sequence
+  const productRevealVariants: Variants = {
+    hidden: {
+      opacity: 0,
+      scale: 0.82,
+      y: 80,
+      filter: "blur(16px)",
+    },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      filter: "blur(0px)",
+      transition: {
+        duration: 0.9,
+        ease: [0.16, 1, 0.3, 1], // Smooth luxury deceleration
+        delay: 0.25,
       },
     },
   };
@@ -147,7 +172,7 @@ export default function HeroSection() {
             </motion.div>
           </motion.div>
 
-          {/* Right Column: Interactive 3D Luxury Seafood Stage */}
+          {/* Right Column: Cinematic Product Entrance & 3D Stage */}
           <div className="lg:col-span-5 relative flex flex-col items-center select-none">
             
             {/* 3D Perspective Wrapper */}
@@ -156,9 +181,9 @@ export default function HeroSection() {
               onMouseMove={handleMouseMove}
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={handleMouseLeave}
-              initial={{ opacity: 0, scale: 0.92, y: 30 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              variants={productRevealVariants}
+              initial="hidden"
+              animate="visible"
               style={{
                 perspective: 1200,
                 rotateX,
@@ -171,7 +196,7 @@ export default function HeroSection() {
               <motion.div
                 animate={{
                   scale: [1, 1.08, 1],
-                  opacity: isHovered ? [0.6, 0.8, 0.6] : [0.35, 0.5, 0.35],
+                  opacity: isHovered ? [0.6, 0.75, 0.6] : [0.35, 0.5, 0.35],
                 }}
                 transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
                 className="absolute inset-0 rounded-full bg-gradient-to-tr from-navy-700/60 via-gold/20 to-cyan-500/15 filter blur-3xl pointer-events-none"
@@ -180,8 +205,8 @@ export default function HeroSection() {
               {/* Hydrodynamic Ocean Buoyancy Float Motion */}
               <motion.div
                 animate={{
-                  y: isHovered ? 0 : [-6, 6, -6],
-                  rotate: isHovered ? 0 : [-0.6, 0.6, -0.6],
+                  y: isHovered ? 0 : [-5, 5, -5],
+                  rotate: isHovered ? 0 : [-0.5, 0.5, -0.5],
                 }}
                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
                 className="relative w-full h-full flex items-center justify-center"
@@ -198,17 +223,10 @@ export default function HeroSection() {
                   unoptimized
                 />
 
-                {/* Specular Interactive Light Beam on Hover */}
-                <motion.div
-                  style={{
-                    left: shineX,
-                    top: shineY,
-                    opacity: isHovered ? 0.35 : 0,
-                  }}
-                  className="absolute w-40 h-40 rounded-full bg-gradient-to-r from-gold via-white to-transparent filter blur-2xl pointer-events-none transition-opacity duration-300"
-                />
-
-                {/* Single Elegant Light Sweep Shimmer on Card */}
+                {/* Cinematic Golden Light Sweep on Entrance & Hover */}
+                {triggerEntranceSweep && (
+                  <div className="light-sweep-beam animate-light-sweep" />
+                )}
                 <div className="light-sweep-beam group-hover-light-sweep" />
               </motion.div>
             </motion.div>
@@ -217,7 +235,7 @@ export default function HeroSection() {
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.5 }}
+              transition={{ delay: 0.5, duration: 0.5 }}
               className="mt-4 flex items-center gap-2 px-3.5 py-1 rounded-full bg-navy-900/60 border border-navy-800"
             >
               <IoSparklesOutline className="w-3.5 h-3.5 text-gold" />
