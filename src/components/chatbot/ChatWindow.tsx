@@ -16,7 +16,7 @@ export default function ChatWindow({ isOpen, onClose, initialQuery }: ChatWindow
     {
       id: "welcome-1",
       sender: "chef",
-      text: "Xin chào! Tôi là Bếp Trưởng Master Chef của MAVY Seafood 👨‍🍳\n\nBạn đang có những nguyên liệu gì trong bếp hoặc tủ lạnh (Cua, Tôm, Mực, thịt bò, trứng, rau củ, phô mai...)? Hãy chia sẻ, tôi sẽ sáng tạo công thức món ngon độc quyền dành riêng cho bạn!",
+      text: "Xin chào! Tôi là Bếp Trưởng Master Chef của MAVY Seafood.\n\nBạn đang có những nguyên liệu gì trong bếp hoặc tủ lạnh (Cua, Tôm, Mực, thịt bò, trứng, rau củ, phô mai...)? Hãy chia sẻ, tôi sẽ sáng tạo công thức món ngon độc quyền dành riêng cho bạn!",
       suggestedFollowUps: [
         "Tôm sú + bơ tỏi + chanh",
         "Mực một nắng + sả + ớt",
@@ -148,7 +148,7 @@ export default function ChatWindow({ isOpen, onClose, initialQuery }: ChatWindow
       {
         id: "welcome-reset",
         sender: "chef",
-        text: "Bếp Trưởng MAVY đã sẵn sàng! Hãy nhập nguyên liệu tiếp theo bạn muốn nấu nhé 👨‍🍳",
+        text: "Bếp Trưởng MAVY đã sẵn sàng! Hãy nhập nguyên liệu tiếp theo bạn muốn nấu nhé.",
         suggestedFollowUps: [
           "Tôm sú + bơ tỏi",
           "Mực tươi + ớt chuông",

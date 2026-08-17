@@ -21,16 +21,18 @@ export default function RecipeCard({ recipe, onAskMore }: RecipeCardProps) {
   const [expanded, setExpanded] = useState(true);
 
   const handleCopyRecipe = () => {
-    const text = `🍽️ ${recipe.title}
-⏱️ Thời gian: ${recipe.prepTime} chuẩn bị, ${recipe.cookTime} nấu (${recipe.difficulty})
-🥘 Hương vị: ${recipe.flavorProfile || ""}
-🥗 Nguyên liệu:
-${(recipe.ingredients || []).map((i: any) => `- ${i.name}: ${i.amount}`).join("\n")}
+    const text = `MAVY CULINARY STUDIO — ${recipe.title.toUpperCase()}
+[Thông Số] Chuẩn bị: ${recipe.prepTime} | Nấu: ${recipe.cookTime} | Độ khó: ${recipe.difficulty}
+[Hương Vị] ${recipe.flavorProfile || ""}
 
-👨‍🍳 Các bước thực hiện:
+NGUYÊN LIỆU:
+${(recipe.ingredients || []).map((i: any) => `• ${i.name}: ${i.amount}`).join("\n")}
+
+CÁC BƯỚC THỰC HIỆN:
 ${(recipe.steps || []).map((s: string, idx: number) => `${idx + 1}. ${s}`).join("\n")}
 
-💡 Mẹo Bếp Trưởng: ${recipe.chefTips || ""}`;
+MẸO BẾP TRƯỞNG:
+${recipe.chefTips || ""}`;
 
     navigator.clipboard.writeText(text);
     setCopied(true);
