@@ -96,21 +96,21 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
                 layoutId={`product-card-${product.id}`}
                 whileHover={{ y: -6 }}
                 transition={{ duration: 0.25, ease: "easeOut" }}
-                className="bg-navy-900/60 rounded-3xl border border-navy-800/80 p-6 overflow-hidden flex flex-col justify-between hover:border-gold/50 hover:bg-navy-900/90 transition-all duration-300 cursor-pointer group h-full shadow-lg"
+                className="glass-dark-card glass-dark-card-hover rounded-3xl p-6 overflow-hidden flex flex-col justify-between cursor-pointer group h-full shadow-lg"
                 onClick={() => setSelectedProduct(product)}
               >
                 {/* Top Metadata Header (Minimalist & Sleek) */}
                 <div className="flex items-center justify-between gap-2 pb-2">
-                  <div className="text-[11px] font-bold tracking-wider text-gold uppercase">
+                  <div className="text-[11px] font-bold tracking-wider text-white/90 uppercase">
                     {product.name}
                   </div>
-                  <span className="text-[10px] text-ink-light/60 px-2 py-0.5 rounded-full border border-navy-800 bg-navy-950/60">
+                  <span className="text-[10px] text-coral font-bold px-2.5 py-0.5 rounded-full border border-coral/30 bg-coral/10">
                     {product.badge}
                   </span>
                 </div>
 
                 {/* Product Photo Container with Smooth Ambient Light */}
-                <div className="relative aspect-[4/3] w-full my-3 flex items-center justify-center overflow-hidden rounded-2xl bg-navy-950/40 border border-navy-800/40">
+                <div className="relative aspect-[4/3] w-full my-3 flex items-center justify-center overflow-hidden rounded-2xl bg-white/[0.02] border border-white/[0.06]">
                   <motion.div
                     className="relative w-full h-full p-4 flex items-center justify-center"
                     whileHover={{ scale: 1.05 }}
@@ -131,7 +131,7 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
                 {/* Product Content Body */}
                 <div className="space-y-4 flex-1 flex flex-col justify-between pt-2">
                   <div className="space-y-2">
-                    <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-gold transition-colors leading-snug">
+                    <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-coral transition-colors leading-snug">
                       {product.name}
                     </h3>
                     <p className="text-xs text-ink-light/75 line-clamp-2 leading-relaxed font-normal">
@@ -139,19 +139,19 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
                     </p>
 
                     {/* Social Proof: Sold Count & 5-Star Reviews */}
-                    <div className="flex items-center justify-between text-[11px] text-ink-light/70 pt-1.5 border-t border-navy-800/40">
+                    <div className="flex items-center justify-between text-[11px] text-ink-light/70 pt-1.5 border-t border-white/[0.06]">
                       <div className="flex items-center gap-1">
                         <span className="text-amber-400 font-bold">★ {product.rating}</span>
                         <span className="text-ink-light/60">({product.reviewCount?.toLocaleString()})</span>
                       </div>
-                      <span className="text-teal font-semibold">Đã bán {product.soldCount}</span>
+                      <span className="text-coral font-semibold">Đã bán {product.soldCount}</span>
                     </div>
                   </div>
 
                   {/* Price & Weight Detail */}
-                  <div className="pt-2.5 border-t border-navy-800/60 flex items-baseline justify-between">
+                  <div className="pt-2.5 border-t border-white/[0.08] flex items-baseline justify-between">
                     <div>
-                      <span className="text-2xl font-black text-gold">{product.price}</span>
+                      <span className="text-2xl font-black text-coral">{product.price}</span>
                       <span className="text-xs text-ink-light/50 font-normal ml-1.5">/ {product.unit}</span>
                     </div>
                     <span className="text-[11px] text-ink-light/50 font-medium">Dây trói &lt; 20g</span>
@@ -159,7 +159,7 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
 
                   {/* Refined Sleek CTA Link */}
                   <div className="pt-2">
-                    <div className="flex items-center justify-between text-xs font-medium text-ink-light/80 group-hover:text-gold transition-colors pt-2 border-t border-navy-800/40">
+                    <div className="flex items-center justify-between text-xs font-medium text-ink-light/80 group-hover:text-coral transition-colors pt-2 border-t border-white/[0.06]">
                       <span>Xem quy cách & dinh dưỡng</span>
                       <IoArrowForwardOutline className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
                     </div>
@@ -187,12 +187,12 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
               <motion.div
                 layoutId={`product-card-${selectedProduct.id}`}
                 transition={{ duration: 0.35, ease: "easeOut" }}
-                className="relative w-full max-w-3xl bg-navy-950 border border-navy-700 rounded-3xl overflow-hidden shadow-2xl max-h-[90vh] flex flex-col z-10"
+                className="relative w-full max-w-3xl bg-[#00153d]/95 backdrop-blur-2xl border border-white/15 rounded-3xl overflow-hidden shadow-2xl max-h-[90vh] flex flex-col z-10"
               >
                 {/* Header */}
-                <div className="px-6 py-4 bg-navy-900 border-b border-navy-800 flex items-center justify-between">
+                <div className="px-6 py-4 bg-white/[0.04] border-b border-white/[0.08] flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <span className="px-2.5 py-0.5 rounded-full bg-gold text-navy-950 font-bold text-xs">
+                    <span className="px-2.5 py-0.5 rounded-full bg-coral text-navy-950 font-bold text-xs">
                       {selectedProduct.badge}
                     </span>
                     <span className="text-sm font-bold text-white">{selectedProduct.name}</span>
@@ -200,7 +200,7 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
 
                   <button
                     onClick={() => setSelectedProduct(null)}
-                    className="p-1.5 rounded-lg text-ink-light hover:text-white hover:bg-navy-800 transition-colors"
+                    className="p-1.5 rounded-lg text-ink-light hover:text-white hover:bg-white/10 transition-colors"
                     aria-label="Đóng"
                   >
                     <IoClose className="w-5 h-5" />
@@ -217,9 +217,9 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
                   {/* Top Image + Headline Block */}
                   <motion.div
                     variants={modalInfoItem}
-                    className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center border-b border-navy-800 pb-6"
+                    className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center border-b border-white/[0.08] pb-6"
                   >
-                    <div className="md:col-span-5 relative aspect-square bg-navy-900/40 rounded-2xl border border-navy-800 p-4 flex items-center justify-center overflow-hidden">
+                    <div className="md:col-span-5 relative aspect-square bg-white/[0.02] rounded-2xl border border-white/[0.08] p-4 flex items-center justify-center overflow-hidden">
                       <Image
                         src={selectedProduct.image}
                         alt={selectedProduct.name}
@@ -230,7 +230,7 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
                     </div>
 
                     <div className="md:col-span-7 space-y-3">
-                      <div className="text-xs font-bold text-gold uppercase tracking-wider">{selectedProduct.category}</div>
+                      <div className="text-xs font-bold text-coral uppercase tracking-wider">{selectedProduct.category}</div>
                       <h3 className="text-2xl sm:text-3xl font-extrabold text-white leading-snug">{selectedProduct.name}</h3>
                       <p className="text-xs sm:text-sm text-gold font-medium italic">{selectedProduct.tagline}</p>
                       
@@ -241,13 +241,13 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
                           <span className="text-ink-light/70 font-normal">({selectedProduct.reviewCount?.toLocaleString()} đánh giá)</span>
                         </div>
                         <span className="text-navy-700 select-none">•</span>
-                        <span className="text-teal font-semibold">Đã bán {selectedProduct.soldCount}</span>
+                        <span className="text-coral font-semibold">Đã bán {selectedProduct.soldCount}</span>
                       </div>
 
                       <p className="text-xs sm:text-sm text-ink-light/90 leading-relaxed">{selectedProduct.description}</p>
 
                       <div className="pt-2 flex items-baseline gap-2">
-                        <span className="text-3xl font-black text-gold">{selectedProduct.price}</span>
+                        <span className="text-3xl font-black text-coral">{selectedProduct.price}</span>
                         <span className="text-xs text-ink-light/70">/ {selectedProduct.unit}</span>
                       </div>
                     </div>
@@ -258,7 +258,7 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
                     <h4 className="text-xs font-bold text-ink-light uppercase tracking-wider">Thông Số Quy Cách Tuyển Chọn</h4>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 text-xs">
                       {selectedProduct.specifications.map((spec, i) => (
-                        <div key={i} className="flex justify-between border-b border-navy-800/80 pb-2">
+                        <div key={i} className="flex justify-between border-b border-white/[0.06] pb-2">
                           <span className="text-ink-light/60">{spec.label}:</span>
                           <span className="font-semibold text-white">{spec.value}</span>
                         </div>
@@ -268,10 +268,10 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
 
                   {/* Nutrition Strip */}
                   <motion.div variants={modalInfoItem} className="space-y-2 pt-2">
-                    <h4 className="text-xs font-bold text-gold uppercase tracking-wider">
+                    <h4 className="text-xs font-bold text-coral uppercase tracking-wider">
                       Dinh Dưỡng Ước Tính (100g thịt thành phẩm)
                     </h4>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-1 border-t border-b border-navy-800 py-3">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-1 border-t border-b border-white/[0.08] py-3">
                       <div>
                         <div className="text-[11px] text-ink-light/60">Protein (Đạm)</div>
                         <div className="text-base font-bold text-white mt-0.5">{selectedProduct.nutritionFacts.protein}</div>
@@ -297,7 +297,7 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-ink-light/90">
                       {selectedProduct.cookingSuggestions.map((item, idx) => (
                         <div key={idx} className="flex items-start gap-2">
-                          <span className="text-gold font-bold select-none">•</span>
+                          <span className="text-coral font-bold select-none">•</span>
                           <span>{item}</span>
                         </div>
                       ))}
@@ -306,7 +306,7 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
                 </motion.div>
 
                 {/* Footer Action Buttons */}
-                <div className="p-5 bg-navy-900 border-t border-navy-800 flex flex-col sm:flex-row items-center justify-between gap-3">
+                <div className="p-5 bg-white/[0.03] border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-3">
                   <a
                     href="#culinary-studio"
                     onClick={() => {
@@ -315,16 +315,16 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
                       }
                       setSelectedProduct(null);
                     }}
-                    className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-navy-800 border border-gold text-gold font-semibold text-xs hover:bg-navy-700 transition-colors text-center"
+                    className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-white/[0.06] border border-white/10 text-white font-semibold text-xs hover:bg-white/10 transition-colors text-center"
                   >
-                    Hỏi Bếp Trưởng AI Cách Nấu {selectedProduct.name}
+                    Xem Công Thức Nấu {selectedProduct.name}
                   </a>
 
                   <a
                     href="https://zalo.me/0901325178"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-gold text-navy-950 font-bold text-xs hover:bg-gold-hover transition-colors text-center"
+                    className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-coral text-navy-950 font-bold text-xs hover:bg-coral-hover transition-colors text-center"
                   >
                     Nhắn Zalo Đặt Hàng (090 132 5178)
                   </a>

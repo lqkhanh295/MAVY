@@ -11,25 +11,24 @@ const config: Config = {
       colors: {
         navy: {
           950: "#00153d", // Deep Ocean Nền chính
-          900: "#041c48", // Deep Ocean Nền thẻ, surface
+          900: "#031a44", // Nền thẻ sâu
           850: "#05255c", // Surface hover
-          800: "#073372", // Deep Ocean Nền thứ cấp, border phụ
-          700: "#0c4494", // Hover state
-          600: "#164082", // Border chính
-        },
-        teal: {
-          DEFAULT: "#0FA3B1", // Vibrant Teal chính (CTA, accents, prices, badges)
-          hover: "#0c8894",
-          soft: "#8ED9D1",    // Soft Teal (ingredient tags, text accents)
-          light: "#B8EBE5",
+          800: "#073372", // Atmospheric deep navy
+          700: "#0c4494", // Highlight border
+          600: "#164082", // Hairline border
         },
         coral: {
-          DEFAULT: "#0FA3B1",
-          hover: "#0c8894",
-          soft: "#8ED9D1",
+          DEFAULT: "#FF8A5B", // Warm Coral (Appetite CTA, badges)
+          hover: "#e8794c",
+          soft: "#FFAA85",
         },
         gold: {
-          DEFAULT: "#0FA3B1", // Mapped to Teal for seamless backward compatibility
+          DEFAULT: "#F4B860", // Champagne Gold (Culinary luxury, crab roe)
+          hover: "#e0a248",
+          soft: "#FBE0B5",
+        },
+        teal: {
+          DEFAULT: "#0FA3B1", // Ocean marine accent
           hover: "#0c8894",
           soft: "#8ED9D1",
         },
@@ -48,8 +47,8 @@ const config: Config = {
           cream: "#FFF7E8",
         },
         sale: {
-          DEFAULT: "#0FA3B1",
-          hover: "#0c8894",
+          DEFAULT: "#FF8A5B",
+          hover: "#e8794c",
         },
       },
       fontFamily: {
@@ -57,6 +56,7 @@ const config: Config = {
         display: ["var(--font-be-vietnam-pro)", "'Be Vietnam Pro'", "sans-serif"],
       },
       boxShadow: {
+        "dark-glass": "0 8px 32px 0 rgba(0, 0, 0, 0.37)",
         "card-navy": "0 10px 30px -5px rgba(0, 10, 30, 0.6)",
       },
     },

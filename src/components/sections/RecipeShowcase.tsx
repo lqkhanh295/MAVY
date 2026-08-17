@@ -135,9 +135,9 @@ export default function RecipeShowcase({ onOpenChat }: RecipeShowcaseProps) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.2, ease: "easeOut" }}
-              className="bg-navy-950 p-6 rounded-2xl border border-navy-800 space-y-2"
+              className="glass-dark-card p-6 rounded-2xl space-y-2"
             >
-              <div className="text-xs font-bold text-gold uppercase tracking-wider">
+              <div className="text-xs font-bold text-coral uppercase tracking-wider">
                 {cookingStages[currentStepStage].subtitle}
               </div>
               <p className="text-sm text-ink-light/90 leading-relaxed">
@@ -148,9 +148,9 @@ export default function RecipeShowcase({ onOpenChat }: RecipeShowcaseProps) {
         </div>
 
         {/* Culinary Consultation Callout Box */}
-        <div className="mb-20 bg-navy-900 border border-navy-800 rounded-2xl p-6 sm:p-8 shadow-md flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="mb-20 glass-dark-card rounded-2xl p-6 sm:p-8 shadow-md flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="space-y-2 text-center md:text-left">
-            <span className="text-xs uppercase tracking-[0.2em] text-teal font-bold block">
+            <span className="text-xs uppercase tracking-[0.2em] text-coral font-bold block">
               CẨM NANG ẨM THỰC MAVY
             </span>
             <h3 className="text-xl sm:text-2xl font-black text-white">
@@ -164,7 +164,7 @@ export default function RecipeShowcase({ onOpenChat }: RecipeShowcaseProps) {
           <div className="flex flex-col sm:flex-row gap-3 shrink-0">
             <button
               onClick={() => onOpenChat?.()}
-              className="px-6 py-3.5 rounded-xl bg-gold text-navy-950 font-bold text-xs sm:text-sm hover:bg-gold-hover transition-colors shadow flex items-center justify-center gap-2 cursor-pointer"
+              className="px-6 py-3.5 rounded-xl bg-coral text-navy-950 font-bold text-xs sm:text-sm hover:bg-coral-hover transition-colors shadow flex items-center justify-center gap-2 cursor-pointer"
             >
               <IoChatbubblesOutline className="w-4 h-4" />
               <span>Tư Vấn Công Thức Nhanh</span>
@@ -174,7 +174,7 @@ export default function RecipeShowcase({ onOpenChat }: RecipeShowcaseProps) {
 
         {/* Recipe Library Section */}
         <div className="space-y-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-navy-800 pb-6">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/[0.08] pb-6">
             <div>
               <h3 className="text-2xl font-bold text-white">Bộ Sưu Tập Món Ngon Signature</h3>
               <p className="text-xs sm:text-sm text-ink-light/60 mt-1">Các công thức được nghiên cứu và tối ưu riêng cho hải sản tự nhiên MAVY.</p>
@@ -188,8 +188,8 @@ export default function RecipeShowcase({ onOpenChat }: RecipeShowcaseProps) {
                   onClick={() => setActiveCategory(cat.id)}
                   className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-colors cursor-pointer ${
                     activeCategory === cat.id
-                      ? "bg-gold text-navy-950"
-                      : "bg-navy-900 text-ink-light border border-navy-800 hover:border-gold hover:text-white"
+                      ? "bg-coral text-navy-950 font-bold"
+                      : "bg-white/[0.04] text-ink-light border border-white/[0.08] hover:border-white/20 hover:text-white"
                   }`}
                 >
                   {cat.name}
@@ -206,12 +206,12 @@ export default function RecipeShowcase({ onOpenChat }: RecipeShowcaseProps) {
               return (
                 <div
                   key={recipe.id}
-                  className="bg-navy-900 rounded-2xl border border-navy-800 overflow-hidden flex flex-col justify-between hover:border-gold/50 transition-all duration-300 shadow-md"
+                  className="glass-dark-card glass-dark-card-hover rounded-2xl overflow-hidden flex flex-col justify-between"
                 >
                   <div className="p-6 space-y-4">
                     {/* Header meta */}
                     <div className="flex items-center justify-between text-xs">
-                      <span className="text-[11px] font-semibold text-gold tracking-wider uppercase">
+                      <span className="text-[11px] font-semibold text-coral tracking-wider uppercase">
                         {getCategoryLabel(recipe.category)}
                       </span>
                       <div className="flex items-center gap-1 text-ink-light/60">

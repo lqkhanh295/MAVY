@@ -80,32 +80,32 @@ export default function QualityCertifications() {
 
         {/* Social Proof Real-Time Metrics Overview Bar */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-          <div className="bg-navy-950 p-5 sm:p-6 rounded-2xl border border-navy-800 text-center space-y-2">
-            <div className="text-2xl sm:text-3xl lg:text-4xl font-black text-teal">
+          <div className="glass-dark-card rounded-2xl p-5 sm:p-6 text-center space-y-2">
+            <div className="text-2xl sm:text-3xl lg:text-4xl font-black text-coral">
               <AnimeCounter targetValue={128450} suffix="+" />
             </div>
             <div className="text-xs sm:text-sm font-bold text-white">Đơn Hàng Đã Bán</div>
             <p className="text-[11px] text-ink-light/60">Giao hỏa tốc 2H toàn quốc</p>
           </div>
 
-          <div className="bg-navy-950 p-5 sm:p-6 rounded-2xl border border-navy-800 text-center space-y-2">
-            <div className="text-2xl sm:text-3xl lg:text-4xl font-black text-teal">
+          <div className="glass-dark-card rounded-2xl p-5 sm:p-6 text-center space-y-2">
+            <div className="text-2xl sm:text-3xl lg:text-4xl font-black text-coral">
               <AnimeCounter targetValue={15820} suffix="+" />
             </div>
             <div className="text-xs sm:text-sm font-bold text-white">Đánh Giá & Feedback</div>
             <p className="text-[11px] text-ink-light/60">Hình ảnh & video thực tế từ khách</p>
           </div>
 
-          <div className="bg-navy-950 p-5 sm:p-6 rounded-2xl border border-navy-800 text-center space-y-2">
-            <div className="text-2xl sm:text-3xl lg:text-4xl font-black text-teal">
+          <div className="glass-dark-card rounded-2xl p-5 sm:p-6 text-center space-y-2">
+            <div className="text-2xl sm:text-3xl lg:text-4xl font-black text-coral">
               <span>99.4%</span>
             </div>
             <div className="text-xs sm:text-sm font-bold text-white">Khách Hàng Hài Lòng</div>
             <p className="text-[11px] text-ink-light/60">Tỷ lệ tái đặt hàng trên 85%</p>
           </div>
 
-          <div className="bg-navy-950 p-5 sm:p-6 rounded-2xl border border-navy-800 text-center space-y-2">
-            <div className="text-2xl sm:text-3xl lg:text-4xl font-black text-teal">
+          <div className="glass-dark-card rounded-2xl p-5 sm:p-6 text-center space-y-2">
+            <div className="text-2xl sm:text-3xl lg:text-4xl font-black text-coral">
               <span>&lt; 2 Phút</span>
             </div>
             <div className="text-xs sm:text-sm font-bold text-white">Tốc Độ Phản Hồi</div>
@@ -114,31 +114,31 @@ export default function QualityCertifications() {
         </div>
 
         {/* Comparison Table: MAVY vs Chợ Truyền Thống */}
-        <div className="bg-navy-950 rounded-2xl border border-navy-800 overflow-hidden shadow-xl">
-          <div className="p-6 bg-navy-800/40 border-b border-navy-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+        <div className="glass-dark-card rounded-2xl overflow-hidden shadow-xl">
+          <div className="p-6 bg-white/[0.04] border-b border-white/[0.08] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
             <div>
               <h3 className="text-lg font-bold text-white">Bảng Đối Chiếu Tiêu Chuẩn Minh Bạch</h3>
               <p className="text-xs text-ink-light/70">So sánh trực tiếp giữa quy chuẩn MAVY Seafood và hải sản trôi nổi</p>
             </div>
-            <span className="text-xs text-teal font-semibold bg-navy-900 px-3 py-1 rounded-full border border-navy-700">
+            <span className="text-xs text-coral font-semibold bg-coral/10 px-3 py-1 rounded-full border border-coral/30">
               Cam kết bằng văn bản
             </span>
           </div>
 
-          <div className="divide-y divide-navy-800">
-            <div className="grid grid-cols-12 p-4 text-xs font-bold text-ink-light/60 uppercase tracking-wider bg-navy-900/40">
+          <div className="divide-y divide-white/[0.06]">
+            <div className="grid grid-cols-12 p-4 text-xs font-bold text-ink-light/60 uppercase tracking-wider bg-white/[0.02]">
               <div className="col-span-4 sm:col-span-3">Tiêu Chí</div>
-              <div className="col-span-4 sm:col-span-5 text-teal font-bold">Quy Chuẩn MAVY Seafood</div>
+              <div className="col-span-4 sm:col-span-5 text-coral font-bold">Quy Chuẩn MAVY Seafood</div>
               <div className="col-span-4 sm:col-span-4 text-rose-400/80">Hải Sản Chợ Truyền Thống</div>
             </div>
 
             {comparisonData.map((item, idx) => (
-              <div key={idx} className="grid grid-cols-12 p-4 text-xs sm:text-sm items-center hover:bg-navy-900/30 transition-colors">
+              <div key={idx} className="grid grid-cols-12 p-4 text-xs sm:text-sm items-center hover:bg-white/[0.03] transition-colors">
                 <div className="col-span-4 sm:col-span-3 font-semibold text-white pr-2">
                   {item.criteria}
                 </div>
                 <div className="col-span-4 sm:col-span-5 text-ink-light flex items-start gap-2 pr-2">
-                  <IoCheckmarkOutline className="w-4 h-4 text-teal shrink-0 mt-0.5" />
+                  <IoCheckmarkOutline className="w-4 h-4 text-coral shrink-0 mt-0.5" />
                   <span className="font-medium text-white">{item.mavy}</span>
                 </div>
                 <div className="col-span-4 sm:col-span-4 text-ink-light/60 flex items-start gap-2">
@@ -165,17 +165,17 @@ export default function QualityCertifications() {
             {BRAND_INFO.certifications.map((cert, idx) => (
               <div
                 key={idx}
-                className="bg-navy-950 p-6 rounded-2xl border border-navy-800 space-y-3 flex flex-col justify-between hover:border-navy-600 transition-colors"
+                className="glass-dark-card glass-dark-card-hover p-6 rounded-2xl space-y-3 flex flex-col justify-between"
               >
                 <div className="space-y-2">
-                  <div className="w-8 h-8 rounded-lg bg-navy-800 text-teal flex items-center justify-center font-mono font-bold text-xs border border-navy-600">
+                  <div className="w-8 h-8 rounded-lg bg-white/[0.06] text-coral flex items-center justify-center font-mono font-bold text-xs border border-white/10">
                     0{idx + 1}
                   </div>
                   <h4 className="text-base font-bold text-white">{cert.name}</h4>
-                  <p className="text-xs text-teal font-mono">{cert.code}</p>
+                  <p className="text-xs text-coral font-mono">{cert.code}</p>
                   <p className="text-xs text-ink-light/70 leading-relaxed">{cert.desc}</p>
                 </div>
-                <div className="pt-3 border-t border-navy-800/60 text-[11px] text-ink-light/60">
+                <div className="pt-3 border-t border-white/[0.06] text-[11px] text-ink-light/60">
                   Kiểm định định kỳ
                 </div>
               </div>
@@ -206,7 +206,7 @@ export default function QualityCertifications() {
             {testimonials.map((item, idx) => (
               <div
                 key={idx}
-                className="bg-navy-950 p-6 rounded-2xl border border-navy-800 flex flex-col justify-between space-y-4 shadow-md hover:border-navy-700 transition-colors"
+                className="glass-dark-card glass-dark-card-hover p-6 rounded-2xl flex flex-col justify-between space-y-4 shadow-md"
               >
                 <div className="space-y-3">
                   {/* Rating Stars & Verified Buyer */}
@@ -216,7 +216,7 @@ export default function QualityCertifications() {
                         <IoStar key={i} />
                       ))}
                     </div>
-                    <span className="flex items-center gap-1 text-[11px] text-teal font-medium">
+                    <span className="flex items-center gap-1 text-[11px] text-coral font-medium">
                       <IoCheckmarkCircleOutline className="w-3.5 h-3.5" />
                       <span>Đã mua hàng</span>
                     </span>
@@ -227,19 +227,19 @@ export default function QualityCertifications() {
                   </p>
                 </div>
 
-                <div className="pt-4 border-t border-navy-800 space-y-2">
+                <div className="pt-4 border-t border-white/[0.06] space-y-2">
                   <div className="text-[11px] text-ink-light/50 flex justify-between">
                     <span>Đã mua: <strong className="text-ink-light/80">{item.product}</strong></span>
                     <span>{item.date}</span>
                   </div>
 
                   <div className="flex items-center gap-3 pt-1">
-                    <div className="w-8 h-8 rounded-full bg-navy-800 border border-navy-600 text-white flex items-center justify-center font-bold text-xs">
+                    <div className="w-8 h-8 rounded-full bg-white/[0.08] border border-white/10 text-white flex items-center justify-center font-bold text-xs">
                       {item.name.charAt(0)}
                     </div>
                     <div>
                       <h5 className="text-xs font-bold text-white">{item.name}</h5>
-                      <p className="text-[11px] text-teal">{item.role}</p>
+                      <p className="text-[11px] text-coral">{item.role}</p>
                     </div>
                   </div>
                 </div>

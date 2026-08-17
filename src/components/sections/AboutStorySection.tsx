@@ -67,30 +67,30 @@ export default function AboutStorySection() {
             </p>
 
             {/* Factual Technical Stats (Clean Editorial Strip - NO nested boxes) */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t border-navy-800">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t border-white/[0.08]">
               <div>
-                <div className="text-2xl font-black text-gold">
+                <div className="text-2xl font-black text-coral">
                   <AnimeCounter targetValue={-40} suffix="°C" />
                 </div>
                 <div className="text-xs text-ink-light/60 mt-0.5">Cấp đông sâu IQF</div>
               </div>
 
               <div>
-                <div className="text-2xl font-black text-gold">
+                <div className="text-2xl font-black text-coral">
                   <AnimeCounter targetValue={12} suffix=" Phút" />
                 </div>
                 <div className="text-xs text-ink-light/60 mt-0.5">Thời gian hạ nhiệt</div>
               </div>
 
               <div>
-                <div className="text-2xl font-black text-gold">
+                <div className="text-2xl font-black text-coral">
                   <AnimeCounter targetValue={0} suffix="%" />
                 </div>
                 <div className="text-xs text-ink-light/60 mt-0.5">Hóa chất bảo quản</div>
               </div>
 
               <div>
-                <div className="text-2xl font-black text-gold">
+                <div className="text-2xl font-black text-coral">
                   &lt; 20g
                 </div>
                 <div className="text-xs text-ink-light/60 mt-0.5">Trọng lượng dây trói</div>
@@ -99,15 +99,15 @@ export default function AboutStorySection() {
           </div>
 
           {/* Right: Interactive 4-Stage IQF Diagram (Explaining Technology) */}
-          <div className="lg:col-span-6 bg-navy-900 border border-navy-800 rounded-3xl p-6 sm:p-8 space-y-6">
-            <div className="flex items-center justify-between border-b border-navy-800 pb-4">
+          <div className="lg:col-span-6 glass-dark-card rounded-3xl p-6 sm:p-8 space-y-6">
+            <div className="flex items-center justify-between border-b border-white/[0.08] pb-4">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-lg bg-gold text-navy-950 flex items-center justify-center font-bold text-xs">
+                <div className="w-8 h-8 rounded-lg bg-coral text-navy-950 flex items-center justify-center font-bold text-xs">
                   IQF
                 </div>
                 <h3 className="text-base sm:text-lg font-bold text-white">Quy Trình Khoa Học Cấp Đông Siêu Tốc</h3>
               </div>
-              <span className="text-xs text-gold font-mono font-semibold">4 Giai Đoạn</span>
+              <span className="text-xs text-coral font-mono font-semibold">4 Giai Đoạn</span>
             </div>
 
             {/* Stepper Interactive Timeline */}

@@ -157,29 +157,29 @@ export default function HeroSection() {
               className="pt-1 pb-1 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-2 text-xs text-ink-light/75"
             >
               <div className="flex items-center gap-1.5">
-                <IoShieldCheckmarkOutline className="w-4 h-4 text-teal shrink-0" />
+                <IoShieldCheckmarkOutline className="w-4 h-4 text-coral shrink-0" />
                 <span>Nguồn gốc Cà Mau & Phú Quốc</span>
               </div>
-              <span className="hidden sm:inline text-navy-800 select-none">|</span>
+              <span className="hidden sm:inline text-white/20 select-none">|</span>
               <div className="flex items-center gap-1.5">
-                <IoShieldCheckmarkOutline className="w-4 h-4 text-teal shrink-0" />
+                <IoShieldCheckmarkOutline className="w-4 h-4 text-coral shrink-0" />
                 <span>Cấp đông IQF -40°C</span>
               </div>
-              <span className="hidden sm:inline text-navy-800 select-none">|</span>
+              <span className="hidden sm:inline text-white/20 select-none">|</span>
               <div className="flex items-center gap-1.5">
-                <IoShieldCheckmarkOutline className="w-4 h-4 text-teal shrink-0" />
+                <IoShieldCheckmarkOutline className="w-4 h-4 text-coral shrink-0" />
                 <span>Dây trói siêu mỏng &lt; 20g</span>
               </div>
             </motion.div>
 
-            {/* Action Buttons */}
+            {/* Action Buttons (Solid Warm Accent - Not Glass) */}
             <motion.div
               variants={textItemVariants}
               className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 pt-2"
             >
               <a
                 href="#products"
-                className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gold text-navy-950 font-bold text-sm hover:bg-gold-hover transition-colors shadow text-center"
+                className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-coral text-navy-950 font-bold text-sm hover:bg-coral-hover transition-colors shadow text-center"
               >
                 Khám Phá 3 Sản Phẩm Chủ Lực
               </a>
@@ -188,7 +188,7 @@ export default function HeroSection() {
                 href="https://zalo.me/0901325178"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-navy-900 text-ink-light border border-navy-700 font-semibold text-sm hover:bg-navy-800 hover:text-white transition-colors text-center"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-white/[0.04] text-ink-light border border-white/10 font-semibold text-sm hover:bg-white/10 hover:text-white transition-colors text-center"
               >
                 Zalo Đặt Hàng: 090 132 5178
               </a>
@@ -197,7 +197,7 @@ export default function HeroSection() {
             {/* Clean Editorial Corporate Metrics */}
             <motion.div
               variants={textItemVariants}
-              className="pt-6 border-t border-navy-800 grid grid-cols-3 gap-4 text-center lg:text-left"
+              className="pt-6 border-t border-white/[0.08] grid grid-cols-3 gap-4 text-center lg:text-left"
             >
               <div>
                 <div className="text-2xl sm:text-3xl font-black text-white font-display">
@@ -214,7 +214,7 @@ export default function HeroSection() {
               </div>
 
               <div>
-                <div className="text-2xl sm:text-3xl font-black text-teal font-display">
+                <div className="text-2xl sm:text-3xl font-black text-coral font-display">
                   99.4%
                 </div>
                 <p className="text-xs text-ink-light/70 mt-1">Khách hàng hài lòng</p>
