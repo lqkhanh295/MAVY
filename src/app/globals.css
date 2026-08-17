@@ -1,0 +1,127 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #00153d;
+  --color-secondary: #073372;
+  --color-accent: #F2A900;
+  --color-accent-orange: #D9480F;
+  --color-text-light: #FFFFFF;
+  --color-text-muted: #E8EEF9;
+  --color-bg-light: #FAFAFA;
+}
+
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #00153d;
+  color: #FFFFFF;
+  font-family: var(--font-inter), 'Inter', sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-be-vietnam-pro), 'Be Vietnam Pro', sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #00153d;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #073372;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #F2A900;
+}
+
+/* Subtle Aura Glow (Non-gradient, pure soft ambient light) */
+.gold-glow-subtle {
+  box-shadow: 0 0 35px rgba(242, 169, 0, 0.2);
+}
+
+.navy-card-shadow {
+  box-shadow: 0 12px 32px -4px rgba(0, 10, 30, 0.5);
+}
+
+/* Clean Solid Button Styles */
+.btn-gold {
+  background-color: #F2A900;
+  color: #00153d;
+  font-weight: 700;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.btn-gold:hover {
+  background-color: #d99700;
+  transform: translateY(-2px);
+}
+
+.btn-gold:active {
+  transform: translateY(0);
+}
+
+.btn-orange {
+  background-color: #D9480F;
+  color: #FFFFFF;
+  font-weight: 700;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.btn-orange:hover {
+  background-color: #bf3e0b;
+  transform: translateY(-2px);
+}
+
+.btn-outline-gold {
+  border: 2px solid #F2A900;
+  color: #F2A900;
+  font-weight: 600;
+  background-color: transparent;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.btn-outline-gold:hover {
+  background-color: #F2A900;
+  color: #00153d;
+  transform: translateY(-2px);
+}
+
+.btn-navy-secondary {
+  background-color: #073372;
+  color: #FFFFFF;
+  border: 1px solid #164082;
+  font-weight: 600;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.btn-navy-secondary:hover {
+  background-color: #0d4696;
+  border-color: #2b5fa8;
+}
+
+/* Respect user accessibility settings */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
