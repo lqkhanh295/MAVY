@@ -63,6 +63,21 @@ export default function RecipeShowcase({ initialIngredientQuery = "" }: RecipeSh
     { id: "combo", name: "Lẩu & Hấp Thủy Nhiệt" },
   ];
 
+  const getCategoryLabel = (category: string) => {
+    switch (category?.toLowerCase()) {
+      case "cua":
+        return "Cua Cà Mau";
+      case "tom":
+        return "Tôm Sú Biển";
+      case "muc":
+        return "Mực Một Nắng";
+      case "combo":
+        return "Lẩu & Combo";
+      default:
+        return "Món Ngon";
+    }
+  };
+
   const filteredRecipes =
     activeCategory === "all"
       ? FEATURED_RECIPES
@@ -363,7 +378,7 @@ export default function RecipeShowcase({ initialIngredientQuery = "" }: RecipeSh
                 >
                   <div className="flex items-center justify-between text-xs">
                     <span className="px-2.5 py-0.5 rounded bg-navy-950 text-gold font-semibold border border-navy-800">
-                      {recipe.category.toUpperCase()}
+                      {getCategoryLabel(recipe.category)}
                     </span>
                     <div className="flex items-center gap-2 text-ink-light/70">
                       <span className="flex items-center gap-1">
