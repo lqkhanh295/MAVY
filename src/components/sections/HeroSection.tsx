@@ -9,21 +9,21 @@ export default function HeroSection() {
   const [triggerLightSweep, setTriggerLightSweep] = useState(false);
 
   useEffect(() => {
-    // Phase 3: Trigger light sweep right after product reveals
+    // Phase 3: Trigger Golden Light Sweep at ~1100ms when product reaches its final anchor position
     const timer = setTimeout(() => {
       setTriggerLightSweep(true);
-    }, 750);
+    }, 1100);
     return () => clearTimeout(timer);
   }, []);
 
-  // Phase 4: Staggered Text & CTA container
+  // Phase 4: Staggered Text & CTA container (Reveals gracefully AFTER product has captured 100% attention)
   const textContainerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
         staggerChildren: 0.12,
-        delayChildren: 0.7, // Appears smoothly after product visual anchors the screen
+        delayChildren: 1.35, // Starts at 1.35s right as light sweep completes
       },
     },
   };
@@ -40,13 +40,14 @@ export default function HeroSection() {
     },
   };
 
-  // Phase 2: Product Visual Rising & Unblurring (Smooth, non-bouncing)
+  // Phase 2: Product Visual Emergence (400ms - 1200ms)
+  // Deep Ocean Rise + Unblur + Scale, strictly non-bouncing luxury deceleration
   const productVisualVariants: Variants = {
     hidden: {
       opacity: 0,
-      scale: 0.95,
-      y: 28,
-      filter: "blur(8px)",
+      scale: 0.88,
+      y: 80,
+      filter: "blur(14px)",
     },
     visible: {
       opacity: 1,
@@ -54,23 +55,24 @@ export default function HeroSection() {
       y: 0,
       filter: "blur(0px)",
       transition: {
-        duration: 0.75,
-        ease: [0.22, 1, 0.36, 1],
-        delay: 0.2,
+        duration: 0.85,
+        ease: [0.16, 1, 0.3, 1], // Deceleration curve: crisp, smooth, no bounce
+        delay: 0.35, // Starts after ocean atmosphere is established
       },
     },
   };
 
   return (
-    <section className="relative min-h-[88vh] flex flex-col justify-center pt-32 pb-20 md:pt-36 md:pb-24 bg-navy-950 border-b border-navy-800 overflow-hidden">
-      {/* Phase 1: Underwater Caustic Ambient Light Background */}
+    <section className="relative min-h-[90vh] flex flex-col justify-center pt-32 pb-20 md:pt-36 md:pb-24 bg-navy-950 border-b border-navy-800 overflow-hidden">
+      {/* Phase 1: Deep Ocean Ambient Light & Caustics Drift */}
       <div className="absolute inset-0 caustic-ambient pointer-events-none" />
+      <div className="ocean-beam pointer-events-none" />
       <div className="absolute inset-0 bg-gradient-to-b from-navy-950/60 via-transparent to-navy-950 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-12 items-center">
           
-          {/* Left Column: Headline & Value Proposition (Phase 4 Sequenced Fade-Up) */}
+          {/* Left Column: Headline & Value Proposition (Phase 4 Sequenced Reveal) */}
           <motion.div
             variants={textContainerVariants}
             initial="hidden"
@@ -144,7 +146,7 @@ export default function HeroSection() {
             </motion.div>
           </motion.div>
 
-          {/* Right Column: Hero Visual (Phase 2 Rise & Unblur + Phase 3 Gold Light Sweep) */}
+          {/* Right Column: Hero Cinematic Product Reveal (Phase 2 Emergence + Phase 3 Golden Light Sweep) */}
           <div className="lg:col-span-5 relative flex flex-col items-center">
             <motion.div
               variants={productVisualVariants}
@@ -158,18 +160,18 @@ export default function HeroSection() {
                 alt="Bộ ba hải sản thượng hạng MAVY: Cua Cà Mau, Tôm Sú Biển, Mực Một Nắng"
                 fill
                 sizes="(max-width: 1024px) 100vw, 550px"
-                className="object-contain filter drop-shadow-[0_16px_32px_rgba(0,0,0,0.6)]"
+                className="object-contain filter drop-shadow-[0_20px_40px_rgba(0,0,0,0.7)]"
                 priority
                 unoptimized
               />
 
-              {/* Phase 3: Single Focused Gold Light Sweep Beam */}
+              {/* Phase 3: Single Focused Golden Light Sweep Beam */}
               {triggerLightSweep && (
                 <div className="light-sweep-beam animate-light-sweep" />
               )}
             </motion.div>
 
-            {/* Minimal Editorial Caption */}
+            {/* Minimal Editorial Caption (Phase 4 Reveal) */}
             <motion.div
               variants={textItemVariants}
               initial="hidden"
