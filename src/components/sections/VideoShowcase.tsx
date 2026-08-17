@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import {
   IoPlay,
   IoPause,
@@ -12,8 +12,38 @@ import {
 
 export default function VideoShowcase() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
+
+  // Auto-pause video when scrolled out of view
+  useEffect(() => {
+    const target = containerRef.current || videoRef.current;
+    if (!target) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          // If the video section leaves the viewport (less than 25% visible)
+          if (!entry.isIntersecting || entry.intersectionRatio < 0.25) {
+            if (videoRef.current && !videoRef.current.paused) {
+              videoRef.current.pause();
+              setIsPlaying(false);
+            }
+          }
+        });
+      },
+      {
+        threshold: [0, 0.25, 0.5, 0.75, 1],
+      }
+    );
+
+    observer.observe(target);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   const togglePlay = () => {
     if (videoRef.current) {
@@ -63,7 +93,10 @@ export default function VideoShowcase() {
         </div>
 
         {/* Clean Video Player Card */}
-        <div className="rounded-2xl overflow-hidden bg-navy-950 border-2 border-navy-800 shadow-xl">
+        <div
+          ref={containerRef}
+          className="rounded-2xl overflow-hidden bg-navy-950 border-2 border-navy-800 shadow-xl"
+        >
           {/* Main Video Element */}
           <div className="relative aspect-video w-full bg-black flex items-center justify-center">
             <video
