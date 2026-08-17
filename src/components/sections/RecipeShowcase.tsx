@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { FEATURED_RECIPES } from "@/data/recipes";
 import { Recipe } from "@/types";
 import { IoTimeOutline, IoSend, IoSyncOutline, IoChevronDownOutline, IoChevronUpOutline, IoRestaurantOutline } from "react-icons/io5";
@@ -13,6 +14,9 @@ export default function RecipeShowcase({ initialIngredientQuery = "" }: RecipeSh
   const [activeCategory, setActiveCategory] = useState<string>("all");
   const [expandedRecipeId, setExpandedRecipeId] = useState<string | null>(null);
   
+  // Cooking Process Stepper State
+  const [currentStepStage, setCurrentStepStage] = useState<number>(0);
+
   // Embedded AI Chef State
   const [chefInput, setChefInput] = useState(initialIngredientQuery);
   const [isChefThinking, setIsChefThinking] = useState(false);
@@ -23,6 +27,33 @@ export default function RecipeShowcase({ initialIngredientQuery = "" }: RecipeSh
   } | null>(null);
 
   const chefResultRef = useRef<HTMLDivElement>(null);
+
+  const cookingStages = [
+    {
+      num: "01",
+      title: "SELECT (Nguyên Liệu)",
+      subtitle: "Tuyển chọn hải sản tươi & gia vị nền",
+      desc: "Ưu tiên hải sản tự nhiên chuẩn IQF hoặc tươi sống thở oxy. Chuẩn bị bơ lạt, tỏi phi và chanh tươi để tôn vị ngọt.",
+    },
+    {
+      num: "02",
+      title: "PREPARE (Sơ Chế)",
+      subtitle: "Khử mùi tanh & giữ cấu trúc màng tế bào",
+      desc: "Rửa hải sản với chút rượu trắng và gừng đập dập. QUAN TRỌNG: Luôn dùng khăn sạch thấm khô ráo bề mặt trước khi nấu.",
+    },
+    {
+      num: "03",
+      title: "COOK (Xử Lý Nhiệt)",
+      subtitle: "Kiểm soát lửa lớn & thời gian vàng",
+      desc: "Áp chảo hoặc xào ở nhiệt độ cao trong thời gian ngắn (tôm 3-4 phút, mực 2-3 phút, cua hấp 12-15 phút) để thịt không bị dai khô.",
+    },
+    {
+      num: "04",
+      title: "SERVE (Bày Đĩa)",
+      subtitle: "Cân bằng vị giác & thưởng thức nóng",
+      desc: "Rưới sốt bơ tỏi sánh mịn, rắc tiêu xay và vắt nhẹ chanh vàng. Dùng ngay khi còn nóng hổi cùng gia đình.",
+    },
+  ];
 
   const categories = [
     { id: "all", name: "Tất Cả Món Ngon" },
@@ -112,12 +143,68 @@ export default function RecipeShowcase({ initialIngredientQuery = "" }: RecipeSh
             Nấu Chuẩn Vị Tại Nhà <span className="text-[#F2A900]">Cùng Bếp Trưởng MAVY</span>
           </h2>
           <p className="text-base text-[#E8EEF9]/80 leading-relaxed">
-            Không cần băn khoăn cách nêm nếm. Nhập nguyên liệu bạn đang có hoặc khám phá bộ sưu tập công thức chuẩn vị được hướng dẫn chi tiết từng bước.
+            Khám phá 4 giai đoạn chế biến hải sản chuẩn khoa học và công cụ tạo công thức độc quyền từ nguyên liệu sẵn có.
           </p>
         </div>
 
-        {/* Embedded AI Master Chef Tool (In-Context Studio) */}
-        <div className="mb-20 bg-[#051e48] border-2 border-[#164082] rounded-2xl p-6 sm:p-8 shadow-xl">
+        {/* 4-Stage Cooking Process Stepper (Purposeful Process Motion) */}
+        <div className="mb-16 bg-[#051e48] border border-[#073372] rounded-3xl p-6 sm:p-8 shadow-xl">
+          <div className="text-center max-w-2xl mx-auto mb-8 space-y-2">
+            <h3 className="text-lg sm:text-xl font-bold text-white uppercase tracking-wider">
+              4 Giai Đoạn Nấu Hải Sản Đạt Chuẩn Mọng Nước
+            </h3>
+            <p className="text-xs text-[#E8EEF9]/70">Nhấp chọn từng giai đoạn để xem bí quyết xử lý nhiệt và khử tanh từ Bếp Trưởng.</p>
+          </div>
+
+          {/* Stepper Tabs Bar */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+            {cookingStages.map((stage, idx) => {
+              const isActive = currentStepStage === idx;
+
+              return (
+                <button
+                  key={idx}
+                  onClick={() => setCurrentStepStage(idx)}
+                  className={`p-4 rounded-2xl border text-left transition-all duration-200 ${
+                    isActive
+                      ? "bg-[#00153d] border-[#F2A900] shadow-lg ring-1 ring-[#F2A900]"
+                      : "bg-[#00153d]/50 border-[#073372] hover:border-[#164082]"
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className={`text-xs font-mono font-bold ${isActive ? "text-[#F2A900]" : "text-[#E8EEF9]/60"}`}>
+                      {stage.num}
+                    </span>
+                    {isActive && <span className="w-2 h-2 rounded-full bg-[#F2A900] animate-pulse" />}
+                  </div>
+                  <div className="font-bold text-xs sm:text-sm text-white mt-1">{stage.title}</div>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Stepper Content Card with Slide Transition */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentStepStage}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className="bg-[#00153d] p-6 rounded-2xl border border-[#164082] space-y-2"
+            >
+              <div className="text-xs font-bold text-[#F2A900] uppercase tracking-wider">
+                {cookingStages[currentStepStage].subtitle}
+              </div>
+              <p className="text-sm text-[#E8EEF9] leading-relaxed">
+                {cookingStages[currentStepStage].desc}
+              </p>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Embedded AI Master Chef Tool */}
+        <div className="mb-20 bg-[#051e48] border-2 border-[#164082] rounded-3xl p-6 sm:p-8 shadow-2xl">
           <div className="max-w-3xl mx-auto text-center space-y-3 mb-6">
             <h3 className="text-xl sm:text-2xl font-bold text-white">
               Tạo Công Thức Độc Quyền Theo Nguyên Liệu Tủ Lạnh Của Bạn
