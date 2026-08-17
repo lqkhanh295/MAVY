@@ -59,7 +59,7 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="#recipes" className="hover:text-gold transition-colors">
+                <a href="#culinary-studio" className="hover:text-gold transition-colors">
                   Công Thức Món Ngon
                 </a>
               </li>

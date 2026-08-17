@@ -160,8 +160,8 @@ export default function HeroSection() {
           className="mt-14 pt-4 flex flex-col items-center justify-center"
         >
           <a
-            href="#brand-film"
-            className="group flex flex-col items-center gap-1.5 text-xs text-ink-light/50 hover:text-gold transition-colors"
+            href="#video-showcase"
+            className="group flex flex-col items-center gap-1.5 text-xs text-ink-light/50 hover:text-gold transition-colors cursor-pointer"
           >
             <span className="font-medium tracking-wide">Khám phá quy trình thực địa</span>
             <IoArrowDownOutline className="w-4 h-4 text-gold animate-bounce" />
