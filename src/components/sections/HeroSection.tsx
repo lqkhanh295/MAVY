@@ -8,83 +8,111 @@ import { IoArrowDownOutline, IoShieldCheckmarkOutline, IoSparklesOutline } from 
 export default function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Unified Scroll Progress across the 240vh sticky canvas
+  // Unified Scroll Controller across the 300vh sticky canvas
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
   });
 
-  // Smooth Spring physics with tuned damping
+  // Smooth Spring physics to eliminate mousewheel stutter
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 85,
-    damping: 22,
-    mass: 0.25,
+    stiffness: 90,
+    damping: 24,
+    mass: 0.2,
     restDelta: 0.001,
   });
 
-  // 1. Initial Hero Left Column Brand & Value Proposition (0% -> 20% scroll)
-  const heroOpacity = useTransform(smoothProgress, [0, 0.18], [1, 0]);
-  const heroY = useTransform(smoothProgress, [0, 0.18], [0, -40]);
+  // -------------------------------------------------------------
+  // Phase 01: Hero Introduction (0 -> 0.15)
+  // -------------------------------------------------------------
+  const heroOpacity = useTransform(smoothProgress, [0, 0.15], [1, 0]);
+  const heroY = useTransform(smoothProgress, [0, 0.15], [0, -35]);
 
-  // 2. Product Camera Journey ("Dive Into Ocean" & Center-to-Left Shift)
-  // Scale: 1.0 (Hero) -> 1.45 (Monumental Dive) -> 1.35 (Dossier Spotlight) -> 0.85 (Transition into Grid)
+  // -------------------------------------------------------------
+  // Phase 02, 06, 08: Product Scaling & Positioning
+  // -------------------------------------------------------------
+  // Scale: 0.92 (Intro) -> 1.0 -> 1.18 (Phase 2 Zoom) -> 1.18 (Phase 3-5 Ice) -> 1.05 (Phase 6 Reveal) -> 1.05 (Dossier) -> 0.75 (Phase 8 Next)
   const productScale = useTransform(
     smoothProgress,
-    [0, 0.18, 0.45, 0.68, 0.88, 1.0],
-    [1.0, 1.22, 1.45, 1.35, 1.05, 0.8]
+    [0, 0.15, 0.35, 0.65, 0.75, 0.85, 0.95, 1.0],
+    [0.92, 1.0, 1.18, 1.18, 1.18, 1.05, 1.05, 0.75]
   );
 
-  // Desktop X Translation: Starts in right column (32%), moves to center (0%), then left (-28%)
+  // Desktop Translation: Right column at 0, Centered (0%) for Ice & Reveal, Left (-28%) for Dossier
   const productX = useTransform(
     smoothProgress,
-    [0, 0.22, 0.45, 0.68, 0.88, 1.0],
-    ["30%", "0%", "0%", "-28%", "-28%", "-28%"]
+    [0, 0.15, 0.82, 0.92, 1.0],
+    ["28%", "0%", "0%", "-28%", "-28%"]
   );
 
   const productY = useTransform(
     smoothProgress,
-    [0, 0.22, 0.45, 0.68, 0.88, 1.0],
-    ["0px", "-15px", "-30px", "0px", "0px", "50px"]
+    [0, 0.15, 0.35, 0.85, 0.95, 1.0],
+    ["30px", "0px", "-10px", "0px", "0px", "40px"]
   );
 
-  // 3D Perspective Rotation during the Hero Moment
-  const productRotateY = useTransform(
+  // -------------------------------------------------------------
+  // Phase 03: Ice Formation (0.35 -> 0.50)
+  // -------------------------------------------------------------
+  const iceOpacity = useTransform(
     smoothProgress,
-    [0.35, 0.5, 0.65],
-    [0, -8, 0]
+    [0.35, 0.48, 0.66, 0.75],
+    [0, 1, 1, 0]
   );
+  const iceScale = useTransform(smoothProgress, [0.35, 0.48], [0.85, 1.0]);
 
-  const productRotateX = useTransform(
+  // -------------------------------------------------------------
+  // Phase 04: Ice Crack Vector Growth (0.50 -> 0.65)
+  // -------------------------------------------------------------
+  const crackPathLength = useTransform(smoothProgress, [0.50, 0.65], [0, 1]);
+  const crackOpacity = useTransform(
     smoothProgress,
-    [0.35, 0.5, 0.65],
-    [0, 4, 0]
-  );
-
-  // 3. Golden Light Sweep Beam across Product (Sweeps across at 42% -> 65%)
-  const lightSweepX = useTransform(smoothProgress, [0.42, 0.65], ["-180%", "280%"]);
-  const lightSweepOpacity = useTransform(
-    smoothProgress,
-    [0.42, 0.46, 0.58, 0.65],
+    [0.48, 0.52, 0.65, 0.72],
     [0, 1, 1, 0]
   );
 
-  // 4. Product Spotlight Dossier Reveal on the Right (58% -> 92%)
+  // -------------------------------------------------------------
+  // Phase 05: Ice Separation Motion (0.65 -> 0.75)
+  // "ICE moves, PRODUCT stays"
+  // -------------------------------------------------------------
+  const iceLeftX = useTransform(smoothProgress, [0.65, 0.75], ["0%", "-35vw"]);
+  const iceLeftRotate = useTransform(smoothProgress, [0.65, 0.75], [0, -8]);
+
+  const iceRightX = useTransform(smoothProgress, [0.65, 0.75], ["0%", "35vw"]);
+  const iceRightRotate = useTransform(smoothProgress, [0.65, 0.75], [0, 8]);
+
+  const iceTopY = useTransform(smoothProgress, [0.65, 0.75], ["0%", "-25vh"]);
+  const iceBottomY = useTransform(smoothProgress, [0.65, 0.75], ["0%", "25vh"]);
+
+  // -------------------------------------------------------------
+  // Phase 06: Product Reveal Golden Light Sweep (0.75 -> 0.85)
+  // -------------------------------------------------------------
+  const lightSweepX = useTransform(smoothProgress, [0.75, 0.85], ["-180%", "280%"]);
+  const lightSweepOpacity = useTransform(
+    smoothProgress,
+    [0.75, 0.78, 0.83, 0.85],
+    [0, 0.95, 0.95, 0]
+  );
+
+  // -------------------------------------------------------------
+  // Phase 07: Product Information Dossier (0.85 -> 0.95)
+  // -------------------------------------------------------------
   const dossierOpacity = useTransform(
     smoothProgress,
-    [0.56, 0.68, 0.88, 0.98],
+    [0.85, 0.92, 0.97, 1.0],
     [0, 1, 1, 0]
   );
   const dossierX = useTransform(
     smoothProgress,
-    [0.56, 0.68, 0.88, 0.98],
+    [0.85, 0.92, 0.97, 1.0],
     ["50px", "0px", "0px", "0px"]
   );
 
-  // 5. Vertical Depth Indicator dynamic filling (0% -> 100%)
+  // Vertical Depth Indicator
   const depthBarHeight = useTransform(smoothProgress, [0, 1], ["0%", "100%"]);
 
   return (
-    <div ref={containerRef} className="relative h-[240vh] bg-navy-950">
+    <div ref={containerRef} className="relative min-h-[300vh] bg-navy-950">
       {/* Sticky Fullscreen Camera Viewport */}
       <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
         
@@ -112,7 +140,7 @@ export default function HeroSection() {
         {/* Main Stage Container */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full h-full flex items-center">
           
-          {/* Phase 1: Initial Hero Left Column Brand & Value Proposition (Clear, High-Impact) */}
+          {/* Phase 01: Initial Hero Brand Typography (0 -> 0.15) */}
           <motion.div
             style={{
               opacity: heroOpacity,
@@ -176,29 +204,27 @@ export default function HeroSection() {
               </a>
             </div>
 
-            {/* Scroll Indicator Prompt */}
+            {/* Scroll Prompt */}
             <div className="pt-4 flex items-center justify-center lg:justify-start gap-2.5 text-xs text-ink-light/60">
-              <span className="font-bold tracking-widest uppercase text-[11px] text-gold">Cuộn để lặn vào trải nghiệm</span>
+              <span className="font-bold tracking-widest uppercase text-[11px] text-gold">Cuộn để giải phóng độ tươi nguyên bản</span>
               <IoArrowDownOutline className="w-4 h-4 text-gold animate-bounce" />
             </div>
           </motion.div>
 
-          {/* Phase 2, 3, 5: The Monumental Hero Product Visual (Massive 750px Scale + 3D Tilt + Halo) */}
+          {/* Centerpiece Hero Product Visual + Ice Layer Container */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
             <motion.div
               style={{
                 scale: productScale,
                 x: productX,
                 y: productY,
-                rotateY: productRotateY,
-                rotateX: productRotateX,
               }}
               className="relative w-[520px] sm:w-[620px] lg:w-[740px] xl:w-[840px] aspect-[4/3] flex items-center justify-center z-10"
             >
               {/* Radiant Ambient Spotlight Halo behind Seafood */}
               <div className="product-halo-ambient" />
 
-              {/* Product Photo with Dramatic Drop Shadow */}
+              {/* Product Photo */}
               <div className="relative w-full h-full flex items-center justify-center overflow-hidden rounded-3xl z-10">
                 <Image
                   src="/assets/image/hero-3-products.png"
@@ -210,7 +236,7 @@ export default function HeroSection() {
                   unoptimized
                 />
 
-                {/* Scroll-Driven Golden Light Sweep Shimmer Beam */}
+                {/* Phase 06: Golden Light Sweep Shimmer Beam */}
                 <motion.div
                   style={{
                     x: lightSweepX,
@@ -218,11 +244,77 @@ export default function HeroSection() {
                   }}
                   className="light-sweep-beam"
                 />
+
+                {/* ------------------------------------------------------------- */}
+                {/* Phases 03, 04, 05: The Physical 4-Quadrant Frosted Ice Layers */}
+                {/* ------------------------------------------------------------- */}
+                <motion.div
+                  style={{
+                    opacity: iceOpacity,
+                    scale: iceScale,
+                  }}
+                  className="absolute inset-0 z-20 pointer-events-none"
+                >
+                  {/* Ice Top Quadrant */}
+                  <motion.div
+                    style={{ y: iceTopY }}
+                    className="absolute top-0 left-0 right-0 h-1/2 frost-ice-panel rounded-t-3xl [clip-path:polygon(0_0,100%_0,100%_80%,65%_100%,40%_85%,0_95%)]"
+                  />
+
+                  {/* Ice Bottom Quadrant */}
+                  <motion.div
+                    style={{ y: iceBottomY }}
+                    className="absolute bottom-0 left-0 right-0 h-1/2 frost-ice-panel rounded-b-3xl [clip-path:polygon(0_20%,40%_0%,65%_15%,100%_5%,100%_100%,0_100%)]"
+                  />
+
+                  {/* Ice Left Quadrant */}
+                  <motion.div
+                    style={{ x: iceLeftX, rotate: iceLeftRotate }}
+                    className="absolute top-0 bottom-0 left-0 w-1/2 frost-ice-panel rounded-l-3xl [clip-path:polygon(0_0,85%_0,100%_45%,80%_75%,95%_100%,0_100%)]"
+                  />
+
+                  {/* Ice Right Quadrant */}
+                  <motion.div
+                    style={{ x: iceRightX, rotate: iceRightRotate }}
+                    className="absolute top-0 bottom-0 right-0 w-1/2 frost-ice-panel rounded-r-3xl [clip-path:polygon(15%_0,100%_0,100%_100%,5%_100%,20%_75%,0%_45%)]"
+                  />
+
+                  {/* Phase 04: Crystalline Ice Crack Vector Network */}
+                  <motion.svg
+                    style={{ opacity: crackOpacity }}
+                    viewBox="0 0 800 600"
+                    fill="none"
+                    className="absolute inset-0 w-full h-full z-30"
+                  >
+                    {/* Primary Nexus Fracture Lines */}
+                    <motion.path
+                      d="M 400 300 L 260 140 L 180 90 M 400 300 L 540 160 L 680 80 M 400 300 L 410 80 M 400 300 L 320 450 L 220 540 M 400 300 L 520 440 L 640 520 M 400 300 L 620 310 L 760 290 M 400 300 L 160 310 L 40 330"
+                      stroke="#FFFFFF"
+                      strokeWidth="3.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      style={{ pathLength: crackPathLength }}
+                      className="filter drop-shadow-[0_0_8px_rgba(220,235,250,0.9)]"
+                    />
+
+                    {/* Secondary Branching Micro-Fractures */}
+                    <motion.path
+                      d="M 260 140 L 310 110 M 540 160 L 590 190 M 320 450 L 370 490 M 520 440 L 490 490 M 160 310 L 190 260 M 620 310 L 650 360"
+                      stroke="#DCEBFA"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      style={{ pathLength: crackPathLength }}
+                      className="filter drop-shadow-[0_0_5px_rgba(255,255,255,0.8)]"
+                    />
+                  </motion.svg>
+                </motion.div>
+
               </div>
             </motion.div>
           </div>
 
-          {/* Phase 4: Product Spotlight Dossier (Grand Editorial Showcase on the Right) */}
+          {/* Phase 07: Product Information Dossier (Grand Editorial Showcase on the Right) */}
           <motion.div
             style={{
               opacity: dossierOpacity,
@@ -237,31 +329,31 @@ export default function HeroSection() {
               </div>
               
               <h2 className="text-3xl sm:text-4xl font-black text-white leading-tight">
-                Tuyển Chọn Khắt Khe <br />
-                <span className="text-gold">Từ Lòng Đại Dương</span>
+                Giải Phóng Vị Ngọt <br />
+                <span className="text-gold">Nguyên Bản Từ Băng Lạnh</span>
               </h2>
 
               <p className="text-xs sm:text-sm text-ink-light/85 leading-relaxed font-normal">
-                Bộ ba sản phẩm chủ lực: <strong>Cua Gạch Năm Căn</strong>, <strong>Tôm Sú Biển Phú Quốc</strong> và <strong>Mực Một Nắng Cô Tô</strong> được chọn lọc từng cá thể sống khỏe, nói không với hóa chất và dây trói ngâm nước.
+                Công nghệ cấp đông siêu tốc <strong>IQF -40°C</strong> khoá chặt từng tinh thể nước ngọt trong thịt tôm, cua và mực ngay khi vừa rời bến.
               </p>
             </div>
 
-            {/* Sourcing Specifications Hairline Grid */}
+            {/* Sourcing Specifications Grid */}
             <div className="grid grid-cols-2 gap-4 pt-4 border-t border-navy-800 text-xs text-ink-light">
               <div className="space-y-1.5">
                 <div className="font-extrabold text-gold text-sm flex items-center gap-2">
                   <IoShieldCheckmarkOutline className="w-4 h-4" />
                   <span>IQF -40°C</span>
                 </div>
-                <div className="text-xs text-ink-light/70 leading-snug">Cấp đông siêu tốc trong 12 phút</div>
+                <div className="text-xs text-ink-light/70 leading-snug">Khoá độ tươi trong 12 phút</div>
               </div>
 
               <div className="space-y-1.5">
                 <div className="font-extrabold text-gold text-sm flex items-center gap-2">
-                  <IoShieldCheckmarkOutline className="w-4 h-4" />
+                  <IoShieldCheckmarkOutline className="w-4 h-4 text-gold shrink-0" />
                   <span>Dây Trói &lt; 20g</span>
                 </div>
-                <div className="text-xs text-ink-light/70 leading-snug">Không gian lận trọng lượng</div>
+                <div className="text-xs text-ink-light/70 leading-snug">Trọng lượng thật 100%</div>
               </div>
             </div>
 
