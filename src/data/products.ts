@@ -2,21 +2,21 @@ import { Product } from "@/types";
 
 export const SIGNATURE_PRODUCTS: Product[] = [
   {
-    id: "cua-tuoi",
-    name: "Cua Tươi Cà Mau Thượng Hạng",
+    id: "cua-gach",
+    name: "Cua Gạch",
     category: "Cua Biển",
     tagline: "100% Cua sống tự nhiên – Gạch son béo bùi, thịt chắc ngọt từng thớ",
     description:
-      "Cua tươi Cà Mau MAVY được đánh bắt tự nhiên từ vùng sinh thái rừng ngập mặn Năm Căn. Tuyển chọn từng con chắc khỏe, cam kết dây trói siêu nhẹ không trọng lượng, bao ăn 1 đổi 1.",
+      "Cua gạch MAVY được đánh bắt tự nhiên từ vùng sinh thái rừng ngập mặn Năm Căn. Tuyển chọn từng con chắc khỏe, tràn đầy gạch son béo ngậy, cam kết dây trói siêu nhẹ không trọng lượng, bao ăn 1 đổi 1.",
     price: "690.000 VNĐ",
     unit: "1 kg",
     image: "/assets/image/cua-ca-mau.png",
     badge: "Bán Chạy Nhất",
     origin: "Năm Căn, Cà Mau",
     specifications: [
-      { label: "Quy cách", value: "Cua tươi sống tuyển chọn" },
+      { label: "Quy cách", value: "Cua sống tuyển chọn đầy gạch son" },
       { label: "Dây trói", value: "Dây vải siêu mỏng (< 20g/con)" },
-      { label: "Tỷ lệ thịt", value: "Đảm bảo độ đầy thịt ≥ 95%" },
+      { label: "Tỷ lệ gạch & thịt", value: "Đảm bảo độ đầy gạch và thịt ≥ 95%" },
       { label: "Bảo quản", value: "Dùng tươi trong 24h hoặc ngăn đông" },
     ],
     nutritionFacts: {
@@ -32,14 +32,14 @@ export const SIGNATURE_PRODUCTS: Product[] = [
       "Cua sốt trứng muối hoàng kim béo ngậy",
     ],
     features: [
-      "Bao ăn 1 đổi 1 nếu cua ốp nước",
+      "Bao ăn 1 đổi 1 nếu cua không đầy gạch hoặc ốp nước",
       "Dây trói siêu mỏng, không gian lận trọng lượng",
       "Vận chuyển tươi sống tận nơi trong 2 giờ tại nội thành",
     ],
   },
   {
     id: "tom-su-dong-lanh",
-    name: "Tôm Sú Đông Lạnh VIP",
+    name: "Tôm Sú Đông Lạnh",
     category: "Tôm Sú",
     tagline: "Size đại chuẩn xuất khẩu – Vỏ mỏng bóng bẩy, thịt giòn ngọt săn chắc",
     description:
@@ -75,7 +75,7 @@ export const SIGNATURE_PRODUCTS: Product[] = [
   },
   {
     id: "muc-trung-dong-lanh",
-    name: "Mực Trứng Đông Lạnh Tuyển Chọn",
+    name: "Mực Trứng Đông Lạnh",
     category: "Mực Biển",
     tagline: "Bụng đầy ắp trứng – Thân dày dẻo ngọt, thơm bùi béo ngậy đặc trưng",
     description:

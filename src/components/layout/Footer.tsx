@@ -52,7 +52,7 @@ export default function Footer() {
             <ul className="space-y-2 text-xs">
               <li>
                 <a href="#products" className="hover:text-gold transition-colors">
-                  Cua Tươi Cà Mau
+                  Cua Gạch
                 </a>
               </li>
               <li>

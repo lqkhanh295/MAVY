@@ -2,7 +2,7 @@ export const BRAND_INFO = {
   name: "Công ty cổ phần Mavy Seafood",
   slogan: "Tinh Hoa Hải Sản Biển Sạch Cho Mọi Gian Bếp Việt",
   shortDesc:
-    "Thương hiệu tiên phong phân phối Cua tươi Cà Mau, Tôm sú đông lạnh & Mực trứng đông lạnh chuẩn xuất khẩu, áp dụng công nghệ cấp đông siêu tốc IQF -40°C giữ trọn vị tươi nguyên.",
+    "Thương hiệu tiên phong phân phối Cua gạch, Tôm sú đông lạnh & Mực trứng đông lạnh chuẩn xuất khẩu, áp dụng công nghệ cấp đông siêu tốc IQF -40°C giữ trọn vị tươi nguyên.",
   hotline: "090 132 517",
   email: "mavy.info@gmail.com",
   address: "Đường 379, Phường Tăng Nhơn Phú A, Thành phố Thủ Đức, Tp Hồ Chí Minh",

@@ -250,7 +250,7 @@ export default function HeroSection() {
                   {/* Main Seafood Visual (100% Crisp & High-Res) */}
                   <Image
                     src="/assets/image/hero-3-products.png"
-                    alt="Bộ ba hải sản thượng hạng MAVY: Cua Cà Mau, Tôm Sú Biển, Mực Một Nắng"
+                    alt="Bộ ba hải sản thượng hạng MAVY: Cua Gạch, Tôm Sú Đông Lạnh, Mực Trứng Đông Lạnh"
                     fill
                     sizes="(max-width: 1024px) 100vw, 600px"
                     className="object-contain filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.8)] transition-transform duration-300 group-hover:scale-105"
@@ -266,7 +266,7 @@ export default function HeroSection() {
                   Bộ Ba Signature
                 </div>
                 <div className="text-xs text-ink-light/60 mt-0.5">
-                  Cua Tươi Năm Căn • Tôm Sú Đông Lạnh • Mực Trứng Đông Lạnh
+                  Cua Gạch • Tôm Sú Đông Lạnh • Mực Trứng Đông Lạnh
                 </div>
               </div>
             </motion.div>
