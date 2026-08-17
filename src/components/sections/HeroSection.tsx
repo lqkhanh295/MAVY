@@ -1,11 +1,44 @@
 "use client";
 
+import { useState, useRef, MouseEvent } from "react";
 import Image from "next/image";
-import { motion, type Variants } from "framer-motion";
-import { IoArrowDownOutline, IoShieldCheckmarkOutline } from "react-icons/io5";
+import { motion, useMotionValue, useSpring, useTransform, type Variants } from "framer-motion";
+import { IoArrowDownOutline, IoShieldCheckmarkOutline, IoSparklesOutline } from "react-icons/io5";
 
 export default function HeroSection() {
-  // Staggered text reveal on page load
+  const [isHovered, setIsHovered] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  // 3D Mouse Parallax Tilt Values
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springConfig = { stiffness: 150, damping: 20, mass: 0.1 };
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [12, -12]), springConfig);
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-14, 14]), springConfig);
+  const shineX = useSpring(useTransform(mouseX, [-0.5, 0.5], ["-50%", "150%"]), springConfig);
+  const shineY = useSpring(useTransform(mouseY, [-0.5, 0.5], ["-50%", "150%"]), springConfig);
+
+  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const clientX = e.clientX - rect.left;
+    const clientY = e.clientY - rect.top;
+    
+    // Normalized [-0.5, 0.5]
+    mouseX.set((clientX / width) - 0.5);
+    mouseY.set((clientY / height) - 0.5);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    mouseX.set(0);
+    mouseY.set(0);
+  };
+
+  // Typography Stagger Reveal
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -29,31 +62,16 @@ export default function HeroSection() {
     },
   };
 
-  // Product Visual emergence
-  const productVisualVariants: Variants = {
-    hidden: { opacity: 0, scale: 0.95, y: 20 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      transition: {
-        duration: 0.7,
-        ease: [0.22, 1, 0.36, 1],
-        delay: 0.2,
-      },
-    },
-  };
-
   return (
-    <section className="relative min-h-[90vh] flex flex-col justify-center pt-32 pb-20 md:pt-36 md:pb-24 bg-navy-950 border-b border-navy-800 overflow-hidden">
-      {/* Natural Underwater Caustic Ambient Light Background */}
+    <section className="relative min-h-[92vh] flex flex-col justify-center pt-32 pb-20 md:pt-36 md:pb-24 bg-navy-950 border-b border-navy-800 overflow-hidden">
+      {/* Underwater Caustic Atmosphere with Volumetric Depth */}
       <div className="absolute inset-0 caustic-ambient pointer-events-none" />
-      <div className="absolute inset-0 bg-gradient-to-b from-navy-950/60 via-transparent to-navy-950 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-navy-950/70 via-transparent to-navy-950 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           
-          {/* Left Column: Headline & Value Proposition */}
+          {/* Left Column: Headline & Editorial Value Proposition */}
           <motion.div
             variants={containerVariants}
             initial="hidden"
@@ -62,8 +80,8 @@ export default function HeroSection() {
           >
             {/* Sourcing Tag Badge */}
             <motion.div variants={itemVariants} className="inline-block">
-              <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-navy-900 border border-navy-800 text-xs font-semibold text-gold shadow-sm">
-                <span className="w-2 h-2 rounded-full bg-gold" />
+              <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-navy-900 border border-gold/40 text-xs font-semibold text-gold shadow-md backdrop-blur-sm">
+                <span className="w-2 h-2 rounded-full bg-gold animate-pulse" />
                 <span>Nguồn Hải Sản Tự Nhiên Tuyển Chọn Trực Tiếp Tại Bến</span>
               </div>
             </motion.div>
@@ -74,10 +92,12 @@ export default function HeroSection() {
               className="text-4xl sm:text-5xl md:text-6xl font-black text-white leading-[1.12] tracking-tight"
             >
               Hải Sản Tự Nhiên <br />
-              <span className="text-gold">Chuẩn Vị Ngọt Nguyên Bản</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold via-[#FFD066] to-gold">
+                Chuẩn Vị Ngọt Nguyên Bản
+              </span>
             </motion.h1>
 
-            {/* Short Supporting Value Proposition */}
+            {/* Value Proposition Description */}
             <motion.p
               variants={itemVariants}
               className="text-base sm:text-lg text-ink-light/80 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal"
@@ -85,10 +105,10 @@ export default function HeroSection() {
               MAVY tuyển chọn trực tiếp tại bến Năm Căn và Phú Quốc, cấp đông siêu tốc <strong>IQF -40°C</strong> trong 12 phút. Cam kết dây trói &lt;20g, 0% hóa chất, bảo hành 1 đổi 1 và giao nhanh trong 2 giờ.
             </motion.p>
 
-            {/* Editorial Feature Specs */}
+            {/* Sourcing Trust Strip */}
             <motion.div
               variants={itemVariants}
-              className="pt-1 pb-1 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-2 text-xs text-ink-light/70"
+              className="pt-1 pb-1 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-2 text-xs text-ink-light/75"
             >
               <div className="flex items-center gap-1.5">
                 <IoShieldCheckmarkOutline className="w-4 h-4 text-gold shrink-0" />
@@ -102,11 +122,11 @@ export default function HeroSection() {
               <span className="hidden sm:inline text-navy-800 select-none">|</span>
               <div className="flex items-center gap-1.5">
                 <IoShieldCheckmarkOutline className="w-4 h-4 text-gold shrink-0" />
-                <span>Dây trói siêu mỏng &lt; 20g</span>
+                <span>Dây trói &lt; 20g</span>
               </div>
             </motion.div>
 
-            {/* Call to Action Buttons */}
+            {/* Action Buttons */}
             <motion.div
               variants={itemVariants}
               className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 pt-2"
@@ -127,40 +147,89 @@ export default function HeroSection() {
             </motion.div>
           </motion.div>
 
-          {/* Right Column: Clean, Crisp Product Showcase */}
-          <div className="lg:col-span-5 relative flex flex-col items-center">
+          {/* Right Column: Interactive 3D Luxury Seafood Stage */}
+          <div className="lg:col-span-5 relative flex flex-col items-center select-none">
+            
+            {/* 3D Perspective Wrapper */}
             <motion.div
-              variants={productVisualVariants}
-              initial="hidden"
-              animate="visible"
-              className="relative w-full aspect-[4/3] flex items-center justify-center overflow-hidden rounded-2xl"
+              ref={cardRef}
+              onMouseMove={handleMouseMove}
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={handleMouseLeave}
+              initial={{ opacity: 0, scale: 0.92, y: 30 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              style={{
+                perspective: 1200,
+                rotateX,
+                rotateY,
+                transformStyle: "preserve-3d",
+              }}
+              className="relative w-full max-w-lg aspect-[4/3] flex items-center justify-center cursor-pointer group"
             >
-              {/* Product Photo */}
-              <Image
-                src="/assets/image/hero-3-products.png"
-                alt="Bộ ba hải sản thượng hạng MAVY: Cua Cà Mau, Tôm Sú Biển, Mực Một Nắng"
-                fill
-                sizes="(max-width: 1024px) 100vw, 550px"
-                className="object-contain filter drop-shadow-[0_20px_40px_rgba(0,0,0,0.7)]"
-                priority
-                unoptimized
+              {/* Dynamic Backlight Halo (Breathing Ocean Aura) */}
+              <motion.div
+                animate={{
+                  scale: [1, 1.08, 1],
+                  opacity: isHovered ? [0.6, 0.8, 0.6] : [0.35, 0.5, 0.35],
+                }}
+                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute inset-0 rounded-full bg-gradient-to-tr from-navy-700/60 via-gold/20 to-cyan-500/15 filter blur-3xl pointer-events-none"
               />
+
+              {/* Hydrodynamic Ocean Buoyancy Float Motion */}
+              <motion.div
+                animate={{
+                  y: isHovered ? 0 : [-6, 6, -6],
+                  rotate: isHovered ? 0 : [-0.6, 0.6, -0.6],
+                }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                className="relative w-full h-full flex items-center justify-center"
+                style={{ transformStyle: "preserve-3d" }}
+              >
+                {/* Main Seafood Visual */}
+                <Image
+                  src="/assets/image/hero-3-products.png"
+                  alt="Bộ ba hải sản thượng hạng MAVY: Cua Cà Mau, Tôm Sú Biển, Mực Một Nắng"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 600px"
+                  className="object-contain filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.8)] transition-transform duration-300 group-hover:scale-105"
+                  priority
+                  unoptimized
+                />
+
+                {/* Specular Interactive Light Beam on Hover */}
+                <motion.div
+                  style={{
+                    left: shineX,
+                    top: shineY,
+                    opacity: isHovered ? 0.35 : 0,
+                  }}
+                  className="absolute w-40 h-40 rounded-full bg-gradient-to-r from-gold via-white to-transparent filter blur-2xl pointer-events-none transition-opacity duration-300"
+                />
+
+                {/* Single Elegant Light Sweep Shimmer on Card */}
+                <div className="light-sweep-beam group-hover-light-sweep" />
+              </motion.div>
             </motion.div>
 
-            {/* Minimal Editorial Caption */}
-            <div className="mt-4 text-center">
-              <div className="text-xs font-semibold text-gold tracking-wider uppercase">
-                Bộ Ba Signature
-              </div>
-              <div className="text-xs text-ink-light/60 mt-0.5">
-                Cua Gạch Năm Căn • Tôm Sú Phú Quốc • Mực Một Nắng
-              </div>
-            </div>
+            {/* Editorial Caption Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.5 }}
+              className="mt-4 flex items-center gap-2 px-3.5 py-1 rounded-full bg-navy-900/60 border border-navy-800"
+            >
+              <IoSparklesOutline className="w-3.5 h-3.5 text-gold" />
+              <span className="text-[11px] font-semibold text-gold tracking-wider uppercase">
+                BỘ BA SIGNATURE: CUA NĂM CĂN • TÔM SÚ • MỰC MỘT NẮNG
+              </span>
+            </motion.div>
           </div>
 
         </div>
 
-        {/* Natural Scroll Indicator */}
+        {/* Natural Smooth Scroll Indicator */}
         <div className="mt-16 pt-4 flex flex-col items-center justify-center">
           <a
             href="#video-showcase"
