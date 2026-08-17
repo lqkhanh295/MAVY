@@ -17,24 +17,24 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://mavyseafood.vn"),
-  title: "MAVY SEAFOOD | Tinh Hoa Hải Sản Biển Sạch - Cua Cà Mau, Tôm Sú, Mực Một Nắng",
+  title: "MAVY SEAFOOD | Hải Sản Tự Nhiên - Cua Gạch, Tôm Sú Đông Lạnh, Mực Trứng Đông Lạnh",
   description:
-    "Thương hiệu hải sản cao cấp MAVY chuyên cung cấp Cua Cà Mau chuẩn gạch son, Tôm Sú biển thiên nhiên size VIP và Mực một nắng Cô Tô. Tích hợp Bếp Trưởng AI Master Chef gợi ý công thức món ngon từ nguyên liệu sẵn có.",
+    "Công ty cổ phần Mavy Seafood chuyên cung cấp Cua gạch Cà Mau, Tôm sú đông lạnh và Mực trứng đông lạnh chuẩn xuất khẩu. Cấp đông siêu tốc IQF -40°C, bao ăn 1 đổi 1 và giao nhanh trong 2 giờ.",
   keywords: [
-    "hải sản cao cấp",
-    "cua biển cà mau",
-    "tôm sú biển",
-    "mực một nắng",
-    "hải sản mavy",
-    "món ngon hải sản",
-    "bếp trưởng ai gợi ý món ăn",
-    "cấp đông iqf hải sản",
+    "hải sản tự nhiên",
+    "cua gạch",
+    "tôm sú đông lạnh",
+    "mực trứng đông lạnh",
+    "mavy seafood",
+    "công ty cổ phần mavy seafood",
+    "cấp đông iqf",
+    "bếp trưởng ai",
   ],
-  authors: [{ name: "MAVY Seafood" }],
+  authors: [{ name: "Công ty cổ phần Mavy Seafood" }],
   openGraph: {
-    title: "MAVY SEAFOOD | Tinh Hoa Hải Sản Biển Sạch Cho Gian Bếp Việt",
+    title: "MAVY SEAFOOD | Hải Sản Tự Nhiên Chuẩn Vị Ngọt Nguyên Bản",
     description:
-      "Khám phá bộ 3 hải sản Thượng Hạng Cua Cà Mau - Tôm Sú - Mực Một Nắng và trải nghiệm Bếp Trưởng AI MAVY gợi ý món ngon tức thì!",
+      "Khám phá bộ 3 hải sản tự nhiên Cua Gạch - Tôm Sú Đông Lạnh - Mực Trứng Đông Lạnh và trải nghiệm Bếp Trưởng AI MAVY gợi ý món ngon tức thì!",
     url: "https://mavyseafood.vn",
     siteName: "MAVY Seafood",
     images: [

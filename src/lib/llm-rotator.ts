@@ -260,8 +260,8 @@ function generateFallbackRecipe(ingredients: string): StructuredChefResponse {
     id = "tom-su-nuong-bo-toi";
   } else if (lower.includes("muc")) {
     category = "muc";
-    title = "Mực Một Nắng Xào Ớt Chuông Dứa Chua Ngọt";
-    id = "muc-mot-nang-xao";
+    title = "Mực Trứng Chiên Nước Mắm Tỏi Ớt";
+    id = "muc-trung-chien-mam";
   }
 
   return {

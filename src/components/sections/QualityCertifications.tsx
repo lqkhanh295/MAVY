@@ -38,7 +38,7 @@ export default function QualityCertifications() {
       name: "Chị Minh Thư (Quận 7, TP.HCM)",
       role: "Khách hàng mua định kỳ cho gia đình",
       comment:
-        "Mực một nắng và tôm sú giao tới đóng gói bao bì hút chân không chỉn chu, tươi rói. Cua thì siêu nhiều gạch, dây trói nhẹ tênh đúng như cam kết. Rất an tâm cho bữa ăn gia đình!",
+        "Mực trứng đông lạnh và tôm sú đông lạnh giao tới đóng gói bao bì hút chân không chỉn chu, tươi rói. Cua gạch thì siêu nhiều gạch, dây trói nhẹ tênh đúng như cam kết. Rất an tâm cho bữa ăn gia đình!",
     },
     {
       name: "Anh Tuấn Vũ (Cầu Giấy, Hà Nội)",
