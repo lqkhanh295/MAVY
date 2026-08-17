@@ -9,14 +9,15 @@ export default function Footer() {
           {/* Brand Info Col */}
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="relative w-11 h-11 rounded-full overflow-hidden border-2 border-gold bg-navy-800 p-1 flex items-center justify-center">
+              <div className="relative w-9 h-9 flex items-center justify-center">
                 <Image
                   src="/assets/image/logo.png"
                   alt="Logo MAVY Seafood"
-                  width={40}
-                  height={40}
+                  width={36}
+                  height={36}
                   className="object-contain"
                   priority
+                  unoptimized
                 />
               </div>
               <div>

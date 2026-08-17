@@ -37,14 +37,14 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-4">
           {/* Logo & Brand Name */}
-          <Link href="/" className="flex items-center gap-3 shrink-0 group">
-            <div className="relative w-10 h-10 rounded-lg bg-navy-800 border border-navy-600 p-1.5 flex items-center justify-center">
+          <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
+            <div className="relative w-8 h-8 flex items-center justify-center">
               <Image
                 src="/assets/image/logo.png"
                 alt="Logo MAVY Seafood"
                 width={32}
                 height={32}
-                className="object-contain"
+                className="object-contain filter drop-shadow-sm group-hover:scale-105 transition-transform"
                 priority
                 unoptimized
               />
