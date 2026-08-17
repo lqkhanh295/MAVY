@@ -143,7 +143,7 @@ export default function HeroSection() {
               className="text-4xl sm:text-5xl md:text-6xl font-black text-white tracking-tight pb-2"
             >
               <span className="block leading-tight">Hải Sản Tự Nhiên</span>
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-coral via-coral-soft to-coral leading-tight mt-2 sm:mt-3.5">
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-teal via-teal-soft to-teal leading-tight mt-2 sm:mt-3.5">
                 Chuẩn Vị Ngọt Nguyên Bản
               </span>
             </motion.h1>

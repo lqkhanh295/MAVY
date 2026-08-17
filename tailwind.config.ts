@@ -16,29 +16,39 @@ const config: Config = {
           700: "#0c4494", // Hover state
           600: "#164082", // Border chính
         },
+        teal: {
+          DEFAULT: "#0FA3B1", // Vibrant Teal chính (CTA, accents, prices, badges)
+          hover: "#0c8894",
+          soft: "#8ED9D1",    // Soft Teal (ingredient tags, glow, particles, gradients)
+          light: "#B8EBE5",
+        },
         coral: {
-          DEFAULT: "#FF6B5A", // Coral chính (CTA, accents, prices, badges)
-          hover: "#e55746",
-          soft: "#FFB4A8",    // Soft Coral (subtle badges, highlights, gradients)
-          light: "#FFD2CA",
+          DEFAULT: "#0FA3B1",
+          hover: "#0c8894",
+          soft: "#8ED9D1",
         },
         gold: {
-          DEFAULT: "#FF6B5A", // Mapped to Coral for seamless compatibility
-          hover: "#e55746",
-          soft: "#FFB4A8",
+          DEFAULT: "#0FA3B1", // Mapped to Teal for seamless backward compatibility
+          hover: "#0c8894",
+          soft: "#8ED9D1",
+        },
+        cream: {
+          DEFAULT: "#FFF7E8", // Warm Cream typography (food / editorial feel)
+          soft: "#FFFBF2",
+          dark: "#F4E8D0",
         },
         ink: {
-          light: "#FFF5EF", // Warm white text
+          light: "#FFF7E8", // Warm cream text
           white: "#FFFFFF",
-          warm: "#FFF5EF",
+          warm: "#FFF7E8",
         },
         warm: {
-          white: "#FFF5EF",
-          cream: "#FDEFE7",
+          white: "#FFF7E8",
+          cream: "#FFF7E8",
         },
         sale: {
-          DEFAULT: "#FF6B5A",
-          hover: "#e55746",
+          DEFAULT: "#0FA3B1",
+          hover: "#0c8894",
         },
       },
       fontFamily: {
@@ -46,10 +56,12 @@ const config: Config = {
         display: ["var(--font-be-vietnam-pro)", "'Be Vietnam Pro'", "sans-serif"],
       },
       boxShadow: {
-        "coral-subtle": "0 4px 20px -2px rgba(255, 107, 90, 0.25)",
-        "coral-glow": "0 0 35px rgba(255, 107, 90, 0.35)",
-        "gold-subtle": "0 4px 20px -2px rgba(255, 107, 90, 0.25)",
-        "gold-glow": "0 0 35px rgba(255, 107, 90, 0.35)",
+        "teal-subtle": "0 4px 20px -2px rgba(15, 163, 177, 0.25)",
+        "teal-glow": "0 0 35px rgba(15, 163, 177, 0.35)",
+        "coral-subtle": "0 4px 20px -2px rgba(15, 163, 177, 0.25)",
+        "coral-glow": "0 0 35px rgba(15, 163, 177, 0.35)",
+        "gold-subtle": "0 4px 20px -2px rgba(15, 163, 177, 0.25)",
+        "gold-glow": "0 0 35px rgba(15, 163, 177, 0.35)",
         "card-navy": "0 10px 30px -5px rgba(0, 10, 30, 0.6)",
       },
     },
