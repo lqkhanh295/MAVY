@@ -150,8 +150,7 @@ export default function RecipeShowcase({ onOpenChat }: RecipeShowcaseProps) {
         <div className="mb-20 bg-gradient-to-r from-navy-900 via-navy-850 to-navy-900 border border-gold/30 rounded-3xl p-6 sm:p-10 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="space-y-2 text-center md:text-left">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-navy-950 border border-gold/40 text-xs font-bold text-gold">
-              <span className="w-2 h-2 rounded-full bg-emerald-400" />
-              <span>BẾP TRƯỞNG MAVY AI ĐANG TRỰC TUYẾN</span>
+              <span>BẾP TRƯỞNG MAVY AI</span>
             </div>
             <h3 className="text-xl sm:text-2xl font-black text-white">
               Bạn Đang Có Nguyên Liệu Riêng Trong Tủ Lạnh?

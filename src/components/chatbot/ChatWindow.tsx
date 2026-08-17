@@ -184,9 +184,8 @@ export default function ChatWindow({ isOpen, onClose, initialQuery }: ChatWindow
             {/* Header */}
             <div className="p-4 bg-navy-900 border-b border-navy-800 flex items-center justify-between shadow-md select-none">
               <div className="flex items-center gap-3">
-                <div className="relative w-9 h-9 rounded-full bg-navy-950 border border-gold flex items-center justify-center text-gold shadow-sm">
+                <div className="w-9 h-9 rounded-full bg-navy-950 border border-gold/70 flex items-center justify-center text-gold shadow-sm">
                   <IoRestaurant className="w-4 h-4" />
-                  <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 border-2 border-navy-900 rounded-full" />
                 </div>
                 <div>
                   <h3 className="text-sm font-bold text-white leading-tight">
