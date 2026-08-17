@@ -162,27 +162,27 @@ export default function ChatWindow({ isOpen, onClose, initialQuery }: ChatWindow
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-y-0 right-0 sm:inset-auto sm:bottom-6 sm:right-6 w-full sm:w-[480px] sm:h-[650px] bg-[#00153d] border border-[#073372] sm:rounded-2xl shadow-2xl flex flex-col z-50 overflow-hidden animate-slideUp">
+    <div className="fixed inset-y-0 right-0 sm:inset-auto sm:bottom-6 sm:right-6 w-full sm:w-[480px] sm:h-[650px] bg-navy-950 border border-navy-800 sm:rounded-2xl shadow-2xl flex flex-col z-50 overflow-hidden animate-slideUp">
       {/* Chat Window Header */}
-      <div className="p-4 bg-[#073372] border-b border-[#164082] flex items-center justify-between shadow-md">
+      <div className="p-4 bg-navy-800 border-b border-navy-600 flex items-center justify-between shadow-md">
         <div className="flex items-center gap-3">
-          <div className="relative w-9 h-9 rounded-full bg-[#00153d] border border-[#F2A900] flex items-center justify-center text-[#F2A900]">
+          <div className="relative w-9 h-9 rounded-full bg-navy-950 border border-gold flex items-center justify-center text-gold">
             <IoRestaurant className="w-5 h-5" />
-            <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 border-2 border-[#073372] rounded-full" />
+            <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 border-2 border-navy-800 rounded-full" />
           </div>
           <div>
             <h3 className="text-sm font-bold text-white flex items-center gap-1.5">
               <span>Bếp Trưởng MAVY AI</span>
-              <IoSparkles className="w-3.5 h-3.5 text-[#F2A900]" />
+              <IoSparkles className="w-3.5 h-3.5 text-gold" />
             </h3>
-            <p className="text-[10px] text-[#E8EEF9]/70">Gợi ý món ngon từ mọi nguyên liệu</p>
+            <p className="text-[10px] text-ink-light/70">Gợi ý món ngon từ mọi nguyên liệu</p>
           </div>
         </div>
 
         <div className="flex items-center gap-1">
           <button
             onClick={handleResetChat}
-            className="p-2 rounded-lg text-[#E8EEF9] hover:text-white hover:bg-[#0c4494] transition-colors"
+            className="p-2 rounded-lg text-ink-light hover:text-white hover:bg-navy-700 transition-colors"
             title="Làm mới cuộc trò chuyện"
             aria-label="Reset chat"
           >
@@ -190,7 +190,7 @@ export default function ChatWindow({ isOpen, onClose, initialQuery }: ChatWindow
           </button>
           <button
             onClick={onClose}
-            className="p-2 rounded-lg text-[#E8EEF9] hover:text-white hover:bg-[#0c4494] transition-colors"
+            className="p-2 rounded-lg text-ink-light hover:text-white hover:bg-navy-700 transition-colors"
             title="Đóng cửa sổ"
             aria-label="Close chat"
           >
@@ -200,7 +200,7 @@ export default function ChatWindow({ isOpen, onClose, initialQuery }: ChatWindow
       </div>
 
       {/* Chat Messages Body */}
-      <div className="flex-1 p-4 overflow-y-auto bg-[#00153d]/90 space-y-2 scroll-smooth">
+      <div className="flex-1 p-4 overflow-y-auto bg-navy-950/90 space-y-2 scroll-smooth">
         {messages.map((msg, idx) => (
           <div
             key={msg.id}
@@ -216,8 +216,8 @@ export default function ChatWindow({ isOpen, onClose, initialQuery }: ChatWindow
 
         {/* Loading Chef Indicator */}
         {isLoading && (
-          <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-[#073372] border border-[#164082] text-xs text-[#E8EEF9] w-fit">
-            <IoSyncOutline className="w-4 h-4 text-[#F2A900] animate-spin" />
+          <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-navy-800 border border-navy-600 text-xs text-ink-light w-fit">
+            <IoSyncOutline className="w-4 h-4 text-gold animate-spin" />
             <span>Bếp Trưởng MAVY đang thiết kế công thức món ngon...</span>
           </div>
         )}
@@ -226,12 +226,12 @@ export default function ChatWindow({ isOpen, onClose, initialQuery }: ChatWindow
       </div>
 
       {/* Quick Suggestion Chips */}
-      <div className="px-3 py-2 bg-[#051e48] border-t border-[#073372] overflow-x-auto flex gap-1.5 scrollbar-none">
+      <div className="px-3 py-2 bg-navy-900 border-t border-navy-800 overflow-x-auto flex gap-1.5 scrollbar-none">
         {quickChips.map((chip, idx) => (
           <button
             key={idx}
             onClick={() => handleSendMessage(chip)}
-            className="shrink-0 text-[11px] px-2.5 py-1 rounded-md bg-[#00153d] border border-[#073372] text-[#E8EEF9] hover:border-[#F2A900] hover:text-[#F2A900] transition-colors"
+            className="shrink-0 text-[11px] px-2.5 py-1 rounded-md bg-navy-950 border border-navy-800 text-ink-light hover:border-gold hover:text-gold transition-colors"
           >
             {chip}
           </button>
@@ -244,20 +244,20 @@ export default function ChatWindow({ isOpen, onClose, initialQuery }: ChatWindow
           e.preventDefault();
           handleSendMessage();
         }}
-        className="p-3 bg-[#051e48] border-t border-[#073372] flex items-center gap-2"
+        className="p-3 bg-navy-900 border-t border-navy-800 flex items-center gap-2"
       >
         <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Nhập nguyên liệu bạn có (VD: tôm, tỏi, me...)"
-          className="flex-1 px-3.5 py-2.5 rounded-xl bg-[#00153d] border border-[#073372] text-xs sm:text-sm text-white placeholder-[#E8EEF9]/40 focus:outline-none focus:border-[#F2A900] transition-colors"
+          className="flex-1 px-3.5 py-2.5 rounded-xl bg-navy-950 border border-navy-800 text-xs sm:text-sm text-white placeholder-ink-light/40 focus:outline-none focus:border-gold transition-colors"
           disabled={isLoading}
         />
         <button
           type="submit"
           disabled={isLoading || !input.trim()}
-          className="p-2.5 rounded-xl bg-[#F2A900] text-[#00153d] hover:bg-[#d99700] disabled:opacity-50 disabled:cursor-not-allowed transition-colors shrink-0 shadow-md font-bold"
+          className="p-2.5 rounded-xl bg-gold text-navy-950 hover:bg-gold-hover disabled:opacity-50 disabled:cursor-not-allowed transition-colors shrink-0 shadow-md font-bold"
           aria-label="Gửi tin nhắn"
         >
           <IoSend className="w-4 h-4" />

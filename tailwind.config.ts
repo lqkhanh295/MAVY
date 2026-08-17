@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 
+// RULE: Do not write arbitrary hex values (e.g. [#00153d]) in components. Always use tokens (navy-*, gold, ink-*, sale).
 const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -9,21 +10,24 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        brand: {
-          primary: "#00153d",
-          secondary: "#073372",
-          surface: "#051e48",
-          card: "#0b2656",
-          cardHover: "#0e316e",
-          border: "#164082",
-          accent: "#F2A900",
-          accentHover: "#d99700",
-          accentOrange: "#D9480F",
-          accentOrangeHover: "#bf3e0b",
-          lightBg: "#FAFAFA",
-          textLight: "#FFFFFF",
-          textMuted: "#E8EEF9",
-          textDim: "#9db3d4",
+        navy: {
+          950: "#00153d", // Nền chính
+          900: "#051e48", // Nền thẻ, surface
+          800: "#073372", // Nền thứ cấp, border phụ
+          700: "#0c4494", // Hover state
+          600: "#164082", // Border chính
+        },
+        gold: {
+          DEFAULT: "#F2A900",
+          hover: "#d99700",
+        },
+        ink: {
+          light: "#E8EEF9", // Text sáng trên nền tối
+          white: "#FFFFFF",
+        },
+        sale: {
+          DEFAULT: "#D9480F",
+          hover: "#bf3e0b",
         },
       },
       fontFamily: {

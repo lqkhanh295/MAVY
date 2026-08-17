@@ -64,7 +64,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/assets/image/logo.png" />
       </head>
-      <body className="min-h-screen bg-[#00153d] text-white antialiased selection:bg-[#F2A900] selection:text-[#00153d]">
+      <body className="min-h-screen bg-navy-950 text-white antialiased selection:bg-gold selection:text-navy-950">
         {children}
       </body>
     </html>

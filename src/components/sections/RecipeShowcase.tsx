@@ -130,30 +130,30 @@ export default function RecipeShowcase({ initialIngredientQuery = "" }: RecipeSh
   };
 
   return (
-    <section id="culinary-studio" className="py-24 bg-[#00153d] relative">
+    <section id="culinary-studio" className="py-24 bg-navy-950 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#051e48] border border-[#073372] text-xs font-semibold text-[#F2A900]">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-navy-900 border border-navy-800 text-xs font-semibold text-gold">
             <IoRestaurantOutline className="w-3.5 h-3.5" />
             <span>XƯỞNG ẨM THỰC & BẾP TRƯỞNG AI</span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white">
-            Nấu Chuẩn Vị Tại Nhà <span className="text-[#F2A900]">Cùng Bếp Trưởng MAVY</span>
+            Nấu Chuẩn Vị Tại Nhà <span className="text-gold">Cùng Bếp Trưởng MAVY</span>
           </h2>
-          <p className="text-base text-[#E8EEF9]/80 leading-relaxed">
+          <p className="text-base text-ink-light/80 leading-relaxed">
             Khám phá 4 giai đoạn chế biến hải sản chuẩn khoa học và công cụ tạo công thức độc quyền từ nguyên liệu sẵn có.
           </p>
         </div>
 
         {/* 4-Stage Cooking Process Stepper (Purposeful Process Motion) */}
-        <div className="mb-16 bg-[#051e48] border border-[#073372] rounded-3xl p-6 sm:p-8 shadow-xl">
+        <div className="mb-16 bg-navy-900 border border-navy-800 rounded-3xl p-6 sm:p-8 shadow-xl">
           <div className="text-center max-w-2xl mx-auto mb-8 space-y-2">
             <h3 className="text-lg sm:text-xl font-bold text-white uppercase tracking-wider">
               4 Giai Đoạn Nấu Hải Sản Đạt Chuẩn Mọng Nước
             </h3>
-            <p className="text-xs text-[#E8EEF9]/70">Nhấp chọn từng giai đoạn để xem bí quyết xử lý nhiệt và khử tanh từ Bếp Trưởng.</p>
+            <p className="text-xs text-ink-light/70">Nhấp chọn từng giai đoạn để xem bí quyết xử lý nhiệt và khử tanh từ Bếp Trưởng.</p>
           </div>
 
           {/* Stepper Tabs Bar */}
@@ -167,15 +167,15 @@ export default function RecipeShowcase({ initialIngredientQuery = "" }: RecipeSh
                   onClick={() => setCurrentStepStage(idx)}
                   className={`p-4 rounded-2xl border text-left transition-all duration-200 ${
                     isActive
-                      ? "bg-[#00153d] border-[#F2A900] shadow-lg ring-1 ring-[#F2A900]"
-                      : "bg-[#00153d]/50 border-[#073372] hover:border-[#164082]"
+                      ? "bg-navy-950 border-gold shadow-lg ring-1 ring-gold"
+                      : "bg-navy-950/50 border-navy-800 hover:border-navy-600"
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className={`text-xs font-mono font-bold ${isActive ? "text-[#F2A900]" : "text-[#E8EEF9]/60"}`}>
+                    <span className={`text-xs font-mono font-bold ${isActive ? "text-gold" : "text-ink-light/60"}`}>
                       {stage.num}
                     </span>
-                    {isActive && <span className="w-2 h-2 rounded-full bg-[#F2A900] animate-pulse" />}
+                    {isActive && <span className="w-2 h-2 rounded-full bg-gold animate-pulse" />}
                   </div>
                   <div className="font-bold text-xs sm:text-sm text-white mt-1">{stage.title}</div>
                 </button>
@@ -191,12 +191,12 @@ export default function RecipeShowcase({ initialIngredientQuery = "" }: RecipeSh
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.25, ease: "easeOut" }}
-              className="bg-[#00153d] p-6 rounded-2xl border border-[#164082] space-y-2"
+              className="bg-navy-950 p-6 rounded-2xl border border-navy-600 space-y-2"
             >
-              <div className="text-xs font-bold text-[#F2A900] uppercase tracking-wider">
+              <div className="text-xs font-bold text-gold uppercase tracking-wider">
                 {cookingStages[currentStepStage].subtitle}
               </div>
-              <p className="text-sm text-[#E8EEF9] leading-relaxed">
+              <p className="text-sm text-ink-light leading-relaxed">
                 {cookingStages[currentStepStage].desc}
               </p>
             </motion.div>
@@ -204,12 +204,12 @@ export default function RecipeShowcase({ initialIngredientQuery = "" }: RecipeSh
         </div>
 
         {/* Embedded AI Master Chef Tool */}
-        <div className="mb-20 bg-[#051e48] border-2 border-[#164082] rounded-3xl p-6 sm:p-8 shadow-2xl">
+        <div className="mb-20 bg-navy-900 border-2 border-navy-600 rounded-3xl p-6 sm:p-8 shadow-2xl">
           <div className="max-w-3xl mx-auto text-center space-y-3 mb-6">
             <h3 className="text-xl sm:text-2xl font-bold text-white">
               Tạo Công Thức Độc Quyền Theo Nguyên Liệu Tủ Lạnh Của Bạn
             </h3>
-            <p className="text-xs sm:text-sm text-[#E8EEF9]/80">
+            <p className="text-xs sm:text-sm text-ink-light/80">
               Nhập các loại hải sản, rau củ hoặc gia vị bạn đang có, Bếp Trưởng AI sẽ tính toán tỷ lệ nêm nếm và hướng dẫn kỹ thuật nấu giữ trọn vị ngọt.
             </p>
           </div>
@@ -227,13 +227,13 @@ export default function RecipeShowcase({ initialIngredientQuery = "" }: RecipeSh
               value={chefInput}
               onChange={(e) => setChefInput(e.target.value)}
               placeholder="VD: Tôm sú, bò kobe, bơ tỏi, chanh vàng..."
-              className="flex-1 px-4 py-3 rounded-xl bg-[#00153d] border border-[#073372] text-sm text-white placeholder-[#E8EEF9]/40 focus:outline-none focus:border-[#F2A900] transition-colors"
+              className="flex-1 px-4 py-3 rounded-xl bg-navy-950 border border-navy-800 text-sm text-white placeholder-ink-light/40 focus:outline-none focus:border-gold transition-colors"
               disabled={isChefThinking}
             />
             <button
               type="submit"
               disabled={isChefThinking || !chefInput.trim()}
-              className="px-6 py-3 rounded-xl bg-[#F2A900] text-[#00153d] font-bold text-sm hover:bg-[#d99700] disabled:opacity-50 transition-colors shrink-0 flex items-center justify-center gap-2 shadow"
+              className="px-6 py-3 rounded-xl bg-gold text-navy-950 font-bold text-sm hover:bg-gold-hover disabled:opacity-50 transition-colors shrink-0 flex items-center justify-center gap-2 shadow"
             >
               {isChefThinking ? (
                 <>
@@ -250,14 +250,14 @@ export default function RecipeShowcase({ initialIngredientQuery = "" }: RecipeSh
           </form>
 
           {/* Quick Idea Chips */}
-          <div className="max-w-2xl mx-auto mt-3 flex flex-wrap items-center justify-center gap-2 text-xs text-[#E8EEF9]/70">
+          <div className="max-w-2xl mx-auto mt-3 flex flex-wrap items-center justify-center gap-2 text-xs text-ink-light/70">
             <span>Gợi ý nhanh:</span>
             {["Cua Cà Mau + sốt me", "Tôm sú + bơ tỏi + chanh", "Mực một nắng + ớt chuông + dứa"].map((chip, idx) => (
               <button
                 key={idx}
                 type="button"
                 onClick={() => handleAskChef(chip)}
-                className="px-2.5 py-1 rounded bg-[#00153d] border border-[#073372] text-[11px] text-[#E8EEF9] hover:text-[#F2A900] hover:border-[#F2A900] transition-colors"
+                className="px-2.5 py-1 rounded bg-navy-950 border border-navy-800 text-[11px] text-ink-light hover:text-gold hover:border-gold transition-colors"
               >
                 {chip}
               </button>
@@ -266,35 +266,35 @@ export default function RecipeShowcase({ initialIngredientQuery = "" }: RecipeSh
 
           {/* AI Chef Result Display (Embedded Directly) */}
           {customRecipeResult && (
-            <div ref={chefResultRef} className="mt-8 pt-8 border-t border-[#073372] space-y-6 animate-fadeIn">
-              <div className="bg-[#00153d] p-4 rounded-xl border border-[#073372] text-sm text-[#E8EEF9]">
-                <p className="font-semibold text-[#F2A900]">{customRecipeResult.message}</p>
+            <div ref={chefResultRef} className="mt-8 pt-8 border-t border-navy-800 space-y-6 animate-fadeIn">
+              <div className="bg-navy-950 p-4 rounded-xl border border-navy-800 text-sm text-ink-light">
+                <p className="font-semibold text-gold">{customRecipeResult.message}</p>
               </div>
 
               {customRecipeResult.recipes.map((recipe, idx) => (
-                <div key={idx} className="bg-[#00153d] rounded-2xl border border-[#164082] p-6 space-y-6">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#073372] pb-4">
+                <div key={idx} className="bg-navy-950 rounded-2xl border border-navy-600 p-6 space-y-6">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-navy-800 pb-4">
                     <div>
                       <h4 className="text-2xl font-bold text-white">{recipe.title}</h4>
-                      <p className="text-xs text-[#F2A900] mt-1 font-medium">{recipe.flavorProfile}</p>
+                      <p className="text-xs text-gold mt-1 font-medium">{recipe.flavorProfile}</p>
                     </div>
-                    <div className="flex items-center gap-3 text-xs text-[#E8EEF9]/80 font-medium">
+                    <div className="flex items-center gap-3 text-xs text-ink-light/80 font-medium">
                       <span>Chuẩn bị: {recipe.prepTime}</span>
                       <span>•</span>
                       <span>Nấu: {recipe.cookTime}</span>
                       <span>•</span>
-                      <span className="text-[#F2A900]">{recipe.difficulty}</span>
+                      <span className="text-gold">{recipe.difficulty}</span>
                     </div>
                   </div>
 
                   {/* Ingredients List */}
                   <div className="space-y-2">
-                    <div className="text-xs font-bold uppercase tracking-wider text-[#E8EEF9]">Nguyên Liệu Cần Chuẩn Bị</div>
+                    <div className="text-xs font-bold uppercase tracking-wider text-ink-light">Nguyên Liệu Cần Chuẩn Bị</div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
                       {recipe.ingredients.map((ing, i) => (
-                        <div key={i} className="flex justify-between items-center bg-[#051e48] px-3 py-2 rounded-lg border border-[#073372] text-xs">
-                          <span className={ing.isMain ? "font-bold text-[#F2A900]" : "text-[#E8EEF9]"}>{ing.name}</span>
-                          <span className="text-[#E8EEF9]/70 ml-2 font-mono">{ing.amount}</span>
+                        <div key={i} className="flex justify-between items-center bg-navy-900 px-3 py-2 rounded-lg border border-navy-800 text-xs">
+                          <span className={ing.isMain ? "font-bold text-gold" : "text-ink-light"}>{ing.name}</span>
+                          <span className="text-ink-light/70 ml-2 font-mono">{ing.amount}</span>
                         </div>
                       ))}
                     </div>
@@ -302,11 +302,11 @@ export default function RecipeShowcase({ initialIngredientQuery = "" }: RecipeSh
 
                   {/* Step by Step Cooking Guide */}
                   <div className="space-y-2.5">
-                    <div className="text-xs font-bold uppercase tracking-wider text-[#E8EEF9]">Các Bước Chế Biến Chi Tiết</div>
+                    <div className="text-xs font-bold uppercase tracking-wider text-ink-light">Các Bước Chế Biến Chi Tiết</div>
                     <div className="space-y-2">
                       {recipe.steps.map((step, sIdx) => (
-                        <div key={sIdx} className="flex items-start gap-3 bg-[#051e48]/60 p-3 rounded-lg border border-[#073372] text-xs sm:text-sm text-[#E8EEF9]">
-                          <span className="w-5 h-5 rounded-full bg-[#F2A900] text-[#00153d] font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">
+                        <div key={sIdx} className="flex items-start gap-3 bg-navy-900/60 p-3 rounded-lg border border-navy-800 text-xs sm:text-sm text-ink-light">
+                          <span className="w-5 h-5 rounded-full bg-gold text-navy-950 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">
                             {sIdx + 1}
                           </span>
                           <span className="leading-relaxed">{step}</span>
@@ -316,8 +316,8 @@ export default function RecipeShowcase({ initialIngredientQuery = "" }: RecipeSh
                   </div>
 
                   {/* Chef Tip */}
-                  <div className="p-4 rounded-xl bg-[#073372]/40 border border-[#164082] text-xs text-[#E8EEF9] space-y-1">
-                    <div className="font-bold text-[#F2A900] uppercase tracking-wide">Bí Quyết Bếp Trưởng MAVY</div>
+                  <div className="p-4 rounded-xl bg-navy-800/40 border border-navy-600 text-xs text-ink-light space-y-1">
+                    <div className="font-bold text-gold uppercase tracking-wide">Bí Quyết Bếp Trưởng MAVY</div>
                     <p className="leading-relaxed">{recipe.chefTips}</p>
                   </div>
                 </div>
@@ -328,10 +328,10 @@ export default function RecipeShowcase({ initialIngredientQuery = "" }: RecipeSh
 
         {/* Featured Recipe Library Header & Filters */}
         <div className="space-y-6">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-[#073372] pb-4">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-navy-800 pb-4">
             <div>
               <h3 className="text-2xl font-bold text-white">Thư Viện Công Thức Mẫu</h3>
-              <p className="text-xs text-[#E8EEF9]/70 mt-1">Các món ngon kinh điển dễ nấu thành công ngay tại nhà.</p>
+              <p className="text-xs text-ink-light/70 mt-1">Các món ngon kinh điển dễ nấu thành công ngay tại nhà.</p>
             </div>
 
             <div className="flex flex-wrap gap-1.5">
@@ -341,8 +341,8 @@ export default function RecipeShowcase({ initialIngredientQuery = "" }: RecipeSh
                   onClick={() => setActiveCategory(cat.id)}
                   className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                     activeCategory === cat.id
-                      ? "bg-[#F2A900] text-[#00153d] font-bold"
-                      : "bg-[#051e48] text-[#E8EEF9] border border-[#073372] hover:bg-[#073372]"
+                      ? "bg-gold text-navy-950 font-bold"
+                      : "bg-navy-900 text-ink-light border border-navy-800 hover:bg-navy-800"
                   }`}
                 >
                   {cat.name}
@@ -359,15 +359,15 @@ export default function RecipeShowcase({ initialIngredientQuery = "" }: RecipeSh
               return (
                 <div
                   key={recipe.id}
-                  className="bg-[#051e48] rounded-2xl border border-[#073372] p-6 space-y-4 shadow-md transition-colors hover:border-[#164082]"
+                  className="bg-navy-900 rounded-2xl border border-navy-800 p-6 space-y-4 shadow-md transition-colors hover:border-navy-600"
                 >
                   <div className="flex items-center justify-between text-xs">
-                    <span className="px-2.5 py-0.5 rounded bg-[#00153d] text-[#F2A900] font-semibold border border-[#073372]">
+                    <span className="px-2.5 py-0.5 rounded bg-navy-950 text-gold font-semibold border border-navy-800">
                       {recipe.category.toUpperCase()}
                     </span>
-                    <div className="flex items-center gap-2 text-[#E8EEF9]/70">
+                    <div className="flex items-center gap-2 text-ink-light/70">
                       <span className="flex items-center gap-1">
-                        <IoTimeOutline className="w-3.5 h-3.5 text-[#F2A900]" />
+                        <IoTimeOutline className="w-3.5 h-3.5 text-gold" />
                         {recipe.cookTime}
                       </span>
                       <span>• {recipe.difficulty}</span>
@@ -376,21 +376,21 @@ export default function RecipeShowcase({ initialIngredientQuery = "" }: RecipeSh
 
                   <div>
                     <h4 className="text-lg font-bold text-white">{recipe.title}</h4>
-                    <p className="text-xs text-[#F2A900] mt-0.5 font-medium">{recipe.flavorProfile}</p>
-                    <p className="text-xs text-[#E8EEF9]/80 mt-2 leading-relaxed">{recipe.description}</p>
+                    <p className="text-xs text-gold mt-0.5 font-medium">{recipe.flavorProfile}</p>
+                    <p className="text-xs text-ink-light/80 mt-2 leading-relaxed">{recipe.description}</p>
                   </div>
 
                   {/* Inline Expanded Steps */}
                   {isExpanded && (
-                    <div className="pt-4 border-t border-[#073372] space-y-4 text-xs animate-fadeIn">
+                    <div className="pt-4 border-t border-navy-800 space-y-4 text-xs animate-fadeIn">
                       {/* Ingredients */}
                       <div className="space-y-1.5">
-                        <div className="font-bold text-[#E8EEF9] uppercase tracking-wide">Nguyên liệu:</div>
+                        <div className="font-bold text-ink-light uppercase tracking-wide">Nguyên liệu:</div>
                         <div className="grid grid-cols-2 gap-1.5">
                           {recipe.ingredients.map((ing, i) => (
-                            <div key={i} className="flex justify-between bg-[#00153d] p-1.5 rounded border border-[#073372]">
-                              <span className={ing.isMain ? "text-[#F2A900] font-semibold" : "text-[#E8EEF9]"}>{ing.name}</span>
-                              <span className="text-[#E8EEF9]/70">{ing.amount}</span>
+                            <div key={i} className="flex justify-between bg-navy-950 p-1.5 rounded border border-navy-800">
+                              <span className={ing.isMain ? "text-gold font-semibold" : "text-ink-light"}>{ing.name}</span>
+                              <span className="text-ink-light/70">{ing.amount}</span>
                             </div>
                           ))}
                         </div>
@@ -398,10 +398,10 @@ export default function RecipeShowcase({ initialIngredientQuery = "" }: RecipeSh
 
                       {/* Steps */}
                       <div className="space-y-2">
-                        <div className="font-bold text-[#E8EEF9] uppercase tracking-wide">Các bước thực hiện:</div>
+                        <div className="font-bold text-ink-light uppercase tracking-wide">Các bước thực hiện:</div>
                         {recipe.steps.map((step, idx) => (
-                          <div key={idx} className="flex items-start gap-2 bg-[#00153d]/60 p-2 rounded text-[#E8EEF9]">
-                            <span className="w-4 h-4 rounded-full bg-[#F2A900] text-[#00153d] font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">
+                          <div key={idx} className="flex items-start gap-2 bg-navy-950/60 p-2 rounded text-ink-light">
+                            <span className="w-4 h-4 rounded-full bg-gold text-navy-950 font-bold text-[10px] flex items-center justify-center shrink-0 mt-0.5">
                               {idx + 1}
                             </span>
                             <span className="leading-snug">{step}</span>
@@ -410,18 +410,18 @@ export default function RecipeShowcase({ initialIngredientQuery = "" }: RecipeSh
                       </div>
 
                       {/* Chef Tip */}
-                      <div className="p-3 bg-[#073372]/30 rounded-lg border border-[#164082] text-[#E8EEF9] space-y-1">
-                        <span className="font-bold text-[#F2A900]">Mẹo bếp trưởng: </span>
+                      <div className="p-3 bg-navy-800/30 rounded-lg border border-navy-600 text-ink-light space-y-1">
+                        <span className="font-bold text-gold">Mẹo bếp trưởng: </span>
                         <span>{recipe.chefTips}</span>
                       </div>
                     </div>
                   )}
 
                   {/* Card Actions */}
-                  <div className="pt-3 border-t border-[#073372] flex items-center justify-between gap-3">
+                  <div className="pt-3 border-t border-navy-800 flex items-center justify-between gap-3">
                     <button
                       onClick={() => setExpandedRecipeId(isExpanded ? null : recipe.id)}
-                      className="flex items-center gap-1 text-xs font-semibold text-[#E8EEF9] hover:text-[#F2A900] transition-colors"
+                      className="flex items-center gap-1 text-xs font-semibold text-ink-light hover:text-gold transition-colors"
                     >
                       {isExpanded ? (
                         <>
@@ -438,7 +438,7 @@ export default function RecipeShowcase({ initialIngredientQuery = "" }: RecipeSh
 
                     <button
                       onClick={() => handleAskChef(recipe.title)}
-                      className="px-3 py-1.5 rounded-lg bg-[#073372] text-[#F2A900] text-xs font-semibold hover:bg-[#0c4494] transition-colors border border-[#164082]"
+                      className="px-3 py-1.5 rounded-lg bg-navy-800 text-gold text-xs font-semibold hover:bg-navy-700 transition-colors border border-navy-600"
                     >
                       Tùy biến với Bếp Trưởng AI
                     </button>

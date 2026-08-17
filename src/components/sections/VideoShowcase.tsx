@@ -45,25 +45,25 @@ export default function VideoShowcase() {
   };
 
   return (
-    <section id="video-showcase" className="py-20 bg-[#051e48] border-y border-[#073372] relative">
+    <section id="video-showcase" className="py-20 bg-navy-900 border-y border-navy-800 relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#00153d] border border-[#073372] text-xs font-semibold text-[#F2A900]">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-navy-950 border border-navy-800 text-xs font-semibold text-gold">
             <IoFilmOutline className="w-3.5 h-3.5" />
             <span>THƯỚC PHIM THỰC ĐỊA</span>
           </div>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white">
-            Quy Trình Đánh Bắt & <span className="text-[#F2A900]">Cấp Đông Trên Tàu</span>
+            Quy Trình Đánh Bắt & <span className="text-gold">Cấp Đông Trên Tàu</span>
           </h2>
-          <p className="text-sm sm:text-base text-[#E8EEF9]/80 leading-relaxed">
+          <p className="text-sm sm:text-base text-ink-light/80 leading-relaxed">
             Xem thực tế quy trình kiểm định chất lượng và công nghệ cấp đông siêu tốc IQF -40°C giúp giữ trọn vẹn độ tươi giòn nguyên bản của hải sản MAVY.
           </p>
         </div>
 
         {/* Clean Video Player Card */}
-        <div className="rounded-2xl overflow-hidden bg-[#00153d] border-2 border-[#073372] shadow-xl">
+        <div className="rounded-2xl overflow-hidden bg-navy-950 border-2 border-navy-800 shadow-xl">
           {/* Main Video Element */}
           <div className="relative aspect-video w-full bg-black flex items-center justify-center">
             <video
@@ -85,12 +85,12 @@ export default function VideoShowcase() {
             {!isPlaying && (
               <div
                 onClick={togglePlay}
-                className="absolute inset-0 bg-[#00153d]/40 flex flex-col items-center justify-center cursor-pointer z-10 transition-opacity"
+                className="absolute inset-0 bg-navy-950/40 flex flex-col items-center justify-center cursor-pointer z-10 transition-opacity"
               >
-                <div className="w-16 h-16 rounded-full bg-[#F2A900] text-[#00153d] flex items-center justify-center shadow-lg transform transition-transform hover:scale-105 active:scale-95">
-                  <IoPlay className="w-8 h-8 text-[#00153d] ml-1" />
+                <div className="w-16 h-16 rounded-full bg-gold text-navy-950 flex items-center justify-center shadow-lg transform transition-transform hover:scale-105 active:scale-95">
+                  <IoPlay className="w-8 h-8 text-navy-950 ml-1" />
                 </div>
-                <span className="mt-3 text-xs font-semibold text-white bg-[#073372]/90 px-3.5 py-1 rounded-full border border-[#164082]">
+                <span className="mt-3 text-xs font-semibold text-white bg-navy-800/90 px-3.5 py-1 rounded-full border border-navy-600">
                   Nhấn để xem phim tài liệu MAVY
                 </span>
               </div>
@@ -98,40 +98,40 @@ export default function VideoShowcase() {
           </div>
 
           {/* Controls Bar */}
-          <div className="px-6 py-3.5 bg-[#00153d] border-t border-[#073372] flex items-center justify-between gap-4">
+          <div className="px-6 py-3.5 bg-navy-950 border-t border-navy-800 flex items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               <button
                 onClick={togglePlay}
-                className="p-2 rounded-lg bg-[#073372] text-white hover:bg-[#0c4494] transition-colors"
+                className="p-2 rounded-lg bg-navy-800 text-white hover:bg-navy-700 transition-colors"
                 aria-label={isPlaying ? "Tạm dừng" : "Phát"}
               >
-                {isPlaying ? <IoPause className="w-4 h-4 text-[#F2A900]" /> : <IoPlay className="w-4 h-4 text-[#F2A900]" />}
+                {isPlaying ? <IoPause className="w-4 h-4 text-gold" /> : <IoPlay className="w-4 h-4 text-gold" />}
               </button>
 
               <button
                 onClick={toggleMute}
-                className="p-2 rounded-lg bg-[#073372] text-white hover:bg-[#0c4494] transition-colors"
+                className="p-2 rounded-lg bg-navy-800 text-white hover:bg-navy-700 transition-colors"
                 aria-label={isMuted ? "Bật tiếng" : "Tắt tiếng"}
               >
-                {isMuted ? <IoVolumeMuteOutline className="w-4 h-4 text-[#E8EEF9]" /> : <IoVolumeHighOutline className="w-4 h-4 text-[#F2A900]" />}
+                {isMuted ? <IoVolumeMuteOutline className="w-4 h-4 text-ink-light" /> : <IoVolumeHighOutline className="w-4 h-4 text-gold" />}
               </button>
 
-              <span className="text-xs text-[#E8EEF9]/80 font-medium">
+              <span className="text-xs text-ink-light/80 font-medium">
                 Thước Phim Tài Liệu Chuỗi Cung Ứng MAVY
               </span>
             </div>
 
             <div className="flex items-center gap-3">
-              <span className="hidden sm:inline-block text-xs text-[#F2A900] bg-[#051e48] px-3 py-1 rounded border border-[#073372]">
+              <span className="hidden sm:inline-block text-xs text-gold bg-navy-900 px-3 py-1 rounded border border-navy-800">
                 Chuẩn IQF -40°C
               </span>
 
               <button
                 onClick={handleFullscreen}
-                className="p-2 rounded-lg bg-[#073372] text-white hover:bg-[#0c4494] transition-colors"
+                className="p-2 rounded-lg bg-navy-800 text-white hover:bg-navy-700 transition-colors"
                 aria-label="Toàn màn hình"
               >
-                <IoExpandOutline className="w-4 h-4 text-[#E8EEF9]" />
+                <IoExpandOutline className="w-4 h-4 text-ink-light" />
               </button>
             </div>
           </div>

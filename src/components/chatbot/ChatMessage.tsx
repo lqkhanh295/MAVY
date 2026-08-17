@@ -15,7 +15,7 @@ export default function ChatMessage({ message, onSelectFollowUp }: ChatMessagePr
   return (
     <div className={`flex gap-2.5 ${isChef ? "justify-start" : "justify-end"} mb-4 w-full`}>
       {isChef && (
-        <div className="w-8 h-8 rounded-full bg-[#073372] border border-[#F2A900] text-[#F2A900] flex items-center justify-center shrink-0 shadow-md mt-0.5">
+        <div className="w-8 h-8 rounded-full bg-navy-800 border border-gold text-gold flex items-center justify-center shrink-0 shadow-md mt-0.5">
           <IoRestaurant className="w-4 h-4" />
         </div>
       )}
@@ -25,8 +25,8 @@ export default function ChatMessage({ message, onSelectFollowUp }: ChatMessagePr
         <div
           className={`p-3.5 rounded-2xl text-xs sm:text-sm leading-relaxed shadow-md ${
             isChef
-              ? "bg-[#073372] text-[#FFFFFF] border border-[#164082] rounded-tl-sm w-full"
-              : "bg-[#F2A900] text-[#00153d] font-semibold rounded-tr-sm w-fit ml-auto"
+              ? "bg-navy-800 text-white border border-navy-600 rounded-tl-sm w-full"
+              : "bg-gold text-navy-950 font-semibold rounded-tr-sm w-fit ml-auto"
           }`}
         >
           <p className="whitespace-pre-line leading-relaxed">{message.text}</p>
@@ -48,7 +48,7 @@ export default function ChatMessage({ message, onSelectFollowUp }: ChatMessagePr
               <button
                 key={idx}
                 onClick={() => onSelectFollowUp?.(suggestion)}
-                className="text-[11px] px-2.5 py-1 rounded-full bg-[#051e48] border border-[#073372] text-[#F2A900] hover:bg-[#073372] hover:border-[#F2A900] transition-colors flex items-center gap-1 text-left"
+                className="text-[11px] px-2.5 py-1 rounded-full bg-navy-900 border border-navy-800 text-gold hover:bg-navy-800 hover:border-gold transition-colors flex items-center gap-1 text-left"
               >
                 <IoSparkles className="w-2.5 h-2.5 shrink-0" />
                 <span>{suggestion}</span>
@@ -58,7 +58,7 @@ export default function ChatMessage({ message, onSelectFollowUp }: ChatMessagePr
         )}
 
         <div
-          className={`text-[10px] text-[#E8EEF9]/50 mt-1 px-1 ${
+          className={`text-[10px] text-ink-light/50 mt-1 px-1 ${
             isChef ? "text-left" : "text-right"
           }`}
         >
@@ -67,7 +67,7 @@ export default function ChatMessage({ message, onSelectFollowUp }: ChatMessagePr
       </div>
 
       {!isChef && (
-        <div className="w-8 h-8 rounded-full bg-[#F2A900] text-[#00153d] flex items-center justify-center shrink-0 font-bold shadow-md mt-0.5">
+        <div className="w-8 h-8 rounded-full bg-gold text-navy-950 flex items-center justify-center shrink-0 font-bold shadow-md mt-0.5">
           <IoPerson className="w-4 h-4" />
         </div>
       )}
