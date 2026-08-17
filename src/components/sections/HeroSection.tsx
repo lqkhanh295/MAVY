@@ -3,7 +3,7 @@
 import { useState, useRef, MouseEvent } from "react";
 import Image from "next/image";
 import { motion, useMotionValue, useSpring, useTransform, useScroll, type Variants } from "framer-motion";
-import { IoArrowDownOutline, IoShieldCheckmarkOutline } from "react-icons/io5";
+import { IoArrowDownOutline, IoShieldCheckmarkOutline, IoBagCheckOutline, IoChatboxEllipsesOutline, IoStar } from "react-icons/io5";
 import AnimeCounter from "@/components/ui/AnimeCounter";
 
 export default function HeroSection() {
@@ -198,32 +198,50 @@ export default function HeroSection() {
               </a>
             </motion.div>
 
-            {/* Live Social Proof Order & Review Metrics */}
+            {/* Premium Social Proof Trust Capsule Card */}
             <motion.div
               variants={textItemVariants}
-              className="pt-4 border-t border-navy-800/80 flex flex-wrap items-center justify-center lg:justify-start gap-x-5 gap-y-2 text-xs"
+              className="mt-6 p-3 sm:p-4 rounded-2xl bg-gradient-to-r from-navy-900/95 via-navy-900/80 to-navy-900/95 border border-teal/40 shadow-[0_10px_30px_-5px_rgba(15,163,177,0.18)] backdrop-blur-md hover:border-teal/60 transition-all duration-300"
             >
-              <div className="flex items-center gap-1.5">
-                <span className="text-teal font-black text-sm">
-                  <AnimeCounter targetValue={128450} suffix="+" />
-                </span>
-                <span className="text-ink-light/70">Đơn đã giao</span>
-              </div>
+              <div className="grid grid-cols-3 gap-2 sm:gap-4 divide-x divide-navy-700/80 items-center text-center">
+                {/* Stat 1: Đơn đã giao */}
+                <div className="flex flex-col items-center justify-center px-1 sm:px-2 space-y-0.5">
+                  <div className="flex items-center gap-1.5 text-teal">
+                    <IoBagCheckOutline className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 text-teal-soft" />
+                    <span className="text-base sm:text-xl font-black tracking-tight text-white">
+                      <AnimeCounter targetValue={128450} suffix="+" />
+                    </span>
+                  </div>
+                  <span className="text-[11px] sm:text-xs text-ink-light/85 font-medium whitespace-nowrap">
+                    Đơn Đã Giao
+                  </span>
+                </div>
 
-              <span className="hidden sm:inline text-navy-800 select-none">•</span>
+                {/* Stat 2: Feedback 5 sao */}
+                <div className="flex flex-col items-center justify-center px-1 sm:px-2 space-y-0.5">
+                  <div className="flex items-center gap-1.5 text-teal">
+                    <IoChatboxEllipsesOutline className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 text-teal-soft" />
+                    <span className="text-base sm:text-xl font-black tracking-tight text-white">
+                      <AnimeCounter targetValue={15820} suffix="+" />
+                    </span>
+                  </div>
+                  <span className="text-[11px] sm:text-xs text-ink-light/85 font-medium whitespace-nowrap">
+                    Feedback 5★
+                  </span>
+                </div>
 
-              <div className="flex items-center gap-1.5">
-                <span className="text-teal font-black text-sm">
-                  <AnimeCounter targetValue={15820} suffix="+" />
-                </span>
-                <span className="text-ink-light/70">Feedback 5★</span>
-              </div>
-
-              <span className="hidden sm:inline text-navy-800 select-none">•</span>
-
-              <div className="flex items-center gap-1.5 text-ink-light/80">
-                <span className="text-amber-400 font-bold">★ 4.9/5</span>
-                <span className="text-ink-light/60">(Hài lòng 99.4%)</span>
+                {/* Stat 3: Đánh giá & Hài lòng */}
+                <div className="flex flex-col items-center justify-center px-1 sm:px-2 space-y-0.5">
+                  <div className="flex items-center gap-1 text-amber-400">
+                    <IoStar className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 fill-amber-400" />
+                    <span className="text-base sm:text-xl font-black tracking-tight text-white">
+                      4.9<span className="text-xs sm:text-sm text-ink-light/60 font-normal">/5</span>
+                    </span>
+                  </div>
+                  <span className="text-[11px] sm:text-xs text-teal-soft font-semibold whitespace-nowrap">
+                    99.4% Hài Lòng
+                  </span>
+                </div>
               </div>
             </motion.div>
           </motion.div>
