@@ -37,23 +37,23 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-4">
           {/* Logo & Brand Name */}
-          <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
-            <div className="relative w-8 h-8 flex items-center justify-center">
+          <Link href="/" className="flex items-center gap-3.5 shrink-0 group">
+            <div className="relative w-12 h-12 flex items-center justify-center">
               <Image
                 src="/assets/image/logo.png"
                 alt="Logo MAVY Seafood"
-                width={32}
-                height={32}
-                className="object-contain filter drop-shadow-sm group-hover:scale-105 transition-transform"
+                width={48}
+                height={48}
+                className="object-contain filter drop-shadow-md group-hover:scale-105 transition-transform"
                 priority
                 unoptimized
               />
             </div>
             <div>
-              <span className="text-lg font-black tracking-tight text-white block leading-none">
+              <span className="text-xl sm:text-2xl font-black tracking-tight text-white block leading-none">
                 MAVY <span className="text-gold">SEAFOOD</span>
               </span>
-              <span className="text-[10px] text-ink-light/70 font-medium tracking-wider uppercase block mt-1">
+              <span className="text-[11px] text-ink-light/70 font-medium tracking-wider uppercase block mt-1">
                 Hải Sản Tự Nhiên Tuyển Chọn
               </span>
             </div>

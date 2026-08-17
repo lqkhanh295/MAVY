@@ -8,20 +8,20 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-navy-800/60">
           {/* Brand Info Col */}
           <div className="lg:col-span-2 space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="relative w-9 h-9 flex items-center justify-center">
+            <div className="flex items-center gap-3.5">
+              <div className="relative w-14 h-14 flex items-center justify-center">
                 <Image
                   src="/assets/image/logo.png"
                   alt="Logo MAVY Seafood"
-                  width={36}
-                  height={36}
+                  width={54}
+                  height={54}
                   className="object-contain"
                   priority
                   unoptimized
                 />
               </div>
               <div>
-                <span className="text-xl font-bold tracking-tight text-white block">
+                <span className="text-2xl font-black tracking-tight text-white block">
                   MAVY <span className="text-gold">SEAFOOD</span>
                 </span>
                 <span className="text-[10px] tracking-wider uppercase text-ink-light/70 block">
