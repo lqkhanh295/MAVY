@@ -29,7 +29,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-navy-950 text-white flex flex-col selection:bg-gold selection:text-navy-950 relative">
+    <div className="min-h-screen bg-navy-950 text-white flex flex-col selection:bg-coral selection:text-navy-950 relative">
       {/* 1. Header Navigation */}
       <Navbar />
 
