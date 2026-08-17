@@ -117,7 +117,7 @@ export default function HeroSection() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          
+
           {/* Left Column: Headline & Editorial Value Proposition (Entrance Reveal + Scroll Parallax) */}
           <motion.div
             style={{
@@ -163,7 +163,7 @@ export default function HeroSection() {
             >
               <div className="flex items-center gap-1.5">
                 <IoShieldCheckmarkOutline className="w-4 h-4 text-gold shrink-0" />
-                <span>Xuất xứ Năm Căn & Phú Quốc</span>
+                <span>Xuất xứ Cà Mau</span>
               </div>
               <span className="hidden sm:inline text-navy-800 select-none">|</span>
               <div className="flex items-center gap-1.5">
@@ -200,7 +200,7 @@ export default function HeroSection() {
 
           {/* Right Column: Cinematic Product Entrance & Scroll Parallax */}
           <div className="lg:col-span-5 relative flex flex-col items-center select-none">
-            
+
             {/* Outer Parallax Container on Scroll Down */}
             <motion.div
               style={{

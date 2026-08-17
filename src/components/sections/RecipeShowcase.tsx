@@ -1,32 +1,21 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FEATURED_RECIPES } from "@/data/recipes";
 import { Recipe } from "@/types";
-import { IoTimeOutline, IoSend, IoSyncOutline, IoChevronDownOutline, IoChevronUpOutline, IoRestaurantOutline } from "react-icons/io5";
+import { IoTimeOutline, IoChevronDownOutline, IoChevronUpOutline, IoRestaurantOutline, IoChatbubblesOutline } from "react-icons/io5";
 
 interface RecipeShowcaseProps {
-  initialIngredientQuery?: string;
+  onOpenChat?: (query?: string) => void;
 }
 
-export default function RecipeShowcase({ initialIngredientQuery = "" }: RecipeShowcaseProps) {
+export default function RecipeShowcase({ onOpenChat }: RecipeShowcaseProps) {
   const [activeCategory, setActiveCategory] = useState<string>("all");
   const [expandedRecipeId, setExpandedRecipeId] = useState<string | null>(null);
   
   // Cooking Process Stepper State
   const [currentStepStage, setCurrentStepStage] = useState<number>(0);
-
-  // Embedded AI Chef State
-  const [chefInput, setChefInput] = useState(initialIngredientQuery);
-  const [isChefThinking, setIsChefThinking] = useState(false);
-  const [customRecipeResult, setCustomRecipeResult] = useState<{
-    message: string;
-    recipes: Recipe[];
-    suggestedFollowUps?: string[];
-  } | null>(null);
-
-  const chefResultRef = useRef<HTMLDivElement>(null);
 
   const cookingStages = [
     {
@@ -57,20 +46,20 @@ export default function RecipeShowcase({ initialIngredientQuery = "" }: RecipeSh
 
   const categories = [
     { id: "all", name: "Tất Cả Món Ngon" },
-    { id: "cua", name: "Cua Cà Mau" },
-    { id: "tom", name: "Tôm Sú Biển" },
-    { id: "muc", name: "Mực Một Nắng" },
+    { id: "cua", name: "Cua Gạch" },
+    { id: "tom", name: "Tôm Sú Đông Lạnh" },
+    { id: "muc", name: "Mực Trứng Đông Lạnh" },
     { id: "combo", name: "Lẩu & Hấp Thủy Nhiệt" },
   ];
 
   const getCategoryLabel = (category: string) => {
     switch (category?.toLowerCase()) {
       case "cua":
-        return "Cua Cà Mau";
+        return "Cua Gạch";
       case "tom":
-        return "Tôm Sú Biển";
+        return "Tôm Sú Đông Lạnh";
       case "muc":
-        return "Mực Một Nắng";
+        return "Mực Trứng Đông Lạnh";
       case "combo":
         return "Lẩu & Combo";
       default:
@@ -83,67 +72,6 @@ export default function RecipeShowcase({ initialIngredientQuery = "" }: RecipeSh
       ? FEATURED_RECIPES
       : FEATURED_RECIPES.filter((r) => r.category === activeCategory);
 
-  const handleAskChef = async (overrideQuery?: string) => {
-    const query = overrideQuery || chefInput.trim();
-    if (!query || isChefThinking) return;
-
-    setIsChefThinking(true);
-    setChefInput(query);
-
-    try {
-      const res = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ingredients: query }),
-      });
-
-      if (!res.ok) throw new Error("Fetch failed");
-      const data = await res.json();
-
-      if (data.success && data.data) {
-        setCustomRecipeResult(data.data);
-        setTimeout(() => {
-          chefResultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-        }, 100);
-      }
-    } catch (e) {
-      console.error(e);
-      // Fallback
-      setCustomRecipeResult({
-        message: `Bếp Trưởng MAVY đã thiết kế công thức thực tế từ nguyên liệu "${query}":`,
-        recipes: [
-          {
-            id: `chef-custom-${Date.now()}`,
-            title: `Món Ngon Tối Ưu Từ ${query.slice(0, 35)}`,
-            category: "combo",
-            prepTime: "15 phút",
-            cookTime: "15 phút",
-            difficulty: "Dễ",
-            servings: "2 - 3 người",
-            description: "Công thức tối ưu tận dụng trọn vẹn nguyên liệu có sẵn, kiểm soát nhiệt độ giữ ngọt mọng nước.",
-            flavorProfile: "Thơm nồng bơ tỏi, đậm đà cân bằng vị.",
-            ingredients: [
-              { name: query, amount: "Lượng sẵn có", isMain: true },
-              { name: "Bơ lạt & Tỏi băm nhuyễn", amount: "40g bơ + 1 củ tỏi" },
-              { name: "Gia vị chuẩn (muối, tiêu xay, chanh tươi)", amount: "Vừa khẩu vị" },
-            ],
-            steps: [
-              "Sơ chế sạch các nguyên liệu, thấm khô ráo nước bằng khăn sạch.",
-              "Đun chảy bơ lạt trong chảo dày, phi thơm tỏi băm ở lửa vừa cho dậy mùi thơm.",
-              "Cho nguyên liệu vào áp chảo/xào nhanh tay ở nhiệt độ cao để giữ trọn độ mọng nước tự nhiên.",
-              "Nêm muối tiêu, vắt nhẹ chút nước cốt chanh vàng trước khi tắt bếp.",
-              "Trình bày ra đĩa sâu lòng và thưởng thức khi còn nóng hổi.",
-            ],
-            chefTips: "Luôn thấm thật khô bề mặt hải sản trước khi cho vào chảo để món ăn thơm giòn và không bị chảy nước.",
-          },
-        ],
-        suggestedFollowUps: ["Mẹo sơ chế khử tanh hải sản?", "Cách pha nước chấm muối ớt chanh ngon?"],
-      });
-    } finally {
-      setIsChefThinking(false);
-    }
-  };
-
   return (
     <section id="culinary-studio" className="py-24 bg-navy-950 border-b border-navy-800 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -152,13 +80,13 @@ export default function RecipeShowcase({ initialIngredientQuery = "" }: RecipeSh
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-navy-900 border border-navy-800 text-xs font-semibold text-gold">
             <IoRestaurantOutline className="w-3.5 h-3.5" />
-            <span>XƯỞNG ẨM THỰC & BẾP TRƯỞNG AI</span>
+            <span>XƯỞNG ẨM THỰC MAVY</span>
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white">
-            Nấu Chuẩn Vị Tại Nhà <span className="text-gold">Cùng Bếp Trưởng MAVY</span>
+            Nấu Chuẩn Vị Tại Nhà <span className="text-gold">Cùng Bí Quyết Bếp Trưởng</span>
           </h2>
           <p className="text-sm sm:text-base text-ink-light/80 leading-relaxed">
-            Khám phá 4 giai đoạn chế biến hải sản chuẩn khoa học và công cụ tạo công thức độc quyền từ nguyên liệu sẵn có.
+            Khám phá 4 giai đoạn chế biến hải sản chuẩn khoa học và công cụ Bếp Trưởng AI tạo công thức độc quyền theo nguyên liệu tủ lạnh.
           </p>
         </div>
 
@@ -180,7 +108,7 @@ export default function RecipeShowcase({ initialIngredientQuery = "" }: RecipeSh
                 <button
                   key={idx}
                   onClick={() => setCurrentStepStage(idx)}
-                  className={`p-4 rounded-2xl border text-left transition-all duration-200 ${
+                  className={`p-4 rounded-2xl border text-left transition-all duration-200 cursor-pointer ${
                     isActive
                       ? "bg-navy-950 border-gold ring-1 ring-gold"
                       : "bg-navy-950/40 border-navy-800 hover:border-navy-600"
@@ -218,146 +146,50 @@ export default function RecipeShowcase({ initialIngredientQuery = "" }: RecipeSh
           </AnimatePresence>
         </div>
 
-        {/* Embedded AI Master Chef Tool */}
-        <div className="mb-20 bg-navy-900 border border-navy-800 rounded-3xl p-6 sm:p-8">
-          <div className="max-w-3xl mx-auto text-center space-y-2 mb-6">
-            <h3 className="text-xl sm:text-2xl font-bold text-white">
-              Tạo Công Thức Độc Quyền Theo Nguyên Liệu Tủ Lạnh Của Bạn
+        {/* AI Chef Masterclass Callout Box */}
+        <div className="mb-20 bg-gradient-to-r from-navy-900 via-navy-850 to-navy-900 border border-gold/30 rounded-3xl p-6 sm:p-10 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="space-y-2 text-center md:text-left">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-navy-950 border border-gold/40 text-xs font-bold text-gold">
+              <span className="w-2 h-2 rounded-full bg-emerald-400" />
+              <span>BẾP TRƯỞNG MAVY AI ĐANG TRỰC TUYẾN</span>
+            </div>
+            <h3 className="text-xl sm:text-2xl font-black text-white">
+              Bạn Đang Có Nguyên Liệu Riêng Trong Tủ Lạnh?
             </h3>
-            <p className="text-xs sm:text-sm text-ink-light/70">
-              Nhập các loại hải sản, rau củ hoặc gia vị bạn đang có, Bếp Trưởng AI sẽ tính toán tỷ lệ nêm nếm và hướng dẫn kỹ thuật nấu giữ trọn vị ngọt.
+            <p className="text-xs sm:text-sm text-ink-light/80 max-w-xl">
+              Chỉ cần gửi danh sách nguyên liệu (Cua, Tôm, Mực, bơ tỏi, sốt me, phô mai...), Bếp Trưởng AI sẽ tính toán tỷ lệ gia vị và hướng dẫn kỹ thuật nấu tức thì.
             </p>
           </div>
 
-          {/* Input Form */}
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleAskChef();
-            }}
-            className="max-w-2xl mx-auto flex flex-col sm:flex-row gap-2.5"
-          >
-            <input
-              type="text"
-              value={chefInput}
-              onChange={(e) => setChefInput(e.target.value)}
-              placeholder="VD: Tôm sú, bơ tỏi, chanh vàng..."
-              className="flex-1 px-4 py-3 rounded-xl bg-navy-950 border border-navy-800 text-sm text-white placeholder-ink-light/40 focus:outline-none focus:border-gold transition-colors"
-              disabled={isChefThinking}
-            />
+          <div className="flex flex-col sm:flex-row gap-3 shrink-0">
             <button
-              type="submit"
-              disabled={isChefThinking || !chefInput.trim()}
-              className="px-6 py-3 rounded-xl bg-gold text-navy-950 font-bold text-sm hover:bg-gold-hover disabled:opacity-50 transition-colors shrink-0 flex items-center justify-center gap-2"
+              onClick={() => onOpenChat?.()}
+              className="px-6 py-3.5 rounded-xl bg-gold text-navy-950 font-bold text-xs sm:text-sm hover:bg-gold-hover transition-colors shadow-lg flex items-center justify-center gap-2 cursor-pointer"
             >
-              {isChefThinking ? (
-                <>
-                  <IoSyncOutline className="w-4 h-4 animate-spin" />
-                  <span>Đang Tính Toán...</span>
-                </>
-              ) : (
-                <>
-                  <IoSend className="w-4 h-4" />
-                  <span>Thiết Kế Món Ăn</span>
-                </>
-              )}
+              <IoChatbubblesOutline className="w-4 h-4" />
+              <span>Mở Bếp Trưởng AI (Popup)</span>
             </button>
-          </form>
-
-          {/* Quick Idea Chips */}
-          <div className="max-w-2xl mx-auto mt-3 flex flex-wrap items-center justify-center gap-2 text-xs text-ink-light/60">
-            <span>Gợi ý nhanh:</span>
-            {["Cua Cà Mau + sốt me", "Tôm sú + bơ tỏi + chanh", "Mực một nắng + ớt chuông"].map((chip, idx) => (
-              <button
-                key={idx}
-                type="button"
-                onClick={() => handleAskChef(chip)}
-                className="px-2.5 py-1 rounded bg-navy-950 border border-navy-800 text-[11px] text-ink-light hover:text-gold hover:border-gold transition-colors"
-              >
-                {chip}
-              </button>
-            ))}
           </div>
-
-          {/* AI Chef Result Display (Clean Editorial Dossier) */}
-          {customRecipeResult && (
-            <div ref={chefResultRef} className="mt-8 pt-8 border-t border-navy-800 space-y-6 animate-fadeIn">
-              <div className="p-4 rounded-xl bg-navy-950 border border-navy-800 text-sm text-ink-light">
-                <p className="font-semibold text-gold">{customRecipeResult.message}</p>
-              </div>
-
-              {customRecipeResult.recipes.map((recipe, idx) => (
-                <div key={idx} className="bg-navy-950 rounded-2xl border border-navy-800 p-6 space-y-6">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-navy-800 pb-4">
-                    <div>
-                      <h4 className="text-2xl font-bold text-white">{recipe.title}</h4>
-                      <p className="text-xs text-gold mt-1 font-medium">{recipe.flavorProfile}</p>
-                    </div>
-                    <div className="flex items-center gap-3 text-xs text-ink-light/80 font-medium">
-                      <span>Chuẩn bị: {recipe.prepTime}</span>
-                      <span>•</span>
-                      <span>Nấu: {recipe.cookTime}</span>
-                      <span>•</span>
-                      <span className="text-gold">{recipe.difficulty}</span>
-                    </div>
-                  </div>
-
-                  {/* Ingredients List (Clean hairline list) */}
-                  <div className="space-y-2">
-                    <div className="text-xs font-bold uppercase tracking-wider text-ink-light">Nguyên Liệu Cần Chuẩn Bị</div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-1.5 text-xs">
-                      {recipe.ingredients.map((ing, i) => (
-                        <div key={i} className="flex justify-between border-b border-navy-800/60 pb-1">
-                          <span className={ing.isMain ? "font-semibold text-gold" : "text-ink-light/90"}>{ing.name}</span>
-                          <span className="text-ink-light/60 font-mono">{ing.amount}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Step by Step Cooking Guide (Clean numbered list) */}
-                  <div className="space-y-2.5">
-                    <div className="text-xs font-bold uppercase tracking-wider text-ink-light">Các Bước Chế Biến Chi Tiết</div>
-                    <div className="space-y-2 text-xs sm:text-sm text-ink-light/90">
-                      {recipe.steps.map((step, sIdx) => (
-                        <div key={sIdx} className="flex items-start gap-3">
-                          <span className="w-5 h-5 rounded-full bg-navy-800 text-gold font-bold text-xs flex items-center justify-center shrink-0 mt-0.5 border border-navy-600">
-                            {sIdx + 1}
-                          </span>
-                          <span className="leading-relaxed">{step}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Chef Tip */}
-                  <div className="p-4 rounded-xl bg-navy-900 border border-navy-800 text-xs text-ink-light/90 space-y-1">
-                    <div className="font-bold text-gold uppercase tracking-wide">Bí Quyết Bếp Trưởng MAVY</div>
-                    <p className="leading-relaxed">{recipe.chefTips}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
         </div>
 
-        {/* Featured Recipe Library Header & Filters */}
-        <div className="space-y-6">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-navy-800 pb-4">
+        {/* Recipe Library Section */}
+        <div className="space-y-8">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-navy-800 pb-6">
             <div>
-              <h3 className="text-2xl font-bold text-white">Thư Viện Công Thức Mẫu</h3>
-              <p className="text-xs text-ink-light/60 mt-1">Các món ngon kinh điển dễ nấu thành công ngay tại nhà.</p>
+              <h3 className="text-2xl font-bold text-white">Bộ Sưu Tập Món Ngon Signature</h3>
+              <p className="text-xs sm:text-sm text-ink-light/60 mt-1">Các công thức được nghiên cứu và tối ưu riêng cho hải sản tự nhiên MAVY.</p>
             </div>
 
-            <div className="flex flex-wrap gap-1.5">
+            {/* Filter category tabs */}
+            <div className="flex flex-wrap gap-2">
               {categories.map((cat) => (
                 <button
                   key={cat.id}
                   onClick={() => setActiveCategory(cat.id)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-colors cursor-pointer ${
                     activeCategory === cat.id
-                      ? "bg-gold text-navy-950 font-bold"
-                      : "bg-navy-900 text-ink-light border border-navy-800 hover:bg-navy-800"
+                      ? "bg-gold text-navy-950"
+                      : "bg-navy-900 text-ink-light border border-navy-800 hover:border-gold hover:text-white"
                   }`}
                 >
                   {cat.name}
@@ -366,96 +198,102 @@ export default function RecipeShowcase({ initialIngredientQuery = "" }: RecipeSh
             </div>
           </div>
 
-          {/* Recipe Cards Grid (Clean Editorial Cards) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Recipe Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredRecipes.map((recipe) => {
               const isExpanded = expandedRecipeId === recipe.id;
 
               return (
                 <div
                   key={recipe.id}
-                  className="bg-navy-900 rounded-2xl border border-navy-800 p-6 space-y-4 transition-colors hover:border-navy-600"
+                  className="bg-navy-900 rounded-2xl border border-navy-800 overflow-hidden flex flex-col justify-between hover:border-gold/50 transition-all duration-300 shadow-md"
                 >
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="px-2.5 py-0.5 rounded bg-navy-950 text-gold font-semibold border border-navy-800">
-                      {getCategoryLabel(recipe.category)}
-                    </span>
-                    <div className="flex items-center gap-2 text-ink-light/60">
-                      <span className="flex items-center gap-1">
-                        <IoTimeOutline className="w-3.5 h-3.5 text-gold" />
-                        {recipe.cookTime}
+                  <div className="p-6 space-y-4">
+                    {/* Header meta */}
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-[11px] font-semibold text-gold tracking-wider uppercase">
+                        {getCategoryLabel(recipe.category)}
                       </span>
-                      <span>• {recipe.difficulty}</span>
-                    </div>
-                  </div>
-
-                  <div>
-                    <h4 className="text-xl font-bold text-white">{recipe.title}</h4>
-                    <p className="text-xs text-gold mt-0.5 font-medium">{recipe.flavorProfile}</p>
-                    <p className="text-xs sm:text-sm text-ink-light/70 mt-2 leading-relaxed">{recipe.description}</p>
-                  </div>
-
-                  {/* Inline Expanded Steps (Clean Editorial Hairlines) */}
-                  {isExpanded && (
-                    <div className="pt-4 border-t border-navy-800 space-y-4 text-xs animate-fadeIn">
-                      {/* Ingredients */}
-                      <div className="space-y-1.5">
-                        <div className="font-bold text-ink-light uppercase tracking-wide">Nguyên liệu:</div>
-                        <div className="grid grid-cols-2 gap-x-6 gap-y-1">
-                          {recipe.ingredients.map((ing, i) => (
-                            <div key={i} className="flex justify-between border-b border-navy-800/60 pb-1">
-                              <span className={ing.isMain ? "text-gold font-semibold" : "text-ink-light/90"}>{ing.name}</span>
-                              <span className="text-ink-light/60">{ing.amount}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Steps */}
-                      <div className="space-y-2">
-                        <div className="font-bold text-ink-light uppercase tracking-wide">Các bước thực hiện:</div>
-                        <div className="space-y-1.5">
-                          {recipe.steps.map((step, idx) => (
-                            <div key={idx} className="flex items-start gap-2 text-ink-light/90">
-                              <span className="text-gold font-bold">{idx + 1}.</span>
-                              <span className="leading-snug">{step}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Chef Tip */}
-                      <div className="p-3 bg-navy-950 rounded-xl border border-navy-800 text-ink-light/90 space-y-1">
-                        <span className="font-bold text-gold">Mẹo bếp trưởng: </span>
-                        <span>{recipe.chefTips}</span>
+                      <div className="flex items-center gap-1 text-ink-light/60">
+                        <IoTimeOutline className="w-3.5 h-3.5" />
+                        <span>{recipe.prepTime}</span>
                       </div>
                     </div>
-                  )}
 
-                  {/* Card Actions */}
-                  <div className="pt-3 border-t border-navy-800 flex items-center justify-between gap-3">
+                    <h4 className="text-lg font-bold text-white leading-snug">{recipe.title}</h4>
+                    <p className="text-xs text-ink-light/70 line-clamp-2 leading-relaxed">{recipe.description}</p>
+                    
+                    {recipe.flavorProfile && (
+                      <div className="text-[11px] font-medium text-gold/90 bg-navy-950 px-3 py-1.5 rounded-lg border border-navy-800">
+                        Hương vị: {recipe.flavorProfile}
+                      </div>
+                    )}
+
+                    {/* Expandable Step-by-Step Instructions */}
+                    <AnimatePresence>
+                      {isExpanded && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.25 }}
+                          className="space-y-4 pt-4 border-t border-navy-800 text-xs overflow-hidden"
+                        >
+                          {/* Ingredients List */}
+                          <div>
+                            <span className="font-bold text-white block mb-2">Nguyên liệu chuẩn bị:</span>
+                            <ul className="space-y-1 text-ink-light/90">
+                              {recipe.ingredients.map((ing, i) => (
+                                <li key={i} className="flex justify-between">
+                                  <span>{ing.name}</span>
+                                  <span className="text-gold font-medium">{ing.amount}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+
+                          {/* Steps List */}
+                          <div>
+                            <span className="font-bold text-white block mb-2">Các bước nấu chuẩn:</span>
+                            <div className="space-y-2 text-ink-light/90">
+                              {recipe.steps.map((st, i) => (
+                                <div key={i} className="flex gap-2">
+                                  <span className="font-bold text-gold">{i + 1}.</span>
+                                  <span>{st}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Chef tips */}
+                          {recipe.chefTips && (
+                            <div className="p-3 rounded-xl bg-navy-950 border border-gold/30">
+                              <span className="font-bold text-gold block mb-1">Mẹo Bếp Trưởng:</span>
+                              <span className="text-ink-light/80">{recipe.chefTips}</span>
+                            </div>
+                          )}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+
+                  {/* Card Bottom Toggle & Ask Chef Button */}
+                  <div className="p-4 bg-navy-950/70 border-t border-navy-800/80 flex items-center justify-between gap-2">
                     <button
                       onClick={() => setExpandedRecipeId(isExpanded ? null : recipe.id)}
-                      className="flex items-center gap-1 text-xs font-semibold text-ink-light hover:text-gold transition-colors"
+                      className="text-xs font-semibold text-gold hover:underline flex items-center gap-1 cursor-pointer"
                     >
-                      {isExpanded ? (
-                        <>
-                          <span>Thu gọn công thức</span>
-                          <IoChevronUpOutline className="w-3.5 h-3.5" />
-                        </>
-                      ) : (
-                        <>
-                          <span>Xem các bước nấu chi tiết</span>
-                          <IoChevronDownOutline className="w-3.5 h-3.5" />
-                        </>
-                      )}
+                      <span>{isExpanded ? "Thu gọn công thức" : "Xem chi tiết cách nấu"}</span>
+                      {isExpanded ? <IoChevronUpOutline className="w-3.5 h-3.5" /> : <IoChevronDownOutline className="w-3.5 h-3.5" />}
                     </button>
 
                     <button
-                      onClick={() => handleAskChef(recipe.title)}
-                      className="px-3 py-1.5 rounded-lg bg-navy-800 text-gold text-xs font-semibold hover:bg-navy-700 transition-colors border border-navy-600"
+                      onClick={() => onOpenChat?.(`Công thức ${recipe.title}`)}
+                      className="text-[11px] text-ink-light hover:text-gold transition-colors flex items-center gap-1 cursor-pointer"
+                      title="Hỏi Bếp Trưởng AI về món này"
                     >
-                      Tùy biến với Bếp Trưởng AI
+                      <IoRestaurantOutline className="w-3.5 h-3.5 text-gold" />
+                      <span>Hỏi AI</span>
                     </button>
                   </div>
                 </div>

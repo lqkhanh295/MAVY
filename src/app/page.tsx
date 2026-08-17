@@ -10,16 +10,26 @@ import AboutStorySection from "@/components/sections/AboutStorySection";
 import QualityCertifications from "@/components/sections/QualityCertifications";
 import ContactCta from "@/components/sections/ContactCta";
 import Footer from "@/components/layout/Footer";
+import FloatingChatButton from "@/components/chatbot/FloatingChatButton";
+import ChatWindow from "@/components/chatbot/ChatWindow";
 
 export default function Home() {
-  const [selectedProductForChef, setSelectedProductForChef] = useState<string>("");
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [chatInitialQuery, setChatInitialQuery] = useState<string>("");
 
-  const handleSelectProductForChef = (productName: string) => {
-    setSelectedProductForChef(productName);
+  const handleOpenChat = (query?: string) => {
+    if (query) {
+      setChatInitialQuery(query);
+    }
+    setIsChatOpen(true);
+  };
+
+  const handleCloseChat = () => {
+    setIsChatOpen(false);
   };
 
   return (
-    <div className="min-h-screen bg-navy-950 text-white flex flex-col selection:bg-gold selection:text-navy-950">
+    <div className="min-h-screen bg-navy-950 text-white flex flex-col selection:bg-gold selection:text-navy-950 relative">
       {/* 1. Header Navigation */}
       <Navbar />
 
@@ -31,11 +41,11 @@ export default function Home() {
         {/* 2. Video: Thước phim thực địa quy trình đánh bắt & cấp đông IQF */}
         <VideoShowcase />
 
-        {/* 3. Products: Danh mục 3 hải sản chủ lực & Bảng thông số kỹ thuật inline */}
-        <ProductsSection onSelectProductForChef={handleSelectProductForChef} />
+        {/* 3. Products: Danh mục 3 hải sản chủ lực & Bảng thông số kỹ thuật */}
+        <ProductsSection onSelectProductForChef={handleOpenChat} />
 
-        {/* 4. Recipe: Xưởng ẩm thực & Bếp trưởng AI tạo công thức theo nguyên liệu */}
-        <RecipeShowcase initialIngredientQuery={selectedProductForChef} />
+        {/* 4. Recipe: Xưởng ẩm thực & 4 giai đoạn nấu chuẩn nhà hàng */}
+        <RecipeShowcase onOpenChat={handleOpenChat} />
 
         {/* 5. About: Câu chuyện tâm huyết & 4 Cam kết vàng MAVY */}
         <AboutStorySection />
@@ -49,6 +59,19 @@ export default function Home() {
 
       {/* 3. Footer */}
       <Footer />
+
+      {/* 4. Global Floating Chef AI Button */}
+      <FloatingChatButton
+        isOpen={isChatOpen}
+        onClick={() => handleOpenChat()}
+      />
+
+      {/* 5. Global Chef AI Popup Modal */}
+      <ChatWindow
+        isOpen={isChatOpen}
+        onClose={handleCloseChat}
+        initialQuery={chatInitialQuery}
+      />
     </div>
   );
 }
