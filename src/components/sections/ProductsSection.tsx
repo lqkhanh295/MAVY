@@ -101,8 +101,8 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
               >
                 {/* Top Metadata Header (Minimalist & Sleek) */}
                 <div className="flex items-center justify-between gap-2 pb-2">
-                  <div className="text-[11px] font-semibold tracking-wider text-gold uppercase">
-                    {product.category} • {product.origin}
+                  <div className="text-[11px] font-bold tracking-wider text-gold uppercase">
+                    {product.name}
                   </div>
                   <span className="text-[10px] text-ink-light/60 px-2 py-0.5 rounded-full border border-navy-800 bg-navy-950/60">
                     {product.badge}
@@ -195,7 +195,7 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
                     <span className="px-2.5 py-0.5 rounded-full bg-gold text-navy-950 font-bold text-xs">
                       {selectedProduct.badge}
                     </span>
-                    <span className="text-sm font-semibold text-white">Xuất xứ: {selectedProduct.origin}</span>
+                    <span className="text-sm font-bold text-white">{selectedProduct.name}</span>
                   </div>
 
                   <button
