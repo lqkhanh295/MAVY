@@ -9,6 +9,10 @@ export interface Product {
   image: string;
   badge: string;
   origin: string;
+  soldCount?: string;
+  rating?: number;
+  reviewCount?: number;
+  feedbackCount?: string;
   specifications: {
     label: string;
     value: string;
@@ -58,5 +62,6 @@ export interface LLMKeyStatus {
   provider: "gemini" | "openai";
   isActive: boolean;
   errorCount: number;
-  lastUsedAt?: number;
+  lastError?: string;
+  lastUsed: Date;
 }

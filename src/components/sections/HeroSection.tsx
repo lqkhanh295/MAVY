@@ -4,6 +4,7 @@ import { useState, useRef, MouseEvent } from "react";
 import Image from "next/image";
 import { motion, useMotionValue, useSpring, useTransform, useScroll, type Variants } from "framer-motion";
 import { IoArrowDownOutline, IoShieldCheckmarkOutline } from "react-icons/io5";
+import AnimeCounter from "@/components/ui/AnimeCounter";
 
 export default function HeroSection() {
   const [isHovered, setIsHovered] = useState(false);
@@ -195,6 +196,35 @@ export default function HeroSection() {
               >
                 So Sánh Với Hải Sản Chợ
               </a>
+            </motion.div>
+
+            {/* Live Social Proof Order & Review Metrics */}
+            <motion.div
+              variants={textItemVariants}
+              className="pt-4 border-t border-navy-800/80 flex flex-wrap items-center justify-center lg:justify-start gap-x-5 gap-y-2 text-xs"
+            >
+              <div className="flex items-center gap-1.5">
+                <span className="text-teal font-black text-sm">
+                  <AnimeCounter targetValue={128450} suffix="+" />
+                </span>
+                <span className="text-ink-light/70">Đơn đã giao</span>
+              </div>
+
+              <span className="hidden sm:inline text-navy-800 select-none">•</span>
+
+              <div className="flex items-center gap-1.5">
+                <span className="text-teal font-black text-sm">
+                  <AnimeCounter targetValue={15820} suffix="+" />
+                </span>
+                <span className="text-ink-light/70">Feedback 5★</span>
+              </div>
+
+              <span className="hidden sm:inline text-navy-800 select-none">•</span>
+
+              <div className="flex items-center gap-1.5 text-ink-light/80">
+                <span className="text-amber-400 font-bold">★ 4.9/5</span>
+                <span className="text-ink-light/60">(Hài lòng 99.4%)</span>
+              </div>
             </motion.div>
           </motion.div>
 

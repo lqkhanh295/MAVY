@@ -137,10 +137,19 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
                     <p className="text-xs text-ink-light/75 line-clamp-2 leading-relaxed font-normal">
                       {product.description}
                     </p>
+
+                    {/* Social Proof: Sold Count & 5-Star Reviews */}
+                    <div className="flex items-center justify-between text-[11px] text-ink-light/70 pt-1.5 border-t border-navy-800/40">
+                      <div className="flex items-center gap-1">
+                        <span className="text-amber-400 font-bold">★ {product.rating}</span>
+                        <span className="text-ink-light/60">({product.reviewCount?.toLocaleString()})</span>
+                      </div>
+                      <span className="text-teal font-semibold">Đã bán {product.soldCount}</span>
+                    </div>
                   </div>
 
                   {/* Price & Weight Detail */}
-                  <div className="pt-3 border-t border-navy-800/60 flex items-baseline justify-between">
+                  <div className="pt-2.5 border-t border-navy-800/60 flex items-baseline justify-between">
                     <div>
                       <span className="text-2xl font-black text-gold">{product.price}</span>
                       <span className="text-xs text-ink-light/50 font-normal ml-1.5">/ {product.unit}</span>
@@ -224,6 +233,17 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
                       <div className="text-xs font-bold text-gold uppercase tracking-wider">{selectedProduct.category}</div>
                       <h3 className="text-2xl sm:text-3xl font-extrabold text-white leading-snug">{selectedProduct.name}</h3>
                       <p className="text-xs sm:text-sm text-gold font-medium italic">{selectedProduct.tagline}</p>
+                      
+                      {/* Live Social Proof Badge */}
+                      <div className="flex flex-wrap items-center gap-3 text-xs pt-1 pb-1">
+                        <div className="flex items-center gap-1 text-amber-400 font-bold">
+                          <span>★ {selectedProduct.rating}</span>
+                          <span className="text-ink-light/70 font-normal">({selectedProduct.reviewCount?.toLocaleString()} đánh giá)</span>
+                        </div>
+                        <span className="text-navy-700 select-none">•</span>
+                        <span className="text-teal font-semibold">Đã bán {selectedProduct.soldCount}</span>
+                      </div>
+
                       <p className="text-xs sm:text-sm text-ink-light/90 leading-relaxed">{selectedProduct.description}</p>
 
                       <div className="pt-2 flex items-baseline gap-2">
