@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { generateChefRecipe } from "@/lib/llm-rotator";
 
-// Simple in-memory IP rate limiter (20 requests per minute per IP)
+// In-memory IP rate limiter: 20 requests per minute per IP
 const ipRateMap = new Map<string, { count: number; resetTime: number }>();
 const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
-const MAX_REQUESTS_PER_WINDOW = 25;
+const MAX_REQUESTS_PER_WINDOW = 20;
 
 export async function POST(req: NextRequest) {
   try {
