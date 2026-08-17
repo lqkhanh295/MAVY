@@ -37,11 +37,11 @@ export default function FloatingChatButton({ isOpen, onClick }: FloatingChatButt
 
       {/* Typography */}
       <div className="text-left pr-1 pointer-events-none">
-        <div className="text-xs font-bold text-white group-hover:text-gold transition-colors leading-tight">
-          Bếp Trưởng AI
+        <div className="text-xs font-bold text-white group-hover:text-teal transition-colors leading-tight">
+          Tư Vấn Chế Biến
         </div>
         <div className="text-[10px] text-ink-light/70 leading-tight">
-          Gợi ý món theo nguyên liệu
+          Gợi ý thực đơn & gia vị
         </div>
       </div>
     </motion.div>

@@ -125,12 +125,11 @@ export default function HeroSection() {
             animate="visible"
             className="lg:col-span-7 space-y-6 text-center lg:text-left will-change-transform"
           >
-            {/* Sourcing Tag Badge */}
-            <motion.div variants={textItemVariants} className="inline-block">
-              <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-navy-900 border border-navy-700 text-xs font-semibold text-teal shadow-sm">
-                <span className="w-2 h-2 rounded-full bg-teal" />
-                <span>Nguồn Hải Sản Tự Nhiên Tuyển Chọn Trực Tiếp Tại Bến</span>
-              </div>
+            {/* Eyebrow */}
+            <motion.div variants={textItemVariants}>
+              <span className="text-xs uppercase tracking-[0.2em] text-teal font-bold block">
+                MAVY SEAFOOD • HẢI SẢN TỰ NHIÊN
+              </span>
             </motion.div>
 
             {/* Main Headline */}
@@ -138,8 +137,8 @@ export default function HeroSection() {
               variants={textItemVariants}
               className="text-4xl sm:text-5xl md:text-6xl font-black text-white tracking-tight pb-2"
             >
-              <span className="block leading-tight">Hải Sản Tự Nhiên</span>
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-teal via-teal-soft to-teal leading-tight mt-2 sm:mt-3.5">
+              <span className="block leading-tight">Hải Sản Tươi Sạch</span>
+              <span className="block text-teal leading-tight mt-2 sm:mt-3">
                 Chuẩn Vị Ngọt Nguyên Bản
               </span>
             </motion.h1>
@@ -149,7 +148,7 @@ export default function HeroSection() {
               variants={textItemVariants}
               className="text-sm sm:text-base md:text-lg text-ink-light/85 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal"
             >
-              MAVY tuyển chọn trực tiếp tại bến Năm Căn và Phú Quốc, cấp đông siêu tốc <strong>IQF -40°C</strong> trong 12 phút. Cam kết dây trói &lt;20g, 0% hóa chất, bảo hành 1 đổi 1 và giao nhanh trong 2 giờ.
+              MAVY phân phối 3 dòng hải sản chủ lực: Cua gạch Năm Căn, Tôm sú & Mực trứng đông lạnh chuẩn cấp đông siêu tốc <strong>IQF -40°C</strong>. Dây trói dưới 20g, bao ăn 1 đổi 1 và giao hỏa tốc 2 giờ tại TP.HCM.
             </motion.p>
 
             {/* Sourcing Trust Strip */}
@@ -158,17 +157,17 @@ export default function HeroSection() {
               className="pt-1 pb-1 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-2 text-xs text-ink-light/75"
             >
               <div className="flex items-center gap-1.5">
-                <IoShieldCheckmarkOutline className="w-4 h-4 text-gold shrink-0" />
-                <span>Xuất xứ Cà Mau</span>
+                <IoShieldCheckmarkOutline className="w-4 h-4 text-teal shrink-0" />
+                <span>Nguồn gốc Cà Mau & Phú Quốc</span>
               </div>
               <span className="hidden sm:inline text-navy-800 select-none">|</span>
               <div className="flex items-center gap-1.5">
-                <IoShieldCheckmarkOutline className="w-4 h-4 text-gold shrink-0" />
+                <IoShieldCheckmarkOutline className="w-4 h-4 text-teal shrink-0" />
                 <span>Cấp đông IQF -40°C</span>
               </div>
               <span className="hidden sm:inline text-navy-800 select-none">|</span>
               <div className="flex items-center gap-1.5">
-                <IoShieldCheckmarkOutline className="w-4 h-4 text-gold shrink-0" />
+                <IoShieldCheckmarkOutline className="w-4 h-4 text-teal shrink-0" />
                 <span>Dây trói siêu mỏng &lt; 20g</span>
               </div>
             </motion.div>
@@ -180,63 +179,45 @@ export default function HeroSection() {
             >
               <a
                 href="#products"
-                className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gold text-navy-950 font-bold text-sm hover:bg-gold-hover transition-colors shadow-lg text-center"
+                className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gold text-navy-950 font-bold text-sm hover:bg-gold-hover transition-colors shadow text-center"
               >
-                Khám Phá 3 Sản Phẩm Signature
+                Khám Phá 3 Sản Phẩm Chủ Lực
               </a>
 
               <a
-                href="#standards"
-                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-navy-900 text-ink-light border border-navy-800 font-semibold text-sm hover:bg-navy-800 hover:text-white transition-colors text-center"
+                href="https://zalo.me/0901325178"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-navy-900 text-ink-light border border-navy-700 font-semibold text-sm hover:bg-navy-800 hover:text-white transition-colors text-center"
               >
-                So Sánh Với Hải Sản Chợ
+                Zalo Đặt Hàng: 090 132 5178
               </a>
             </motion.div>
 
-            {/* Clean Professional Social Proof Trust Capsule Card */}
+            {/* Clean Editorial Corporate Metrics */}
             <motion.div
               variants={textItemVariants}
-              className="mt-6 p-3.5 sm:p-4 rounded-2xl bg-navy-900 border border-navy-700 shadow-lg"
+              className="pt-6 border-t border-navy-800 grid grid-cols-3 gap-4 text-center lg:text-left"
             >
-              <div className="grid grid-cols-3 gap-2 sm:gap-4 divide-x divide-navy-700/80 items-center text-center">
-                {/* Stat 1: Đơn đã giao */}
-                <div className="flex flex-col items-center justify-center px-1 sm:px-2 space-y-0.5">
-                  <div className="flex items-center gap-1.5 text-teal">
-                    <IoBagCheckOutline className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 text-teal" />
-                    <span className="text-base sm:text-xl font-black tracking-tight text-white">
-                      <AnimeCounter targetValue={128450} suffix="+" />
-                    </span>
-                  </div>
-                  <span className="text-[11px] sm:text-xs text-ink-light/80 font-medium whitespace-nowrap">
-                    Đơn Đã Giao
-                  </span>
+              <div>
+                <div className="text-2xl sm:text-3xl font-black text-white font-display">
+                  <AnimeCounter targetValue={128450} suffix="+" />
                 </div>
+                <p className="text-xs text-ink-light/70 mt-1">Đơn hàng đã giao</p>
+              </div>
 
-                {/* Stat 2: Feedback 5 sao */}
-                <div className="flex flex-col items-center justify-center px-1 sm:px-2 space-y-0.5">
-                  <div className="flex items-center gap-1.5 text-teal">
-                    <IoChatboxEllipsesOutline className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 text-teal" />
-                    <span className="text-base sm:text-xl font-black tracking-tight text-white">
-                      <AnimeCounter targetValue={15820} suffix="+" />
-                    </span>
-                  </div>
-                  <span className="text-[11px] sm:text-xs text-ink-light/80 font-medium whitespace-nowrap">
-                    Feedback 5★
-                  </span>
+              <div>
+                <div className="text-2xl sm:text-3xl font-black text-white font-display">
+                  <AnimeCounter targetValue={15820} suffix="+" />
                 </div>
+                <p className="text-xs text-ink-light/70 mt-1">Đánh giá 5 sao</p>
+              </div>
 
-                {/* Stat 3: Đánh giá & Hài lòng */}
-                <div className="flex flex-col items-center justify-center px-1 sm:px-2 space-y-0.5">
-                  <div className="flex items-center gap-1 text-amber-400">
-                    <IoStar className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 fill-amber-400" />
-                    <span className="text-base sm:text-xl font-black tracking-tight text-white">
-                      4.9<span className="text-xs sm:text-sm text-ink-light/60 font-normal">/5</span>
-                    </span>
-                  </div>
-                  <span className="text-[11px] sm:text-xs text-teal font-semibold whitespace-nowrap">
-                    99.4% Hài Lòng
-                  </span>
+              <div>
+                <div className="text-2xl sm:text-3xl font-black text-teal font-display">
+                  99.4%
                 </div>
+                <p className="text-xs text-ink-light/70 mt-1">Khách hàng hài lòng</p>
               </div>
             </motion.div>
           </motion.div>

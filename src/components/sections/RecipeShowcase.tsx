@@ -147,27 +147,27 @@ export default function RecipeShowcase({ onOpenChat }: RecipeShowcaseProps) {
           </AnimatePresence>
         </div>
 
-        {/* AI Chef Masterclass Callout Box */}
-        <div className="mb-20 bg-gradient-to-r from-navy-900 via-navy-850 to-navy-900 border border-gold/30 rounded-3xl p-6 sm:p-10 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+        {/* Culinary Consultation Callout Box */}
+        <div className="mb-20 bg-navy-900 border border-navy-800 rounded-2xl p-6 sm:p-8 shadow-md flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="space-y-2 text-center md:text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-navy-950 border border-gold/40 text-xs font-bold text-gold">
-              <span>BẾP TRƯỞNG MAVY AI</span>
-            </div>
+            <span className="text-xs uppercase tracking-[0.2em] text-teal font-bold block">
+              CẨM NANG ẨM THỰC MAVY
+            </span>
             <h3 className="text-xl sm:text-2xl font-black text-white">
-              Bạn Đang Có Nguyên Liệu Riêng Trong Tủ Lạnh?
+              Bạn Đang Có Nguyên Liệu Riêng Trong Gian Bếp?
             </h3>
             <p className="text-xs sm:text-sm text-ink-light/80 max-w-xl">
-              Chỉ cần gửi danh sách nguyên liệu (Cua, Tôm, Mực, bơ tỏi, sốt me, phô mai...), Bếp Trưởng AI sẽ tính toán tỷ lệ gia vị và hướng dẫn kỹ thuật nấu tức thì.
+              Nhận gợi ý công thức chi tiết từ tỷ lệ gia vị đến thời gian canh lửa chuẩn cho từng món Cua gạch, Tôm sú và Mực trứng.
             </p>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3 shrink-0">
             <button
               onClick={() => onOpenChat?.()}
-              className="px-6 py-3.5 rounded-xl bg-gold text-navy-950 font-bold text-xs sm:text-sm hover:bg-gold-hover transition-colors shadow-lg flex items-center justify-center gap-2 cursor-pointer"
+              className="px-6 py-3.5 rounded-xl bg-gold text-navy-950 font-bold text-xs sm:text-sm hover:bg-gold-hover transition-colors shadow flex items-center justify-center gap-2 cursor-pointer"
             >
               <IoChatbubblesOutline className="w-4 h-4" />
-              <span>Mở Bếp Trưởng AI (Popup)</span>
+              <span>Tư Vấn Công Thức Nhanh</span>
             </button>
           </div>
         </div>

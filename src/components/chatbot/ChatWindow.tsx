@@ -184,14 +184,14 @@ export default function ChatWindow({ isOpen, onClose, initialQuery }: ChatWindow
             {/* Header */}
             <div className="p-4 bg-navy-900 border-b border-navy-800 flex items-center justify-between shadow-md select-none">
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full bg-navy-950 border border-gold/70 flex items-center justify-center text-gold shadow-sm">
-                  <IoRestaurant className="w-4 h-4" />
+                <div className="w-9 h-9 rounded-full bg-navy-950 border border-navy-700 flex items-center justify-center text-teal shadow-sm">
+                  <IoRestaurant className="w-4 h-4 text-teal" />
                 </div>
                 <div>
                   <h3 className="text-sm font-bold text-white leading-tight">
-                    Bếp Trưởng MAVY AI
+                    Chuyên Gia Ẩm Thực MAVY
                   </h3>
-                  <p className="text-[10px] text-ink-light/70 leading-tight">Gợi ý món ngon từ nguyên liệu sẵn có</p>
+                  <p className="text-[10px] text-ink-light/70 leading-tight">Tư vấn thực đơn & kỹ thuật nấu hải sản</p>
                 </div>
               </div>
 
