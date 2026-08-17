@@ -41,122 +41,62 @@ h1, h2, h3, h4, h5, h6 {
   background: #F2A900;
 }
 
-/* Dramatic Volumetric Underwater Sunlight & Caustics */
+/* Natural Ambient Caustic Glow */
 @keyframes causticDrift {
   0% {
-    transform: translate(0, 0) scale(1) rotate(0deg);
-    opacity: 0.35;
-  }
-  50% {
-    transform: translate(-4%, 3%) scale(1.1) rotate(1deg);
-    opacity: 0.55;
-  }
-  100% {
-    transform: translate(0, 0) scale(1) rotate(0deg);
-    opacity: 0.35;
-  }
-}
-
-@keyframes volumetricShafts {
-  0% {
-    transform: translateX(-15%) rotate(-8deg);
+    transform: translate(0, 0) scale(1);
     opacity: 0.25;
   }
   50% {
-    transform: translateX(10%) rotate(-4deg);
-    opacity: 0.45;
+    transform: translate(-3%, 2%) scale(1.05);
+    opacity: 0.4;
   }
   100% {
-    transform: translateX(-15%) rotate(-8deg);
+    transform: translate(0, 0) scale(1);
     opacity: 0.25;
   }
 }
 
 .caustic-ambient {
-  background: radial-gradient(circle at 60% 40%, rgba(12, 68, 148, 0.7) 0%, rgba(0, 21, 61, 0) 65%),
-              radial-gradient(circle at 85% 55%, rgba(242, 169, 0, 0.16) 0%, rgba(0, 21, 61, 0) 50%),
-              radial-gradient(circle at 25% 65%, rgba(7, 51, 114, 0.5) 0%, rgba(0, 21, 61, 0) 60%);
+  background: radial-gradient(circle at 65% 45%, rgba(12, 68, 148, 0.5) 0%, rgba(0, 21, 61, 0) 65%),
+              radial-gradient(circle at 20% 60%, rgba(7, 51, 114, 0.4) 0%, rgba(0, 21, 61, 0) 60%);
   animation: causticDrift 14s ease-in-out infinite;
 }
 
-.ocean-beam {
-  position: absolute;
-  top: -30%;
-  bottom: -30%;
-  left: -20%;
-  right: -20%;
-  background: linear-gradient(
-    115deg,
-    transparent 15%,
-    rgba(12, 68, 148, 0.35) 35%,
-    rgba(242, 169, 0, 0.12) 48%,
-    rgba(255, 255, 255, 0.08) 50%,
-    rgba(12, 68, 148, 0.35) 62%,
-    transparent 85%
-  );
-  animation: volumetricShafts 16s ease-in-out infinite;
-  pointer-events: none;
-}
-
-/* Product Halo Spotlight */
-.product-halo-ambient {
-  position: absolute;
-  inset: -15%;
-  background: radial-gradient(circle at 50% 50%, rgba(242, 169, 0, 0.2) 0%, rgba(12, 68, 148, 0.4) 40%, transparent 70%);
-  filter: blur(35px);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Frosted Ice Crystalline Styles */
-.frost-ice-panel {
-  background: linear-gradient(135deg, rgba(220, 235, 250, 0.45) 0%, rgba(180, 215, 245, 0.25) 50%, rgba(220, 235, 250, 0.35) 100%);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.4), 0 8px 32px rgba(0, 21, 61, 0.5);
-  will-change: transform, opacity;
-}
-
-/* Dramatic Golden Light Sweep Beam */
+/* Subtle Golden Shimmer for Cards on Hover */
 @keyframes lightSweep {
   0% {
-    transform: translateX(-180%) skewX(-25deg);
+    transform: translateX(-160%) skewX(-20deg);
     opacity: 0;
   }
   20% {
-    opacity: 0.95;
+    opacity: 0.85;
   }
   80% {
-    opacity: 0.95;
+    opacity: 0.85;
   }
   100% {
-    transform: translateX(280%) skewX(-25deg);
+    transform: translateX(260%) skewX(-20deg);
     opacity: 0;
   }
 }
 
 .light-sweep-beam {
   position: absolute;
-  top: -10%;
-  bottom: -10%;
+  top: 0;
+  bottom: 0;
   left: 0;
-  width: 75%;
+  width: 60%;
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(217, 164, 65, 0.25) 25%,
-    rgba(255, 255, 255, 0.8) 50%,
-    rgba(217, 164, 65, 0.25) 75%,
+    rgba(242, 169, 0, 0.2) 30%,
+    rgba(255, 255, 255, 0.6) 50%,
+    rgba(242, 169, 0, 0.2) 70%,
     transparent 100%
   );
   pointer-events: none;
-  z-index: 30;
-  will-change: transform, opacity;
-}
-
-.animate-light-sweep {
-  animation: lightSweep 1.1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  z-index: 20;
 }
 
 .group:hover .group-hover-light-sweep {
@@ -191,12 +131,9 @@ h1, h2, h3, h4, h5, h6 {
     scroll-behavior: auto !important;
   }
   .caustic-ambient,
-  .ocean-beam,
-  .product-halo-ambient,
-  .frost-ice-panel,
   .light-sweep-beam,
-  .animate-light-sweep,
   .group-hover-light-sweep {
     animation: none !important;
+    display: none !important;
   }
 }
