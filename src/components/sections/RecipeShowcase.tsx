@@ -77,15 +77,16 @@ export default function RecipeShowcase({ onOpenChat }: RecipeShowcaseProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20 space-y-4 sm:space-y-5">
+        <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20 space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-navy-900 border border-navy-800 text-xs font-semibold text-gold">
             <IoRestaurantOutline className="w-3.5 h-3.5" />
             <span>XƯỞNG ẨM THỰC MAVY</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-[1.4] sm:leading-[1.45] tracking-tight pb-1">
-            Nấu Chuẩn Vị Tại Nhà <span className="text-gold">Cùng Bí Quyết Bếp Trưởng</span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight pb-2">
+            <span className="block leading-tight">Nấu Chuẩn Vị Tại Nhà</span>
+            <span className="block text-gold leading-tight mt-2.5 sm:mt-3.5">Cùng Bí Quyết Bếp Trưởng</span>
           </h2>
-          <p className="text-sm sm:text-base text-ink-light/80 leading-relaxed max-w-2xl mx-auto pt-1">
+          <p className="text-sm sm:text-base text-ink-light/80 leading-relaxed max-w-2xl mx-auto pt-2">
             Khám phá 4 giai đoạn chế biến hải sản chuẩn khoa học và công cụ Bếp Trưởng AI tạo công thức độc quyền theo nguyên liệu tủ lạnh.
           </p>
         </div>

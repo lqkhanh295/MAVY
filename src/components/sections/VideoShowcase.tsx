@@ -84,10 +84,11 @@ export default function VideoShowcase() {
             <IoFilmOutline className="w-3.5 h-3.5" />
             <span>THƯỚC PHIM THỰC ĐỊA</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white leading-[1.4] sm:leading-[1.45] tracking-tight pb-1">
-            Quy Trình Đánh Bắt & <span className="text-gold">Cấp Đông Trên Tàu</span>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight pb-2">
+            <span className="block leading-tight">Quy Trình Đánh Bắt &</span>
+            <span className="block text-gold leading-tight mt-2 sm:mt-3">Cấp Đông Trên Tàu</span>
           </h2>
-          <p className="text-sm sm:text-base text-ink-light/80 leading-relaxed max-w-2xl mx-auto pt-1">
+          <p className="text-sm sm:text-base text-ink-light/80 leading-relaxed max-w-2xl mx-auto pt-2">
             Xem thực tế quy trình kiểm định chất lượng và công nghệ cấp đông siêu tốc IQF -40°C giúp giữ trọn vẹn độ tươi giòn nguyên bản của hải sản MAVY.
           </p>
         </div>

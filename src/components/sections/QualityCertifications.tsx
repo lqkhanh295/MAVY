@@ -53,14 +53,15 @@ export default function QualityCertifications() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20 space-y-4 sm:space-y-5">
+        <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20 space-y-4">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-navy-950 border border-navy-800 text-xs font-semibold text-gold">
             <span>MINH BẠCH TIÊU CHUẨN NGUỒN GỐC</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-[1.4] sm:leading-[1.45] tracking-tight pb-1">
-            Tại Sao Nên Chọn <span className="text-gold">Hải Sản MAVY?</span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight pb-2">
+            <span className="block leading-tight">Tại Sao Nên Chọn</span>
+            <span className="block text-gold leading-tight mt-2.5 sm:mt-3.5">Hải Sản MAVY?</span>
           </h2>
-          <p className="text-sm sm:text-base text-ink-light/80 leading-relaxed max-w-2xl mx-auto pt-1">
+          <p className="text-sm sm:text-base text-ink-light/80 leading-relaxed max-w-2xl mx-auto pt-2">
             Chúng tôi xóa bỏ nỗi lo mua phải hải sản ngậm nước, dây trói gian lận cân nặng hay ướp hóa chất bảo quản.
           </p>
         </div>

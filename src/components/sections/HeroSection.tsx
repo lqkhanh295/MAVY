@@ -140,10 +140,10 @@ export default function HeroSection() {
             {/* Main Headline */}
             <motion.h1
               variants={textItemVariants}
-              className="text-4xl sm:text-5xl md:text-6xl font-black text-white leading-[1.2] sm:leading-[1.22] md:leading-[1.25] tracking-tight pb-1"
+              className="text-4xl sm:text-5xl md:text-6xl font-black text-white tracking-tight pb-2"
             >
-              Hải Sản Tự Nhiên <br className="hidden sm:inline" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold via-[#FFD066] to-gold inline-block mt-1 sm:mt-0">
+              <span className="block leading-tight">Hải Sản Tự Nhiên</span>
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-gold via-[#FFD066] to-gold leading-tight mt-2 sm:mt-3.5">
                 Chuẩn Vị Ngọt Nguyên Bản
               </span>
             </motion.h1>
