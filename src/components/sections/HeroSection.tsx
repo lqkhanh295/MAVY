@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion, type Variants } from "framer-motion";
-import { IoArrowDownOutline } from "react-icons/io5";
+import { IoArrowDownOutline, IoShieldCheckmarkOutline } from "react-icons/io5";
 
 export default function HeroSection() {
   const containerVariants: Variants = {
@@ -10,14 +10,14 @@ export default function HeroSection() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
+        staggerChildren: 0.12,
         delayChildren: 0.1,
       },
     },
   };
 
   const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 24 },
+    hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
@@ -29,149 +29,145 @@ export default function HeroSection() {
   };
 
   const visualVariants: Variants = {
-    hidden: { opacity: 0, scale: 0.94, y: 32 },
+    hidden: { opacity: 0, scale: 0.96, y: 24 },
     visible: {
       opacity: 1,
       scale: 1,
       y: 0,
       transition: {
-        duration: 0.8,
+        duration: 0.7,
         ease: "easeOut",
-        delay: 0.3,
+        delay: 0.25,
       },
     },
   };
 
   return (
-    <section className="relative min-h-[90vh] flex flex-col justify-center pt-32 pb-20 md:pt-40 md:pb-28 bg-navy-950 border-b border-navy-800 overflow-hidden">
+    <section className="relative min-h-[88vh] flex flex-col justify-center pt-32 pb-20 md:pt-36 md:pb-24 bg-navy-950 border-b border-navy-800 overflow-hidden">
       {/* Background Soft Ocean Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-navy-950 via-navy-900/40 to-navy-950 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-navy-950 via-navy-900/30 to-navy-950 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center"
+          className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-12 items-center"
         >
-          {/* Left Column: Headline & Cognitive Framing */}
+          {/* Left Column: Headline & Value Proposition */}
           <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
             {/* Tag Badge */}
             <motion.div variants={itemVariants} className="inline-block">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md bg-navy-900 border border-navy-800 text-xs font-semibold text-gold">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-navy-900 border border-navy-800 text-xs font-semibold text-gold">
                 <span className="w-2 h-2 rounded-full bg-gold" />
-                <span>Nguồn Hải Sản Trực Tiếp Từ Vùng Biển Sạch</span>
+                <span>Nguồn Hải Sản Tự Nhiên Tuyển Chọn Trực Tiếp Tại Bến</span>
               </div>
             </motion.div>
 
             {/* Headline */}
             <motion.h1
               variants={itemVariants}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white leading-[1.15] tracking-tight"
+              className="text-4xl sm:text-5xl md:text-6xl font-black text-white leading-[1.12] tracking-tight"
             >
               Hải Sản Tự Nhiên <br />
               <span className="text-gold">Chuẩn Vị Ngọt Nguyên Bản</span>
             </motion.h1>
 
-            {/* Supporting Copy */}
+            {/* Short Supporting Proposition */}
             <motion.p
               variants={itemVariants}
-              className="text-base sm:text-lg text-ink-light/90 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal"
+              className="text-base sm:text-lg text-ink-light/80 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal"
             >
-              MAVY thu mua trực tiếp tại bến Năm Căn và Phú Quốc, áp dụng công nghệ cấp đông siêu tốc <strong>IQF -40°C</strong> ngay khi cập bờ. Cam kết 100% dây trói siêu mỏng, không ngậm nước, giao sống hoặc cấp đông chuẩn xuất khẩu trong 2 giờ.
+              MAVY tuyển chọn trực tiếp tại bến Năm Căn và Phú Quốc, cấp đông siêu tốc <strong>IQF -40°C</strong> trong 12 phút. Cam kết dây trói &lt;20g, 0% hóa chất, bảo hành 1 đổi 1 và giao nhanh trong 2 giờ.
             </motion.p>
 
-            {/* 3 Practical Metric Cards */}
-            <motion.div variants={itemVariants} className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-              <div className="bg-navy-900 p-4 rounded-xl border border-navy-800 text-left transition-colors hover:border-navy-600">
-                <div className="text-xl font-extrabold text-gold">Năm Căn & Phú Quốc</div>
-                <p className="text-xs text-ink-light/70 mt-1 leading-snug">
-                  Đánh bắt tự nhiên tại các vùng nước mặn sinh thái sạch nhất Việt Nam.
-                </p>
+            {/* Editorial Feature Strip (Typography & Haired lines instead of 3 heavy cards) */}
+            <motion.div
+              variants={itemVariants}
+              className="pt-2 pb-2 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-2 text-xs text-ink-light/70"
+            >
+              <div className="flex items-center gap-1.5">
+                <IoShieldCheckmarkOutline className="w-4 h-4 text-gold shrink-0" />
+                <span>Xuất xứ Năm Căn & Phú Quốc</span>
               </div>
-
-              <div className="bg-navy-900 p-4 rounded-xl border border-navy-800 text-left transition-colors hover:border-navy-600">
-                <div className="text-xl font-extrabold text-gold">IQF -40°C</div>
-                <p className="text-xs text-ink-light/70 mt-1 leading-snug">
-                  Cấp đông sâu trong 12 phút, giữ 99% thớ thịt giòn ngọt như vừa vớt.
-                </p>
+              <span className="hidden sm:inline text-navy-800 select-none">|</span>
+              <div className="flex items-center gap-1.5">
+                <IoShieldCheckmarkOutline className="w-4 h-4 text-gold shrink-0" />
+                <span>Cấp đông IQF -40°C</span>
               </div>
-
-              <div className="bg-navy-900 p-4 rounded-xl border border-navy-800 text-left transition-colors hover:border-navy-600">
-                <div className="text-xl font-extrabold text-gold">Dây Trói &lt; 20g</div>
-                <p className="text-xs text-ink-light/70 mt-1 leading-snug">
-                  Nói không với gian lận trọng lượng. Bao ăn 1 đổi 1 nếu cua ốp nước.
-                </p>
+              <span className="hidden sm:inline text-navy-800 select-none">|</span>
+              <div className="flex items-center gap-1.5">
+                <IoShieldCheckmarkOutline className="w-4 h-4 text-gold shrink-0" />
+                <span>Dây trói siêu mỏng &lt;20g</span>
               </div>
             </motion.div>
 
             {/* CTAs */}
             <motion.div
               variants={itemVariants}
-              className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4"
+              className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 pt-2"
             >
               <a
                 href="#products"
-                className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gold text-navy-950 font-bold text-base hover:bg-gold-hover transition-colors shadow-lg text-center"
+                className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gold text-navy-950 font-bold text-sm hover:bg-gold-hover transition-colors shadow-lg text-center"
               >
-                Xem Bảng Giá 3 Hải Sản Chủ Lực
+                Khám Phá 3 Sản Phẩm Signature
               </a>
 
               <a
                 href="#standards"
-                className="w-full sm:w-auto px-6 py-4 rounded-xl bg-navy-900 text-white border border-navy-800 font-semibold text-base hover:bg-navy-800 transition-colors text-center"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-navy-900 text-ink-light border border-navy-800 font-semibold text-sm hover:bg-navy-800 hover:text-white transition-colors text-center"
               >
                 So Sánh Với Hải Sản Chợ
               </a>
             </motion.div>
           </div>
 
-          {/* Right Column: Hero Visual Reveal */}
+          {/* Right Column: Hero Visual Reveal (Spacious & Clean) */}
           <motion.div
             variants={visualVariants}
-            className="lg:col-span-5 relative"
+            className="lg:col-span-5 relative flex flex-col items-center"
           >
-            <div className="relative rounded-2xl bg-navy-900 border border-navy-800 p-6 sm:p-8 flex flex-col items-center justify-center shadow-2xl transition-all duration-300 hover:border-navy-600">
-              <div className="relative w-full aspect-[4/3] flex items-center justify-center">
-                <Image
-                  src="/assets/image/hero-3-products.png"
-                  alt="Bộ ba hải sản thượng hạng MAVY: Cua Cà Mau, Tôm Sú Biển, Mực Một Nắng"
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 500px"
-                  className="object-contain filter drop-shadow-[0_15px_30px_rgba(0,0,0,0.6)]"
-                  priority
-                  unoptimized
-                />
-              </div>
+            <div className="relative w-full aspect-[4/3] flex items-center justify-center">
+              <Image
+                src="/assets/image/hero-3-products.png"
+                alt="Bộ ba hải sản thượng hạng MAVY: Cua Cà Mau, Tôm Sú Biển, Mực Một Nắng"
+                fill
+                sizes="(max-width: 1024px) 100vw, 550px"
+                className="object-contain filter drop-shadow-[0_16px_32px_rgba(0,0,0,0.6)]"
+                priority
+                unoptimized
+              />
+            </div>
 
-              {/* Bottom Factual Legend Bar */}
-              <div className="w-full mt-4 pt-4 border-t border-navy-800 flex items-center justify-between text-xs text-ink-light/80 font-medium">
-                <span>Cua Cà Mau</span>
-                <span className="text-navy-800">•</span>
-                <span>Tôm Sú VIP</span>
-                <span className="text-navy-800">•</span>
-                <span>Mực Một Nắng</span>
+            {/* Minimal Editorial Caption */}
+            <div className="mt-4 text-center">
+              <div className="text-xs font-semibold text-gold tracking-wider uppercase">
+                Bộ Ba Signature
+              </div>
+              <div className="text-xs text-ink-light/60 mt-0.5">
+                Cua Gạch Năm Căn • Tôm Sú Phú Quốc • Mực Một Nắng
               </div>
             </div>
           </motion.div>
         </motion.div>
-      </div>
 
-      {/* Bottom Scroll Indicator (Subtle Cognitive Guide) */}
-      <motion.div
-        initial={{ opacity: 0, y: -8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.2, duration: 0.6 }}
-        className="hidden md:flex absolute bottom-6 left-1/2 -translate-x-1/2 flex-col items-center gap-1.5 text-xs text-ink-light/50 font-medium select-none pointer-events-none"
-      >
-        <span>Khám phá quy trình thực địa</span>
+        {/* Subtle Scroll Indicator */}
         <motion.div
-          animate={{ y: [0, 4, 0] }}
-          transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
+          variants={itemVariants}
+          initial="hidden"
+          animate="visible"
+          className="mt-14 pt-4 flex flex-col items-center justify-center"
         >
-          <IoArrowDownOutline className="w-3.5 h-3.5 text-gold" />
+          <a
+            href="#brand-film"
+            className="group flex flex-col items-center gap-1.5 text-xs text-ink-light/50 hover:text-gold transition-colors"
+          >
+            <span className="font-medium tracking-wide">Khám phá quy trình thực địa</span>
+            <IoArrowDownOutline className="w-4 h-4 text-gold animate-bounce" />
+          </a>
         </motion.div>
-      </motion.div>
+      </div>
     </section>
   );
 }

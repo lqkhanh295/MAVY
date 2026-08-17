@@ -41,15 +41,6 @@ h1, h2, h3, h4, h5, h6 {
   background: #F2A900;
 }
 
-/* Subtle Card & Glow Utilities */
-.gold-glow-subtle {
-  box-shadow: 0 0 35px rgba(242, 169, 0, 0.2);
-}
-
-.navy-card-shadow {
-  box-shadow: 0 12px 32px -4px rgba(0, 10, 30, 0.5);
-}
-
 /* Animation utilities */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(6px); }
