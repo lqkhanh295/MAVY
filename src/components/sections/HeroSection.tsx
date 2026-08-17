@@ -22,30 +22,29 @@ export default function HeroSection() {
     restDelta: 0.001,
   });
 
-  // 1. Hero Brand Text Fade & Lift (0% -> 20% scroll)
+  // 1. Initial Hero Left Column Text Fade & Lift (0% -> 22% scroll)
   const heroOpacity = useTransform(smoothProgress, [0, 0.18], [1, 0]);
   const heroY = useTransform(smoothProgress, [0, 0.18], [0, -35]);
-  const heroScale = useTransform(smoothProgress, [0, 0.18], [1, 0.95]);
 
-  // 2. Product Camera Journey ("Dive Into Ocean" & Shift to Left)
-  // Scale: 1.0 (Hero) -> 1.15 (Begin Dive) -> 1.35 (Peak Hero Moment) -> 1.35 (Dossier Spotlight) -> 0.85 (Transition into Grid)
+  // 2. Product Camera Journey ("Dive Into Ocean" & Center-to-Left Shift)
+  // On desktop: Starts in right column (offset), centers during dive, shifts left for dossier, settles into collection
   const productScale = useTransform(
     smoothProgress,
     [0, 0.18, 0.45, 0.68, 0.88, 1.0],
-    [1.0, 1.15, 1.35, 1.32, 1.05, 0.82]
+    [1.0, 1.18, 1.35, 1.3, 1.05, 0.82]
   );
 
-  // Product Desktop X translation (Centers initially, shifts to Left at 45% -> 68%)
+  // Desktop X Translation: Starts in right column, moves to center (0%), then left (-26%)
   const productX = useTransform(
     smoothProgress,
     [0, 0.2, 0.45, 0.68, 0.88, 1.0],
-    ["0%", "0%", "0%", "-26%", "-26%", "-26%"]
+    ["25%", "0%", "0%", "-26%", "-26%", "-26%"]
   );
 
   const productY = useTransform(
     smoothProgress,
     [0, 0.2, 0.45, 0.68, 0.88, 1.0],
-    ["0px", "-15px", "-25px", "0px", "0px", "45px"]
+    ["0px", "-10px", "-20px", "0px", "0px", "40px"]
   );
 
   // Subtle Y-axis perspective rotation during the Hero Moment
@@ -55,7 +54,7 @@ export default function HeroSection() {
     [0, -6, 0]
   );
 
-  // 3. Golden Light Sweep Beam across Product (Sweeps across at 42% -> 62%)
+  // 3. Golden Light Sweep Beam across Product (Sweeps across at 42% -> 64%)
   const lightSweepX = useTransform(smoothProgress, [0.42, 0.64], ["-160%", "260%"]);
   const lightSweepOpacity = useTransform(
     smoothProgress,
@@ -105,75 +104,113 @@ export default function HeroSection() {
         </div>
 
         {/* Main Stage Container */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full h-full flex items-center justify-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full h-full flex items-center">
           
-          {/* Phase 1: Initial Hero Brand & Value Proposition (Fades out smoothly on scroll) */}
+          {/* Phase 1: Initial Hero Left Column Brand & Value Proposition (Clear, Spacious, Zero Overlap) */}
           <motion.div
             style={{
               opacity: heroOpacity,
               y: heroY,
-              scale: heroScale,
             }}
-            className="absolute inset-0 flex flex-col justify-center items-center text-center max-w-4xl mx-auto px-4 pointer-events-auto"
+            className="w-full lg:w-7/12 space-y-6 text-center lg:text-left z-20 pointer-events-auto pr-0 lg:pr-8"
           >
             {/* Tag Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-navy-900/80 border border-navy-800 text-xs font-semibold text-gold mb-6 shadow-md backdrop-blur-sm">
-              <span className="w-2 h-2 rounded-full bg-gold animate-pulse" />
-              <span>Nguồn Hải Sản Tự Nhiên Tuyển Chọn Trực Tiếp Tại Bến</span>
+            <div className="inline-block">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-navy-900/90 border border-navy-800 text-xs font-semibold text-gold shadow-md backdrop-blur-sm">
+                <span className="w-2 h-2 rounded-full bg-gold animate-pulse" />
+                <span>Nguồn Hải Sản Tự Nhiên Tuyển Chọn Trực Tiếp Tại Bến</span>
+              </div>
             </div>
 
             {/* Headline */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white leading-[1.1] tracking-tight mb-6">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-white leading-[1.12] tracking-tight">
               Hải Sản Tự Nhiên <br />
               <span className="text-gold">Chuẩn Vị Ngọt Nguyên Bản</span>
             </h1>
 
             {/* Sub-headline */}
-            <p className="text-base sm:text-lg text-ink-light/80 max-w-xl mx-auto leading-relaxed mb-8 font-normal">
+            <p className="text-base sm:text-lg text-ink-light/80 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal">
               Đánh bắt tự nhiên tại bến Năm Căn và Phú Quốc. Cấp đông siêu tốc <strong>IQF -40°C</strong> trong 12 phút, giữ trọn vị giòn ngọt nguyên bản.
             </p>
 
+            {/* Sourcing Feature Strip */}
+            <div className="pt-1 pb-1 flex flex-wrap items-center justify-center lg:justify-start gap-x-5 gap-y-2 text-xs text-ink-light/70">
+              <div className="flex items-center gap-1.5">
+                <IoShieldCheckmarkOutline className="w-4 h-4 text-gold shrink-0" />
+                <span>Năm Căn & Phú Quốc</span>
+              </div>
+              <span className="hidden sm:inline text-navy-800 select-none">|</span>
+              <div className="flex items-center gap-1.5">
+                <IoShieldCheckmarkOutline className="w-4 h-4 text-gold shrink-0" />
+                <span>Cấp đông IQF -40°C</span>
+              </div>
+              <span className="hidden sm:inline text-navy-800 select-none">|</span>
+              <div className="flex items-center gap-1.5">
+                <IoShieldCheckmarkOutline className="w-4 h-4 text-gold shrink-0" />
+                <span>Dây trói &lt; 20g</span>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 pt-2">
+              <a
+                href="#products"
+                className="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-gold text-navy-950 font-bold text-sm hover:bg-gold-hover transition-colors shadow-lg text-center"
+              >
+                Khám Phá 3 Sản Phẩm Signature
+              </a>
+
+              <a
+                href="#standards"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-navy-900 text-ink-light border border-navy-800 font-semibold text-sm hover:bg-navy-800 hover:text-white transition-colors text-center"
+              >
+                So Sánh Với Hải Sản Chợ
+              </a>
+            </div>
+
             {/* Scroll Indicator Prompt */}
-            <div className="flex flex-col items-center gap-2 text-xs text-ink-light/50 pt-2">
-              <span className="font-medium tracking-wider uppercase text-[11px] text-gold">Cuộn để lặn vào trải nghiệm</span>
-              <IoArrowDownOutline className="w-4 h-4 text-gold animate-bounce" />
+            <div className="pt-4 flex items-center justify-center lg:justify-start gap-2 text-xs text-ink-light/50">
+              <span className="font-medium tracking-wider uppercase text-[11px] text-gold/80">Cuộn để lặn vào trải nghiệm</span>
+              <IoArrowDownOutline className="w-3.5 h-3.5 text-gold animate-bounce" />
             </div>
           </motion.div>
 
-          {/* Phase 2, 3, 5: The Centerpiece Hero Product Visual (Scroll-Driven Camera Zoom, Tilt & Shift) */}
-          <motion.div
-            style={{
-              scale: productScale,
-              x: productX,
-              y: productY,
-              rotateY: productRotateY,
-            }}
-            className="relative w-full max-w-lg aspect-[4/3] flex items-center justify-center pointer-events-none z-20"
-          >
-            {/* Product Photo with Rich Depth Shadow */}
-            <div className="relative w-full h-full flex items-center justify-center overflow-hidden rounded-3xl">
-              <Image
-                src="/assets/image/hero-3-products.png"
-                alt="Bộ ba hải sản thượng hạng MAVY: Cua Cà Mau, Tôm Sú Biển, Mực Một Nắng"
-                fill
-                sizes="(max-width: 1024px) 100vw, 600px"
-                className="object-contain filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.8)]"
-                priority
-                unoptimized
-              />
+          {/* Phase 2, 3, 5: The Centerpiece Hero Product Visual (Camera Zoom, Tilt & Shift on Scroll) */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <motion.div
+              style={{
+                scale: productScale,
+                x: productX,
+                y: productY,
+                rotateY: productRotateY,
+              }}
+              className="relative w-full max-w-md lg:max-w-lg aspect-[4/3] flex items-center justify-center z-10"
+            >
+              {/* Product Photo with Soft Rich Depth Shadow */}
+              <div className="relative w-full h-full flex items-center justify-center overflow-hidden rounded-3xl">
+                <Image
+                  src="/assets/image/hero-3-products.png"
+                  alt="Bộ ba hải sản thượng hạng MAVY: Cua Cà Mau, Tôm Sú Biển, Mực Một Nắng"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 600px"
+                  className="object-contain filter drop-shadow-[0_20px_40px_rgba(0,0,0,0.7)]"
+                  priority
+                  unoptimized
+                />
 
-              {/* Scroll-Driven Golden Light Sweep Beam */}
-              <motion.div
-                style={{
-                  x: lightSweepX,
-                  opacity: lightSweepOpacity,
-                }}
-                className="light-sweep-beam"
-              />
-            </div>
-          </motion.div>
+                {/* Scroll-Driven Golden Light Sweep Beam */}
+                <motion.div
+                  style={{
+                    x: lightSweepX,
+                    opacity: lightSweepOpacity,
+                  }}
+                  className="light-sweep-beam"
+                />
+              </div>
+            </motion.div>
+          </div>
 
-          {/* Phase 4: Product Spotlight Dossier (Reveals on the Right as Product Shifts to Left) */}
+          {/* Phase 4: Product Spotlight Dossier (Reveals on the Right as Product Shifts to Left on Scroll) */}
           <motion.div
             style={{
               opacity: dossierOpacity,
