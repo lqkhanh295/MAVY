@@ -3,9 +3,9 @@ export const BRAND_INFO = {
   slogan: "Tinh Hoa Hải Sản Biển Sạch Cho Mọi Gian Bếp Việt",
   shortDesc:
     "Thương hiệu tiên phong phân phối Cua gạch, Tôm sú đông lạnh & Mực trứng đông lạnh chuẩn xuất khẩu, áp dụng công nghệ cấp đông siêu tốc IQF -40°C giữ trọn vị tươi nguyên.",
-  hotline: "090 132 517",
-  hotlineTel: "tel:090132517",
-  zaloUrl: "https://zalo.me/090132517",
+  hotline: "090 132 5178",
+  hotlineTel: "tel:0901325178",
+  zaloUrl: "https://zalo.me/0901325178",
   email: "mavy.info@gmail.com",
   address: "Đường 379, Phường Tăng Nhơn Phú A, Thành phố Thủ Đức, Tp Hồ Chí Minh",
   mapsUrl: "https://www.google.com/maps/search/?api=1&query=%C4%90%C6%B0%E1%BB%9Dng+379,+Ph%C6%B0%E1%BB%9Dng+T%C4%83ng+Nh%C6%A1n+Ph%C3%BA+A,+Th%C3%A0nh+ph%E1%BB%91+Th%E1%BB%A7+%C4%90%E1%BB%A9c,+Tp+H%E1%BB%93+Ch%C3%AD+Minh",
@@ -13,7 +13,7 @@ export const BRAND_INFO = {
     {
       city: "TP. Hồ Chí Minh",
       address: "Đường 379, Phường Tăng Nhơn Phú A, Thành phố Thủ Đức, Tp Hồ Chí Minh",
-      phone: "090 132 517",
+      phone: "090 132 5178",
       mapsUrl: "https://www.google.com/maps/search/?api=1&query=%C4%90%C6%B0%E1%BB%9Dng+379,+Ph%C6%B0%E1%BB%9Dng+T%C4%83ng+Nh%C6%A1n+Ph%C3%BA+A,+Th%C3%A0nh+ph%E1%BB%91+Th%E1%BB%A7+%C4%90%E1%BB%A9c,+Tp+H%E1%BB%93+Ch%C3%AD+Minh",
     },
   ],

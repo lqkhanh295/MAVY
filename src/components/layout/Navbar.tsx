@@ -29,8 +29,8 @@ export default function Navbar() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-200 ${isScrolled
-          ? "bg-navy-950/95 backdrop-blur-md border-b border-navy-800 py-3 shadow-lg"
-          : "bg-navy-950 border-b border-navy-800/60 py-4"
+        ? "bg-navy-950/95 backdrop-blur-md border-b border-navy-800 py-3 shadow-lg"
+        : "bg-navy-950 border-b border-navy-800/60 py-4"
         }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -74,13 +74,13 @@ export default function Navbar() {
           {/* Action CTA */}
           <div className="hidden sm:flex items-center gap-3 shrink-0">
             <a
-              href="https://zalo.me/090132517"
+              href="https://zalo.me/0901325178"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-navy-800 border border-navy-600 text-xs font-bold text-gold hover:bg-navy-700 transition-colors whitespace-nowrap"
             >
               <IoCallOutline className="w-4 h-4 text-gold" />
-              <span>Zalo 090 132 517</span>
+              <span>Zalo 090 132 5178</span>
             </a>
 
             <a
@@ -120,13 +120,13 @@ export default function Navbar() {
             ))}
             <div className="pt-2 flex flex-col gap-2">
               <a
-                href="https://zalo.me/090132517"
+                href="https://zalo.me/0901325178"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 py-2.5 rounded-lg bg-navy-800 text-gold text-xs font-bold border border-navy-600"
               >
                 <IoCallOutline className="w-4 h-4" />
-                <span>Liên Hệ Zalo: 090 132 517 (Giao 2H)</span>
+                <span>Liên Hệ Zalo: 090 132 5178 (Giao 2H)</span>
               </a>
               <a
                 href="#products"

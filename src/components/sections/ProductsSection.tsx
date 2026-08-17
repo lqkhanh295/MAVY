@@ -301,12 +301,12 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
                   </a>
 
                   <a
-                    href="https://zalo.me/090132517"
+                    href="https://zalo.me/0901325178"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-gold text-navy-950 font-bold text-xs hover:bg-gold-hover transition-colors text-center"
                   >
-                    Nhắn Zalo Đặt Hàng (090 132 517)
+                    Nhắn Zalo Đặt Hàng (090 132 5178)
                   </a>
                 </div>
               </motion.div>
