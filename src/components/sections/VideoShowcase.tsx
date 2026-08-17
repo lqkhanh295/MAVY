@@ -79,15 +79,15 @@ export default function VideoShowcase() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-navy-950 border border-navy-800 text-xs font-semibold text-gold">
+        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16 space-y-4 sm:space-y-5">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md bg-navy-950 border border-navy-800 text-xs font-semibold text-gold">
             <IoFilmOutline className="w-3.5 h-3.5" />
             <span>THƯỚC PHIM THỰC ĐỊA</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white leading-[1.3] sm:leading-[1.35] tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white leading-[1.4] sm:leading-[1.45] tracking-tight pb-1">
             Quy Trình Đánh Bắt & <span className="text-gold">Cấp Đông Trên Tàu</span>
           </h2>
-          <p className="text-sm sm:text-base text-ink-light/80 leading-relaxed">
+          <p className="text-sm sm:text-base text-ink-light/80 leading-relaxed max-w-2xl mx-auto pt-1">
             Xem thực tế quy trình kiểm định chất lượng và công nghệ cấp đông siêu tốc IQF -40°C giúp giữ trọn vẹn độ tươi giòn nguyên bản của hải sản MAVY.
           </p>
         </div>

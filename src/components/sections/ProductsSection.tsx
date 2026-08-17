@@ -65,14 +65,14 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-navy-900 border border-navy-800 text-xs font-semibold text-gold">
+        <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-20 space-y-4 sm:space-y-5">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-navy-900 border border-navy-800 text-xs font-semibold text-gold">
             <span>BỘ 3 SẢN PHẨM SIGNATURE</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-[1.3] sm:leading-[1.35] tracking-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white leading-[1.4] sm:leading-[1.45] tracking-tight pb-1">
             Bộ Ba Hải Sản <span className="text-gold">Tuyển Chọn Tự Nhiên</span>
           </h2>
-          <p className="text-sm sm:text-base text-ink-light/80 leading-relaxed">
+          <p className="text-sm sm:text-base text-ink-light/80 leading-relaxed max-w-2xl mx-auto pt-1">
             Đánh bắt tại vùng biển sạch, giữ sống hoặc cấp đông siêu tốc IQF -40°C trong 12 phút.
           </p>
         </div>
