@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { IoClose, IoSend, IoRefreshOutline, IoRestaurant, IoSyncOutline } from "react-icons/io5";
 import { ChatMessage as ChatMessageType } from "@/types";
 import ChatMessage from "./ChatMessage";
+import { generateDynamicRecipe } from "@/lib/recipe-synthesizer";
 
 interface ChatWindowProps {
   isOpen: boolean;
@@ -86,12 +87,12 @@ export default function ChatWindow({ isOpen, onClose, initialQuery }: ChatWindow
 
       const result = await response.json();
 
-      if (result.success && result.data) {
+      if (result.success && result.data && result.data.recipes?.length > 0) {
         const chefMsg: ChatMessageType = {
           id: `chef-${Date.now()}`,
           sender: "chef",
-          text: result.data.message || "Bếp Trưởng MAVY đã thiết kế công thức đặc biệt này dành riêng cho bạn:",
-          recipes: result.data.recipes || [],
+          text: result.data.message || `Bếp Trưởng MAVY đã nghiên cứu và thiết kế công thức thực tế dựa trên nguyên liệu "${query}":`,
+          recipes: result.data.recipes,
           suggestedFollowUps: result.data.suggestedFollowUps || [
             "Bí quyết làm nước chấm hải sản chuẩn vị?",
             "Mẹo giữ hải sản mọng nước không bị khô?",
@@ -100,42 +101,17 @@ export default function ChatWindow({ isOpen, onClose, initialQuery }: ChatWindow
         };
         setMessages((prev) => [...prev, chefMsg]);
       } else {
-        throw new Error(result.message || "Không thể tạo công thức");
+        throw new Error("Sử dụng bộ tổng hợp công thức chuyên sâu");
       }
     } catch {
+      // Dynamic fallback based on exact user ingredients
+      const dynamicResult = generateDynamicRecipe(query);
       const fallbackMsg: ChatMessageType = {
         id: `chef-fallback-${Date.now()}`,
         sender: "chef",
-        text: "Bếp Trưởng đã nhận được nguyên liệu. Dưới đây là kỹ thuật nấu tối ưu nhất để giữ vị ngọt nguyên bản:",
-        recipes: [
-          {
-            id: "hai-san-bo-toi",
-            title: "Hải Sản Áp Chảo Bơ Tỏi Thảo Mộc",
-            category: "combo",
-            prepTime: "15 phút",
-            cookTime: "15 phút",
-            difficulty: "Dễ",
-            servings: "2 - 4 người",
-            description: "Món ăn tận dụng nguyên liệu tự nhiên tươi sạch kết hợp cùng các gia vị trong bếp để tôn lên độ ngọt bùi của hải sản MAVY.",
-            flavorProfile: "Thơm dịu thảo mộc, ngọt thanh tự nhiên, giòn dai mọng nước",
-            ingredients: [
-              { name: "Hải sản tươi sạch MAVY", amount: "500g", isMain: true },
-              { name: "Bơ lạt hoặc dầu ô liu", amount: "30g" },
-              { name: "Tỏi tép & sả tươi băm nhuyễn", amount: "2 củ" },
-              { name: "Gia vị chuẩn (muối biển, tiêu sọ, chanh)", amount: "Vừa đủ" },
-            ],
-            steps: [
-              "Sơ chế: Rửa sạch hải sản, để ráo nước hoàn toàn để khi nấu không bị ra nước.",
-              "Chế biến: Làm nóng chảo với lửa lớn, áp chảo nhanh mỗi mặt trong 3-4 phút để thịt săn chắc và giữ trọn dưỡng chất.",
-              "Hoàn thiện: Tắt bếp, rưới sốt bơ tỏi ấm và rắc tiêu sọ đập dập lên trên. Dùng nóng ngay lập tức.",
-            ],
-            chefTips: "Luôn nấu hải sản ở lửa lớn trong thời gian vừa đủ, không nấu quá lâu sẽ làm mất độ mọng nước tự nhiên.",
-          },
-        ],
-        suggestedFollowUps: [
-          "Cách khử mùi tanh hải sản hiệu quả nhất",
-          "Bí quyết làm nước chấm muối ớt xanh chuẩn vị",
-        ],
+        text: dynamicResult.message,
+        recipes: dynamicResult.recipes,
+        suggestedFollowUps: dynamicResult.suggestedFollowUps,
         timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       };
       setMessages((prev) => [...prev, fallbackMsg]);
