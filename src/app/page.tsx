@@ -3,11 +3,11 @@
 import { useState } from "react";
 import Navbar from "@/components/layout/Navbar";
 import HeroSection from "@/components/sections/HeroSection";
-import ProductsSection from "@/components/sections/ProductsSection";
-import QualityCertifications from "@/components/sections/QualityCertifications";
-import RecipeShowcase from "@/components/sections/RecipeShowcase";
 import VideoShowcase from "@/components/sections/VideoShowcase";
+import ProductsSection from "@/components/sections/ProductsSection";
+import RecipeShowcase from "@/components/sections/RecipeShowcase";
 import AboutStorySection from "@/components/sections/AboutStorySection";
+import QualityCertifications from "@/components/sections/QualityCertifications";
 import ContactCta from "@/components/sections/ContactCta";
 import Footer from "@/components/layout/Footer";
 
@@ -23,27 +23,27 @@ export default function Home() {
       {/* 1. Header Navigation */}
       <Navbar />
 
-      {/* 2. Main Content Flow */}
+      {/* 2. Main Content Flow: Hero → Video → Products → Recipe → About → Certifications → Contact */}
       <main className="flex-grow">
-        {/* Hero: What is MAVY & Core Value Proposition */}
+        {/* 1. Hero: Giới thiệu & Định vị thương hiệu MAVY */}
         <HeroSection />
 
-        {/* Products: What should I buy? Detailed specs & pricing */}
-        <ProductsSection onSelectProductForChef={handleSelectProductForChef} />
-
-        {/* Standards & Transparency: Why trust MAVY vs traditional market? */}
-        <QualityCertifications />
-
-        {/* Culinary Workshop: Embedded AI Master Chef & Recipe Collection */}
-        <RecipeShowcase initialIngredientQuery={selectedProductForChef} />
-
-        {/* Video Documentary: On-boat harvesting & IQF technology */}
+        {/* 2. Video: Thước phim thực địa quy trình đánh bắt & cấp đông IQF */}
         <VideoShowcase />
 
-        {/* Brand Origin & 4 Golden Commitments */}
+        {/* 3. Products: Danh mục 3 hải sản chủ lực & Bảng thông số kỹ thuật inline */}
+        <ProductsSection onSelectProductForChef={handleSelectProductForChef} />
+
+        {/* 4. Recipe: Xưởng ẩm thực & Bếp trưởng AI tạo công thức theo nguyên liệu */}
+        <RecipeShowcase initialIngredientQuery={selectedProductForChef} />
+
+        {/* 5. About: Câu chuyện tâm huyết & 4 Cam kết vàng MAVY */}
         <AboutStorySection />
 
-        {/* Contact & 2-Hour Dispatch Fulfillment */}
+        {/* 6. Certifications: Bảng so sánh minh bạch MAVY vs Chợ & 4 Tiêu chuẩn kiểm định */}
+        <QualityCertifications />
+
+        {/* 7. Contact: Chính sách giao hỏa tốc 2H, bảo hành 1 đổi 1 & Hotline đặt hàng */}
         <ContactCta />
       </main>
 

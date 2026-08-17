@@ -18,11 +18,12 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: "Sản Phẩm", href: "#products" },
-    { name: "Tiêu Chuẩn & So Sánh", href: "#standards" },
-    { name: "Xưởng Ẩm Thực & AI", href: "#culinary-studio" },
     { name: "Phim Tài Liệu", href: "#video-showcase" },
-    { name: "Liên Hệ Đặt Hàng", href: "#contact" },
+    { name: "Sản Phẩm", href: "#products" },
+    { name: "Xưởng Ẩm Thực", href: "#culinary-studio" },
+    { name: "Về MAVY", href: "#about" },
+    { name: "Tiêu Chuẩn & So Sánh", href: "#standards" },
+    { name: "Liên Hệ", href: "#contact" },
   ];
 
   return (
@@ -58,8 +59,8 @@ export default function Navbar() {
             </div>
           </Link>
 
-          {/* Desktop Nav Links */}
-          <nav className="hidden md:flex items-center gap-6 lg:gap-8">
+          {/* Desktop Nav Links in Logical Sequence */}
+          <nav className="hidden md:flex items-center gap-5 lg:gap-7">
             {navLinks.map((link) => (
               <a
                 key={link.name}
@@ -78,14 +79,14 @@ export default function Navbar() {
               className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#073372] border border-[#164082] text-xs font-bold text-[#F2A900] hover:bg-[#0c4494] transition-colors whitespace-nowrap"
             >
               <IoCallOutline className="w-4 h-4 text-[#F2A900]" />
-              <span>Hotline 1900 8899</span>
+              <span>1900 8899</span>
             </a>
 
             <a
               href="#products"
               className="px-4 py-2 rounded-lg bg-[#F2A900] text-[#00153d] text-xs font-bold hover:bg-[#d99700] transition-colors whitespace-nowrap shadow-sm"
             >
-              Báo Giá Hôm Nay
+              Bảng Giá Hải Sản
             </a>
           </div>
 
@@ -122,7 +123,7 @@ export default function Navbar() {
                 className="flex items-center justify-center gap-2 py-2.5 rounded-lg bg-[#073372] text-[#F2A900] text-xs font-bold border border-[#164082]"
               >
                 <IoCallOutline className="w-4 h-4" />
-                <span>Gọi Hotline 1900 8899 (Giao 2 Giờ)</span>
+                <span>Hotline 1900 8899 (Giao 2 Giờ)</span>
               </a>
               <a
                 href="#products"
