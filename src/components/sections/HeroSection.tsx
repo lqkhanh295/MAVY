@@ -1,63 +1,84 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, type Variants } from "framer-motion";
 import { IoArrowDownOutline, IoShieldCheckmarkOutline } from "react-icons/io5";
 
 export default function HeroSection() {
-  const containerVariants: Variants = {
+  const [triggerLightSweep, setTriggerLightSweep] = useState(false);
+
+  useEffect(() => {
+    // Phase 3: Trigger light sweep right after product reveals
+    const timer = setTimeout(() => {
+      setTriggerLightSweep(true);
+    }, 750);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Phase 4: Staggered Text & CTA container
+  const textContainerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
         staggerChildren: 0.12,
-        delayChildren: 0.1,
+        delayChildren: 0.7, // Appears smoothly after product visual anchors the screen
       },
     },
   };
 
-  const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 20 },
+  const textItemVariants: Variants = {
+    hidden: { opacity: 0, y: 16 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
+        duration: 0.55,
         ease: "easeOut",
       },
     },
   };
 
-  const visualVariants: Variants = {
-    hidden: { opacity: 0, scale: 0.96, y: 24 },
+  // Phase 2: Product Visual Rising & Unblurring (Smooth, non-bouncing)
+  const productVisualVariants: Variants = {
+    hidden: {
+      opacity: 0,
+      scale: 0.95,
+      y: 28,
+      filter: "blur(8px)",
+    },
     visible: {
       opacity: 1,
       scale: 1,
       y: 0,
+      filter: "blur(0px)",
       transition: {
-        duration: 0.7,
-        ease: "easeOut",
-        delay: 0.25,
+        duration: 0.75,
+        ease: [0.22, 1, 0.36, 1],
+        delay: 0.2,
       },
     },
   };
 
   return (
     <section className="relative min-h-[88vh] flex flex-col justify-center pt-32 pb-20 md:pt-36 md:pb-24 bg-navy-950 border-b border-navy-800 overflow-hidden">
-      {/* Background Soft Ocean Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-navy-950 via-navy-900/30 to-navy-950 pointer-events-none" />
+      {/* Phase 1: Underwater Caustic Ambient Light Background */}
+      <div className="absolute inset-0 caustic-ambient pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-navy-950/60 via-transparent to-navy-950 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-12 items-center"
-        >
-          {/* Left Column: Headline & Value Proposition */}
-          <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-12 items-center">
+          
+          {/* Left Column: Headline & Value Proposition (Phase 4 Sequenced Fade-Up) */}
+          <motion.div
+            variants={textContainerVariants}
+            initial="hidden"
+            animate="visible"
+            className="lg:col-span-7 space-y-6 text-center lg:text-left"
+          >
             {/* Tag Badge */}
-            <motion.div variants={itemVariants} className="inline-block">
+            <motion.div variants={textItemVariants} className="inline-block">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-navy-900 border border-navy-800 text-xs font-semibold text-gold">
                 <span className="w-2 h-2 rounded-full bg-gold" />
                 <span>Nguồn Hải Sản Tự Nhiên Tuyển Chọn Trực Tiếp Tại Bến</span>
@@ -66,7 +87,7 @@ export default function HeroSection() {
 
             {/* Headline */}
             <motion.h1
-              variants={itemVariants}
+              variants={textItemVariants}
               className="text-4xl sm:text-5xl md:text-6xl font-black text-white leading-[1.12] tracking-tight"
             >
               Hải Sản Tự Nhiên <br />
@@ -75,15 +96,15 @@ export default function HeroSection() {
 
             {/* Short Supporting Proposition */}
             <motion.p
-              variants={itemVariants}
+              variants={textItemVariants}
               className="text-base sm:text-lg text-ink-light/80 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal"
             >
               MAVY tuyển chọn trực tiếp tại bến Năm Căn và Phú Quốc, cấp đông siêu tốc <strong>IQF -40°C</strong> trong 12 phút. Cam kết dây trói &lt;20g, 0% hóa chất, bảo hành 1 đổi 1 và giao nhanh trong 2 giờ.
             </motion.p>
 
-            {/* Editorial Feature Strip (Typography & Haired lines instead of 3 heavy cards) */}
+            {/* Editorial Feature Strip */}
             <motion.div
-              variants={itemVariants}
+              variants={textItemVariants}
               className="pt-2 pb-2 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-2 text-xs text-ink-light/70"
             >
               <div className="flex items-center gap-1.5">
@@ -104,7 +125,7 @@ export default function HeroSection() {
 
             {/* CTAs */}
             <motion.div
-              variants={itemVariants}
+              variants={textItemVariants}
               className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 pt-2"
             >
               <a
@@ -121,14 +142,17 @@ export default function HeroSection() {
                 So Sánh Với Hải Sản Chợ
               </a>
             </motion.div>
-          </div>
+          </motion.div>
 
-          {/* Right Column: Hero Visual Reveal (Spacious & Clean) */}
-          <motion.div
-            variants={visualVariants}
-            className="lg:col-span-5 relative flex flex-col items-center"
-          >
-            <div className="relative w-full aspect-[4/3] flex items-center justify-center">
+          {/* Right Column: Hero Visual (Phase 2 Rise & Unblur + Phase 3 Gold Light Sweep) */}
+          <div className="lg:col-span-5 relative flex flex-col items-center">
+            <motion.div
+              variants={productVisualVariants}
+              initial="hidden"
+              animate="visible"
+              className="relative w-full aspect-[4/3] flex items-center justify-center overflow-hidden rounded-2xl"
+            >
+              {/* Product Photo */}
               <Image
                 src="/assets/image/hero-3-products.png"
                 alt="Bộ ba hải sản thượng hạng MAVY: Cua Cà Mau, Tôm Sú Biển, Mực Một Nắng"
@@ -138,23 +162,34 @@ export default function HeroSection() {
                 priority
                 unoptimized
               />
-            </div>
+
+              {/* Phase 3: Single Focused Gold Light Sweep Beam */}
+              {triggerLightSweep && (
+                <div className="light-sweep-beam animate-light-sweep" />
+              )}
+            </motion.div>
 
             {/* Minimal Editorial Caption */}
-            <div className="mt-4 text-center">
+            <motion.div
+              variants={textItemVariants}
+              initial="hidden"
+              animate="visible"
+              className="mt-4 text-center"
+            >
               <div className="text-xs font-semibold text-gold tracking-wider uppercase">
                 Bộ Ba Signature
               </div>
               <div className="text-xs text-ink-light/60 mt-0.5">
                 Cua Gạch Năm Căn • Tôm Sú Phú Quốc • Mực Một Nắng
               </div>
-            </div>
-          </motion.div>
-        </motion.div>
+            </motion.div>
+          </div>
+
+        </div>
 
         {/* Subtle Scroll Indicator */}
         <motion.div
-          variants={itemVariants}
+          variants={textItemVariants}
           initial="hidden"
           animate="visible"
           className="mt-14 pt-4 flex flex-col items-center justify-center"

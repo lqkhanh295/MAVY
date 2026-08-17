@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { SIGNATURE_PRODUCTS } from "@/data/products";
 import { Product } from "@/types";
-import { IoClose, IoArrowForwardOutline, IoInformationCircleOutline } from "react-icons/io5";
+import { IoClose, IoArrowForwardOutline } from "react-icons/io5";
 
 interface ProductsSectionProps {
   onSelectProductForChef?: (productName: string) => void;
@@ -13,6 +13,52 @@ interface ProductsSectionProps {
 
 export default function ProductsSection({ onSelectProductForChef }: ProductsSectionProps) {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+
+  // Scroll-in Viewport Stagger
+  const gridContainerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.12,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  const cardScrollVariants: Variants = {
+    hidden: { opacity: 0, y: 32, scale: 0.96 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.65,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    },
+  };
+
+  // Modal Tiered Information Reveal
+  const modalInfoContainer: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.08,
+        delayChildren: 0.25,
+      },
+    },
+  };
+
+  const modalInfoItem: Variants = {
+    hidden: { opacity: 0, y: 12 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.4, ease: "easeOut" },
+    },
+  };
 
   return (
     <section id="products" className="py-24 bg-navy-950 border-b border-navy-800 relative">
@@ -31,83 +77,97 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
           </p>
         </div>
 
-        {/* 3 Product Cards Grid (Clean Editorial Showcase) */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+        {/* 3 Product Cards Grid with Staggered Scroll-In & Hover Light Sweep */}
+        <motion.div
+          variants={gridContainerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch"
+        >
           {SIGNATURE_PRODUCTS.map((product) => (
             <motion.div
               key={product.id}
-              layoutId={`product-card-${product.id}`}
-              whileHover={{ y: -6 }}
-              transition={{ duration: 0.25, ease: "easeOut" }}
-              className="bg-navy-900 rounded-2xl border border-navy-800 overflow-hidden flex flex-col justify-between hover:border-gold/60 transition-colors cursor-pointer group"
-              onClick={() => setSelectedProduct(product)}
+              variants={cardScrollVariants}
+              className="h-full"
             >
-              {/* Product Photo Container */}
-              <div className="relative aspect-[4/3] bg-navy-950/60 p-6 flex items-center justify-center border-b border-navy-800 overflow-hidden">
-                {/* Origin Tag */}
-                <div className="absolute top-4 left-4 z-10 px-2.5 py-1 rounded bg-navy-800 text-gold text-xs font-semibold border border-navy-600">
-                  {product.origin}
-                </div>
-
-                {/* Badge */}
-                <div className="absolute top-4 right-4 z-10 px-2.5 py-1 rounded bg-navy-900 text-ink-light text-xs font-medium border border-navy-800">
-                  {product.badge}
-                </div>
-
-                {/* Animated Product Image */}
-                <motion.div
-                  className="relative w-full h-full flex items-center justify-center"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.35, ease: "easeOut" }}
-                >
-                  <Image
-                    src={product.image}
-                    alt={product.name}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 33vw"
-                    className="object-contain filter drop-shadow-[0_8px_20px_rgba(0,0,0,0.5)]"
-                    priority
-                    unoptimized
-                  />
-                </motion.div>
-              </div>
-
-              {/* Product Clean Editorial Body (No database clutter) */}
-              <div className="p-6 space-y-4 flex-1 flex flex-col justify-between">
-                <div className="space-y-2">
-                  <div className="text-xs font-bold text-gold uppercase tracking-wider">
-                    {product.category}
+              <motion.div
+                layoutId={`product-card-${product.id}`}
+                whileHover={{ y: -6 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
+                className="bg-navy-900 rounded-2xl border border-navy-800 overflow-hidden flex flex-col justify-between hover:border-gold/60 transition-colors cursor-pointer group h-full shadow-lg"
+                onClick={() => setSelectedProduct(product)}
+              >
+                {/* Product Photo Container with Hover Light Sweep */}
+                <div className="relative aspect-[4/3] bg-navy-950/60 p-6 flex items-center justify-center border-b border-navy-800 overflow-hidden">
+                  {/* Origin Tag */}
+                  <div className="absolute top-4 left-4 z-10 px-2.5 py-1 rounded bg-navy-800 text-gold text-xs font-semibold border border-navy-600">
+                    {product.origin}
                   </div>
-                  <h3 className="text-2xl font-bold text-white group-hover:text-gold transition-colors">
-                    {product.name}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-ink-light/70 leading-relaxed line-clamp-2">
-                    {product.description}
-                  </p>
+
+                  {/* Badge */}
+                  <div className="absolute top-4 right-4 z-10 px-2.5 py-1 rounded bg-navy-900 text-ink-light text-xs font-medium border border-navy-800">
+                    {product.badge}
+                  </div>
+
+                  {/* Animated Product Image */}
+                  <motion.div
+                    className="relative w-full h-full flex items-center justify-center"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.35, ease: "easeOut" }}
+                  >
+                    <Image
+                      src={product.image}
+                      alt={product.name}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 33vw"
+                      className="object-contain filter drop-shadow-[0_8px_20px_rgba(0,0,0,0.5)]"
+                      priority
+                      unoptimized
+                    />
+                  </motion.div>
+
+                  {/* Single Light Sweep on Card Hover */}
+                  <div className="light-sweep-beam group-hover-light-sweep" />
                 </div>
 
-                {/* Price & Unit */}
-                <div className="pt-3 border-t border-navy-800/80 flex items-baseline justify-between">
-                  <div>
-                    <span className="text-2xl font-black text-gold">{product.price}</span>
-                    <span className="text-xs text-ink-light/60 ml-1">/ {product.unit}</span>
+                {/* Product Editorial Body */}
+                <div className="p-6 space-y-4 flex-1 flex flex-col justify-between">
+                  <div className="space-y-2">
+                    <div className="text-xs font-bold text-gold uppercase tracking-wider">
+                      {product.category}
+                    </div>
+                    <h3 className="text-2xl font-bold text-white group-hover:text-gold transition-colors">
+                      {product.name}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-ink-light/70 leading-relaxed line-clamp-2">
+                      {product.description}
+                    </p>
                   </div>
-                  <span className="text-xs text-ink-light/50">Dây trói &lt; 20g</span>
-                </div>
 
-                {/* Interactive Action Button */}
-                <div className="pt-2">
-                  <div className="w-full py-2.5 px-4 rounded-xl bg-navy-800 text-white text-xs font-semibold group-hover:bg-gold group-hover:text-navy-950 transition-colors border border-navy-600 flex items-center justify-center gap-2">
-                    <span>Xem Chi Tiết Quy Cách & Dinh Dưỡng</span>
-                    <IoArrowForwardOutline className="w-3.5 h-3.5" />
+                  {/* Price & Unit */}
+                  <div className="pt-3 border-t border-navy-800/80 flex items-baseline justify-between">
+                    <div>
+                      <span className="text-2xl font-black text-gold">{product.price}</span>
+                      <span className="text-xs text-ink-light/60 ml-1">/ {product.unit}</span>
+                    </div>
+                    <span className="text-xs text-ink-light/50">Dây trói &lt; 20g</span>
+                  </div>
+
+                  {/* Interactive Action Button */}
+                  <div className="pt-2">
+                    <div className="w-full py-2.5 px-4 rounded-xl bg-navy-800 text-white text-xs font-semibold group-hover:bg-gold group-hover:text-navy-950 transition-colors border border-navy-600 flex items-center justify-center gap-2">
+                      <span>Xem Chi Tiết Quy Cách & Dinh Dưỡng</span>
+                      <IoArrowForwardOutline className="w-3.5 h-3.5" />
+                    </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
-        {/* Shared-Element Transition Modal (Editorial Product Dossier) */}
+        {/* Shared-Element Transition Modal (Editorial Product Dossier + Tiered Reveal) */}
         <AnimatePresence>
           {selectedProduct && (
             <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-sm">
@@ -144,11 +204,19 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
                   </button>
                 </div>
 
-                {/* Body Content (Clean Editorial Dossier - NO nested cards inside cards) */}
-                <div className="p-6 sm:p-8 overflow-y-auto space-y-6">
+                {/* Body Content with Tiered Information Reveal */}
+                <motion.div
+                  variants={modalInfoContainer}
+                  initial="hidden"
+                  animate="visible"
+                  className="p-6 sm:p-8 overflow-y-auto space-y-6"
+                >
                   {/* Top Image + Headline Block */}
-                  <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center border-b border-navy-800 pb-6">
-                    <div className="md:col-span-5 relative aspect-square bg-navy-900/60 rounded-2xl border border-navy-800 p-4 flex items-center justify-center">
+                  <motion.div
+                    variants={modalInfoItem}
+                    className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center border-b border-navy-800 pb-6"
+                  >
+                    <div className="md:col-span-5 relative aspect-square bg-navy-900/60 rounded-2xl border border-navy-800 p-4 flex items-center justify-center overflow-hidden">
                       <Image
                         src={selectedProduct.image}
                         alt={selectedProduct.name}
@@ -156,6 +224,9 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
                         className="object-contain p-2"
                         unoptimized
                       />
+
+                      {/* Single Light Sweep on Modal Open */}
+                      <div className="light-sweep-beam animate-light-sweep" />
                     </div>
 
                     <div className="md:col-span-7 space-y-3">
@@ -169,10 +240,10 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
                         <span className="text-xs text-ink-light/70">/ {selectedProduct.unit}</span>
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
 
                   {/* Technical Specifications (Clean Hairline Table) */}
-                  <div className="space-y-3">
+                  <motion.div variants={modalInfoItem} className="space-y-3">
                     <h4 className="text-xs font-bold text-ink-light uppercase tracking-wider">Thông Số Quy Cách Tuyển Chọn</h4>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 text-xs">
                       {selectedProduct.specifications.map((spec, i) => (
@@ -182,10 +253,10 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
                         </div>
                       ))}
                     </div>
-                  </div>
+                  </motion.div>
 
-                  {/* Nutrition Strip (Clean 4-column typographic stat strip - NO nested boxes) */}
-                  <div className="space-y-2 pt-2">
+                  {/* Nutrition Strip */}
+                  <motion.div variants={modalInfoItem} className="space-y-2 pt-2">
                     <h4 className="text-xs font-bold text-gold uppercase tracking-wider">
                       Dinh Dưỡng Ước Tính (100g thịt thành phẩm)
                     </h4>
@@ -207,10 +278,10 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
                         <div className="text-base font-bold text-white mt-0.5">{selectedProduct.nutritionFacts.calcium}</div>
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
 
-                  {/* Cooking Suggestions (Clean editorial list) */}
-                  <div className="space-y-2 pt-2">
+                  {/* Cooking Suggestions */}
+                  <motion.div variants={modalInfoItem} className="space-y-2 pt-2">
                     <h4 className="text-xs font-bold text-ink-light uppercase tracking-wider">Món Ngon Đầu Bếp Khuyên Dùng</h4>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-ink-light/90">
                       {selectedProduct.cookingSuggestions.map((item, idx) => (
@@ -220,8 +291,8 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
                         </div>
                       ))}
                     </div>
-                  </div>
-                </div>
+                  </motion.div>
+                </motion.div>
 
                 {/* Footer Action Buttons */}
                 <div className="p-5 bg-navy-900 border-t border-navy-800 flex flex-col sm:flex-row items-center justify-between gap-3">
