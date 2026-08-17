@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { IoClose, IoSend, IoRefreshOutline, IoSparkles, IoRestaurant, IoSyncOutline } from "react-icons/io5";
+import { IoClose, IoSend, IoRefreshOutline, IoRestaurant, IoSyncOutline } from "react-icons/io5";
 import { ChatMessage as ChatMessageType } from "@/types";
 import ChatMessage from "./ChatMessage";
 
@@ -171,9 +171,8 @@ export default function ChatWindow({ isOpen, onClose, initialQuery }: ChatWindow
             <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 border-2 border-navy-800 rounded-full" />
           </div>
           <div>
-            <h3 className="text-sm font-bold text-white flex items-center gap-1.5">
-              <span>Bếp Trưởng MAVY AI</span>
-              <IoSparkles className="w-3.5 h-3.5 text-gold" />
+            <h3 className="text-sm font-bold text-white">
+              Bếp Trưởng MAVY AI
             </h3>
             <p className="text-[10px] text-ink-light/70">Gợi ý món ngon từ mọi nguyên liệu</p>
           </div>

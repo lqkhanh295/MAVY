@@ -1,6 +1,6 @@
 "use client";
 
-import { IoRestaurant, IoPerson, IoSparkles } from "react-icons/io5";
+import { IoRestaurant, IoPerson } from "react-icons/io5";
 import { ChatMessage as ChatMessageType } from "@/types";
 import RecipeCard from "./RecipeCard";
 
@@ -48,9 +48,9 @@ export default function ChatMessage({ message, onSelectFollowUp }: ChatMessagePr
               <button
                 key={idx}
                 onClick={() => onSelectFollowUp?.(suggestion)}
-                className="text-[11px] px-2.5 py-1 rounded-full bg-navy-900 border border-navy-800 text-gold hover:bg-navy-800 hover:border-gold transition-colors flex items-center gap-1 text-left"
+                className="text-[11px] px-2.5 py-1 rounded-full bg-navy-900 border border-navy-800 text-gold hover:bg-navy-800 hover:border-gold transition-colors flex items-center gap-1.5 text-left"
               >
-                <IoSparkles className="w-2.5 h-2.5 shrink-0" />
+                <span className="text-gold text-xs leading-none select-none">•</span>
                 <span>{suggestion}</span>
               </button>
             ))}

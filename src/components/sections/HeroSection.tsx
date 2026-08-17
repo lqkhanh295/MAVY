@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, MouseEvent } from "react";
 import Image from "next/image";
 import { motion, useMotionValue, useSpring, useTransform, type Variants } from "framer-motion";
-import { IoArrowDownOutline, IoShieldCheckmarkOutline, IoSparklesOutline } from "react-icons/io5";
+import { IoArrowDownOutline, IoShieldCheckmarkOutline } from "react-icons/io5";
 
 export default function HeroSection() {
   const [isHovered, setIsHovered] = useState(false);
@@ -225,18 +225,15 @@ export default function HeroSection() {
               </motion.div>
             </motion.div>
 
-            {/* Editorial Caption Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-              className="mt-4 flex items-center gap-2 px-3.5 py-1 rounded-full bg-navy-900/60 border border-navy-800"
-            >
-              <IoSparklesOutline className="w-3.5 h-3.5 text-gold" />
-              <span className="text-[11px] font-semibold text-gold tracking-wider uppercase">
-                BỘ BA SIGNATURE: CUA NĂM CĂN • TÔM SÚ • MỰC MỘT NẮNG
-              </span>
-            </motion.div>
+            {/* Minimal Editorial Caption */}
+            <div className="mt-4 text-center">
+              <div className="text-xs font-semibold text-gold tracking-widest uppercase">
+                Bộ Ba Signature
+              </div>
+              <div className="text-xs text-ink-light/60 mt-0.5">
+                Cua Gạch Năm Căn • Tôm Sú Phú Quốc • Mực Một Nắng
+              </div>
+            </div>
           </div>
 
         </div>

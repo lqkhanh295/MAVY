@@ -3,7 +3,6 @@
 import { useState } from "react";
 import {
   IoTimeOutline,
-  IoSparkles,
   IoCopyOutline,
   IoCheckmarkOutline,
   IoChevronDownOutline,
@@ -130,7 +129,7 @@ ${recipe.chefTips || ""}`;
           {/* Chef Tips */}
           {recipe.chefTips && (
             <div className="p-3 rounded-lg bg-navy-800/60 border border-gold/40 flex gap-2.5">
-              <IoSparkles className="w-4 h-4 text-gold shrink-0 mt-0.5" />
+              <span className="w-1.5 h-1.5 rounded-full bg-gold shrink-0 mt-1.5" />
               <div>
                 <span className="font-bold text-gold text-xs block whitespace-nowrap">
                   Mẹo Bếp Trưởng:
