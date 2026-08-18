@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Be_Vietnam_Pro, Inter } from "next/font/google";
+import DevToolsGuard from "@/components/security/DevToolsGuard";
 import "./globals.css";
 
 const beVietnamPro = Be_Vietnam_Pro({
@@ -72,13 +73,9 @@ export default function RootLayout({
     <html lang="vi" className={`${beVietnamPro.variable} ${inter.variable} scroll-smooth`}>
       <head>
         <link rel="icon" href="/assets/image/logo.png" />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `console.log("%c 🌊 MAVY SEAFOOD %c Engineered by khanhlq %c https://github.com/lqkhanh295 ","background:#00153D;color:#FF8A5B;font-weight:bold;padding:4px 8px;border-radius:4px 0 0 4px;border:1px solid #FF8A5B;","background:#073372;color:#FFF7E8;font-weight:bold;padding:4px 8px;border-top:1px solid #FF8A5B;border-bottom:1px solid #FF8A5B;","background:#00153D;color:#0FA3B1;padding:4px 8px;border-radius:0 4px 4px 0;border:1px solid #0FA3B1;");`,
-          }}
-        />
       </head>
       <body className="min-h-screen bg-navy-950 text-white antialiased selection:bg-gold selection:text-navy-950">
+        <DevToolsGuard />
         {children}
       </body>
     </html>
