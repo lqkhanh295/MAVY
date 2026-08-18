@@ -158,7 +158,7 @@ export default function HeroSection() {
             >
               <div className="flex items-center gap-1.5">
                 <IoShieldCheckmarkOutline className="w-4 h-4 text-coral shrink-0" />
-                <span>Nguồn gốc Cà Mau & Phú Quốc</span>
+                <span>Nguồn gốc Năm Căn, Cà Mau</span>
               </div>
               <span className="hidden sm:inline text-white/20 select-none">|</span>
               <div className="flex items-center gap-1.5">

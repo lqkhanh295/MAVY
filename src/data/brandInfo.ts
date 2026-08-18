@@ -20,7 +20,7 @@ export const BRAND_INFO = {
   commitments: [
     {
       title: "100% Đánh Bắt Tự Nhiên",
-      description: "Nguồn gốc rõ ràng từ các vùng biển trù phú Cà Mau, Cô Tô, Phú Quốc.",
+      description: "Nguồn gốc rõ ràng từ các vùng sinh thái biển trù phú Năm Căn, Cà Mau.",
       icon: "ShieldCheck",
     },
     {

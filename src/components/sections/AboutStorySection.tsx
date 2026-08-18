@@ -13,7 +13,7 @@ export default function AboutStorySection() {
     {
       step: 1,
       title: "Tuyển Chọn Tươi Sống",
-      subtitle: "Thu hoạch trực tiếp tại bến Năm Căn & Phú Quốc",
+      subtitle: "Thu hoạch trực tiếp tại bến Năm Căn, Cà Mau",
       detail: "Hải sản sống khỏe được phân loại kỹ lưỡng ngay khi tàu cập cảng, loại bỏ 100% cá thể yếu hoặc ngậm nước.",
       stat: "100% Sống Khỏe",
     },
