@@ -12,6 +12,7 @@ import ContactCta from "@/components/sections/ContactCta";
 import Footer from "@/components/layout/Footer";
 import FloatingChatButton from "@/components/chatbot/FloatingChatButton";
 import ChatWindow from "@/components/chatbot/ChatWindow";
+import BackgroundMusicPlayer from "@/components/audio/BackgroundMusicPlayer";
 
 export default function Home() {
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -73,6 +74,9 @@ export default function Home() {
         onClose={handleCloseChat}
         initialQuery={chatInitialQuery}
       />
+
+      {/* 6. Global Ambient Background Music with Smart Video Auto-Mute */}
+      <BackgroundMusicPlayer />
     </div>
   );
 }
