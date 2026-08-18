@@ -2,6 +2,7 @@
   "name": "mavy-seafood-landing",
   "version": "1.0.0",
   "private": true,
+  "author": "khanhlq <https://github.com/lqkhanh295>",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
