@@ -13,16 +13,19 @@ const ChatRequestSchema = z.object({
     .trim(),
 });
 
+// Maximum allowed HTTP request body size (8 KB)
+const MAX_BODY_SIZE_BYTES = 8 * 1024;
+
 // -------------------------------------------------------------
-// 2. Hardened Rate Limiter with Sliding Window & Auto-Pruning
+// 2. Serverless-Resilient Sliding Window Rate Limiter
 // -------------------------------------------------------------
 const ipRateMap = new Map<string, { count: number; resetTime: number }>();
-const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute window
+const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute
 const MAX_REQUESTS_PER_IP = 10; // Max 10 calls / min / IP
-const GLOBAL_BURST_CAP = 120; // Global circuit breaker: max 120 requests / min total
+const GLOBAL_BURST_CAP = 120; // Global circuit breaker
 
 let globalRequestCount = 0;
-let globalResetTime = Date.now() + RATE_LIMIT_WINDOW;
+let globalResetTime = Date.now() + RATE_LIMIT_WINDOW_MS;
 
 function pruneRateMap() {
   const now = Date.now();
@@ -33,7 +36,7 @@ function pruneRateMap() {
   }
 }
 
-// Extract trusted IP without blindly accepting client-spoofed headers
+// Extract trusted IP with fallback verification
 function getTrustedClientIp(req: NextRequest): string {
   // 1. Vercel & Cloudflare Edge trusted headers
   const cfIp = req.headers.get("cf-connecting-ip");
@@ -42,7 +45,7 @@ function getTrustedClientIp(req: NextRequest): string {
   const vercelIp = req.headers.get("x-vercel-proxied-for") || req.headers.get("x-real-ip");
   if (vercelIp) return vercelIp.trim();
 
-  // 2. Sanitized X-Forwarded-For (take the first valid IP token)
+  // 2. Sanitized X-Forwarded-For
   const forwarded = req.headers.get("x-forwarded-for");
   if (forwarded) {
     const parts = forwarded.split(",").map((p) => p.trim());
@@ -57,14 +60,72 @@ function getTrustedClientIp(req: NextRequest): string {
   return "anonymous_client";
 }
 
+// Verify Origin / Referer against Cross-Site Request Forgery & External Abuse
+function isAllowedOrigin(req: NextRequest): boolean {
+  const origin = req.headers.get("origin");
+  const host = req.headers.get("host");
+  const referer = req.headers.get("referer");
+
+  // In local development or same-origin requests
+  if (!origin && !referer) return true;
+
+  if (origin) {
+    try {
+      const originHost = new URL(origin).host;
+      if (host && originHost === host) return true;
+      if (originHost.includes("mavyseafood.vn") || originHost.includes("localhost")) return true;
+    } catch {
+      return false;
+    }
+  }
+
+  if (referer) {
+    try {
+      const refererHost = new URL(referer).host;
+      if (host && refererHost === host) return true;
+      if (refererHost.includes("mavyseafood.vn") || refererHost.includes("localhost")) return true;
+    } catch {
+      return false;
+    }
+  }
+
+  return false;
+}
+
 export async function POST(req: NextRequest) {
   try {
+    // 1. Validate Origin / Referer
+    if (!isAllowedOrigin(req)) {
+      return NextResponse.json(
+        { success: false, message: "Yêu cầu bị từ chối do không hợp lệ từ nguồn phát (Forbidden Origin)." },
+        { status: 403 }
+      );
+    }
+
+    // 2. Strict HTTP Body Size Guard (Reject payloads > 8KB before reading)
+    const contentLength = req.headers.get("content-length");
+    if (contentLength && parseInt(contentLength, 10) > MAX_BODY_SIZE_BYTES) {
+      return NextResponse.json(
+        { success: false, message: "Kích thước dữ liệu vượt quá giới hạn cho phép (Payload Too Large)." },
+        { status: 413 }
+      );
+    }
+
+    // 3. Content-Type Header Verification
+    const contentType = req.headers.get("content-type") || "";
+    if (contentType && !contentType.includes("application/json")) {
+      return NextResponse.json(
+        { success: false, message: "Chỉ chấp nhận định dạng application/json." },
+        { status: 415 }
+      );
+    }
+
     const now = Date.now();
 
-    // 1. Global Circuit Breaker Check
+    // 4. Global Circuit Breaker Check
     if (now > globalResetTime) {
       globalRequestCount = 0;
-      globalResetTime = now + RATE_LIMIT_WINDOW;
+      globalResetTime = now + RATE_LIMIT_WINDOW_MS;
       pruneRateMap();
     }
 
@@ -79,7 +140,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 2. Per-IP Rate Limiting
+    // 5. Per-IP Sliding Window Rate Limiting
     const clientIp = getTrustedClientIp(req);
     const ipRecord = ipRateMap.get(clientIp);
 
@@ -96,13 +157,13 @@ export async function POST(req: NextRequest) {
         }
         ipRecord.count++;
       } else {
-        ipRateMap.set(clientIp, { count: 1, resetTime: now + RATE_LIMIT_WINDOW });
+        ipRateMap.set(clientIp, { count: 1, resetTime: now + RATE_LIMIT_WINDOW_MS });
       }
     } else {
-      ipRateMap.set(clientIp, { count: 1, resetTime: now + RATE_LIMIT_WINDOW });
+      ipRateMap.set(clientIp, { count: 1, resetTime: now + RATE_LIMIT_WINDOW_MS });
     }
 
-    // 3. Strict Payload Parsing & Validation
+    // 6. Strict Payload Parsing & Validation
     let rawBody: any;
     try {
       rawBody = await req.json();
@@ -115,11 +176,12 @@ export async function POST(req: NextRequest) {
 
     // Support both body.ingredients and body.message
     const normalizedInput = {
-      ingredients: typeof rawBody?.ingredients === "string" 
-        ? rawBody.ingredients 
-        : typeof rawBody?.message === "string" 
-        ? rawBody.message 
-        : "",
+      ingredients:
+        typeof rawBody?.ingredients === "string"
+          ? rawBody.ingredients
+          : typeof rawBody?.message === "string"
+          ? rawBody.message
+          : "",
     };
 
     const parseResult = ChatRequestSchema.safeParse(normalizedInput);
@@ -131,7 +193,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 4. Generate Safe Recipe via LLM with Fallback & Cache
+    // 7. Generate Safe Recipe via LLM with Fallback & Cache & Prompt Shield
     const chefResponse = await generateChefRecipe(parseResult.data.ingredients);
 
     return NextResponse.json({
