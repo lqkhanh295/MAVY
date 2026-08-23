@@ -21,7 +21,7 @@ export const SIGNATURE_PRODUCTS: Product[] = [
       { label: "Quy cách", value: "Cua sống tuyển chọn đầy gạch son" },
       { label: "Dây trói", value: "Dây vải siêu mỏng (< 20g/con)" },
       { label: "Tỷ lệ gạch & thịt", value: "Đảm bảo độ đầy gạch và thịt ≥ 95%" },
-      { label: "Bảo quản", value: "Dùng tươi trong 24h hoặc ngăn đông" },
+      { label: "Bảo quản", value: "Dùng tươi trong 24h hoặc ngăn đông (≤ -18°C)" },
     ],
     nutritionFacts: {
       protein: "19.5g / 100g",
@@ -61,7 +61,7 @@ export const SIGNATURE_PRODUCTS: Product[] = [
       { label: "Kích thước", value: "Size VIP (15 - 20 con/kg)" },
       { label: "Công nghệ", value: "Cấp đông siêu tốc IQF -40°C chuẩn Châu Âu" },
       { label: "Tình trạng", value: "Nguyên con, râu càng nguyên vẹn" },
-      { label: "Hạn sử dụng", value: "12 tháng ở nhiệt độ -18°C" },
+      { label: "Hạn sử dụng", value: "12 tháng ở nhiệt độ ≤ -18°C" },
     ],
     nutritionFacts: {
       protein: "24.0g / 100g",
@@ -101,7 +101,7 @@ export const SIGNATURE_PRODUCTS: Product[] = [
       { label: "Quy cách", value: "Size 9 - 12cm, tỷ lệ trứng ≥ 80%" },
       { label: "Chế biến", value: "Cấp đông rời IQF -40°C nguyên con" },
       { label: "Đặc điểm thịt", value: "Trứng bùi béo, thân mực giòn ngọt" },
-      { label: "Bảo quản", value: "Ngăn đông tủ lạnh (-18°C)" },
+      { label: "Bảo quản", value: "Ngăn đông tủ lạnh (nhiệt độ ≤ -18°C)" },
     ],
     nutritionFacts: {
       protein: "16.0g / 100g",
