@@ -87,30 +87,29 @@ export default function ChatWindow({ isOpen, onClose, initialQuery }: ChatWindow
 
       const result = await response.json();
 
-      if (result.success && result.data && result.data.recipes?.length > 0) {
+      if (result.success && result.data && result.data.message) {
         const chefMsg: ChatMessageType = {
           id: `chef-${Date.now()}`,
           sender: "chef",
-          text: result.data.message || `Bếp Trưởng MAVY đã nghiên cứu và thiết kế công thức thực tế dựa trên nguyên liệu "${query}":`,
-          recipes: result.data.recipes,
+          text: result.data.message,
           suggestedFollowUps: result.data.suggestedFollowUps || [
-            "Bí quyết làm nước chấm hải sản chuẩn vị?",
-            "Mẹo giữ hải sản mọng nước không bị khô?",
+            "Bí quyết làm nước chấm hải sản chuẩn Cà Mau?",
+            "Mẹo giữ hải sản mọng nước không bị khô khi nấu?",
+            "Nhiệt độ bảo quản ngăn đông chuẩn ≤ -18°C?",
           ],
           timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
         };
         setMessages((prev) => [...prev, chefMsg]);
       } else {
-        throw new Error("Sử dụng bộ tổng hợp công thức chuyên sâu");
+        throw new Error("Sử dụng bộ tổng hợp Freestyle chuyên sâu");
       }
     } catch {
-      // Dynamic fallback based on exact user ingredients
+      // Dynamic freestyle fallback
       const dynamicResult = generateDynamicRecipe(query);
       const fallbackMsg: ChatMessageType = {
         id: `chef-fallback-${Date.now()}`,
         sender: "chef",
         text: dynamicResult.message,
-        recipes: dynamicResult.recipes,
         suggestedFollowUps: dynamicResult.suggestedFollowUps,
         timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       };

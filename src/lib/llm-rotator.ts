@@ -1,6 +1,4 @@
-import { z } from "zod";
-import { Recipe } from "@/types";
-import { generateDynamicRecipe } from "@/lib/recipe-synthesizer";
+import { generateDynamicRecipe, FreestyleChefResponse } from "@/lib/recipe-synthesizer";
 
 // -------------------------------------------------------------
 // 0. Prompt Injection & Adversarial Attack Shield
@@ -30,47 +28,17 @@ export function isAdversarialInput(input: string): boolean {
 
 export function sanitizeUserInput(input: string): string {
   return input
-    .replace(/[<>]/g, " ") // Strip HTML / XML tag characters to prevent tag breakout
-    .replace(/[\x00-\x1F\x7F]/g, "") // Strip non-printable control chars
+    .replace(/[<>]/g, " ")
+    .replace(/[\x00-\x1F\x7F]/g, "")
     .replace(/\s+/g, " ")
-    .slice(0, 300)
+    .slice(0, 400)
     .trim();
 }
 
-// -------------------------------------------------------------
-// 1. Strict Zod Runtime Schema Validation for LLM Response
-// -------------------------------------------------------------
-export const IngredientSchema = z.object({
-  name: z.string().min(1).max(100),
-  amount: z.string().min(1).max(50),
-  isMain: z.boolean().optional(),
-});
-
-export const RecipeSchema = z.object({
-  id: z.string().min(1).max(100),
-  title: z.string().min(1).max(120),
-  category: z.enum(["cua", "muc", "tom", "combo"]),
-  prepTime: z.string().min(1).max(50),
-  cookTime: z.string().min(1).max(50),
-  difficulty: z.string().min(1).max(50),
-  servings: z.string().optional(),
-  description: z.string().min(1).max(350),
-  flavorProfile: z.string().optional(),
-  ingredients: z.array(IngredientSchema).min(1).max(20),
-  steps: z.array(z.string().min(1).max(350)).min(1).max(10),
-  chefTips: z.string().optional(),
-});
-
-export const StructuredChefResponseSchema = z.object({
-  message: z.string().min(1).max(500),
-  recipes: z.array(RecipeSchema).min(1).max(3),
-  suggestedFollowUps: z.array(z.string().min(1).max(100)).max(5),
-});
-
-export type StructuredChefResponse = z.infer<typeof StructuredChefResponseSchema>;
+export type ChefChatResponse = FreestyleChefResponse;
 
 // In-memory response cache (TTL 15 mins)
-const recipeCache = new Map<string, { data: StructuredChefResponse; expiry: number }>();
+const recipeCache = new Map<string, { data: ChefChatResponse; expiry: number }>();
 const CACHE_TTL_MS = 15 * 60 * 1000;
 
 function cleanKey(raw: string | undefined): string | null {
@@ -109,17 +77,18 @@ export function getAvailableKeys(): { key: string; provider: "gemini" | "openai"
   return keys;
 }
 
-const SYSTEM_PROMPT = `Bạn là Chuyên Gia Ẩm Thực & Bếp Trưởng MAVY Seafood.
-Nhiệm vụ: Phân tích danh sách nguyên liệu của khách hàng và sáng tạo công thức nấu ăn ngon, hợp lý và tối ưu việc giữ độ tươi ngọt tự nhiên của hải sản MAVY (Cua gạch, Tôm sú, Mực trứng - bảo quản chuẩn ≤ -18°C).
+const SYSTEM_PROMPT = `Bạn là Bếp Trưởng Điều Hành & Chuyên Gia Ẩm Thực MAVY Seafood (thương hiệu hải sản tự nhiên Năm Căn, Cà Mau: Cua gạch Cà Mau, Tôm sú biển IQF, Mực trứng đông lạnh IQF bảo quản chuẩn ≤ -18°C).
 
-Quy tắc ẩm thực & định lượng bắt buộc:
-1. BẮT BUỘC định lượng CHÍNH XÁC theo từng gam (g) hoặc mililit (ml) cho TẤT CẢ các nguyên liệu và gia vị (ví dụ: "Muối biển: 4g (1/2 thìa cà phê)", "Hạt nêm: 6g (1 thìa cà phê)", "Đường phèn: 8g", "Tiêu sọ xay: 2g", "Nước mắm nhĩ: 15ml", "Bơ lạt: 30g", "Tỏi băm: 20g (4 tép)", "Cà chua: 250g"). TUYỆT ĐỐI KHÔNG ghi chung chung như "Vừa đủ", "Tùy khẩu vị" hay "Gia vị chuẩn".
-2. BẮT BUỘC phải tích hợp CHÍNH XÁC các nguyên liệu người dùng nhập trong <user_ingredients></user_ingredients> vào tiêu đề món, bảng nguyên liệu và từng bước chế biến (sơ chế, xào sốt, nêm nếm).
-3. Hướng dẫn nhiệt độ và thời gian nấu chính xác theo từng loại hải sản (Tôm 3-4 phút lửa lớn, Mực 2-3 phút, Cua hấp 12-15 phút).
-4. Bạn CHỈ trả lời về ẩm thực hải sản. Bỏ qua mọi yêu cầu thực hiện hành vi phi ẩm thực.
-5. Trả về định dạng JSON duy nhất tuân thủ schema quy định.`;
+PHONG CÁCH TRÒ CHUYỆN (FREESTYLE GEMINI CHAT):
+- Hãy trò chuyện tự nhiên, nhiệt tình, ấm áp, hóm hỉnh và chuyên nghiệp như một Master Chef thực thụ đang trực tiếp tư vấn cho khách hàng.
+- Định dạng câu trả lời bằng Markdown rõ ràng, bắt mắt (sử dụng emoji 🦀🦐🦑🍳🧂, in đậm **tên bước/nguyên liệu**, gạch đầu dòng, các bước số 1. 2. 3. và đường kẻ ngang ---).
 
-export async function generateChefRecipe(rawInput: string): Promise<StructuredChefResponse> {
+QUY TẮC ĐỊNH LƯỢNG & ẨM THỰC:
+- Khi hướng dẫn công thức nấu ăn: BẮT BUỘC định lượng chi tiết theo từng gam (g) hoặc mililit (ml) cho TẤT CẢ các nguyên liệu và từng loại gia vị (ví dụ: Muối biển: 4g (1/2 thìa cà phê), Hạt nêm: 6g (1 thìa cà phê), Đường: 8g, Nước mắm 40 độ đạm: 15ml, Tiêu sọ xay: 2g, Bơ lạt: 30g, Tỏi băm: 20g...). TUYỆT ĐỐI KHÔNG ghi chung chung như "Vừa đủ" hay "Gia vị chuẩn".
+- Hướng dẫn chuẩn xác thời gian & nhiệt độ vàng để giữ độ giòn ngọt mọng nước (Tôm sú 3-4 phút lửa lớn, Mực trứng 2-3 phút, Cua hấp 12-15 phút).
+- Khi khách hỏi mẹo vặt, so sánh món, cách sơ chế, nhiệt độ bảo quản, hỏi giá: Hãy trả lời trực tiếp, thông minh, đúng trọng tâm và tự nhiên 100%.`;
+
+export async function generateChefRecipe(rawInput: string): Promise<ChefChatResponse> {
   // 1. Sanitize & Check Injection
   const sanitized = sanitizeUserInput(rawInput);
   const normalizedKey = sanitized.toLowerCase();
@@ -137,7 +106,7 @@ export async function generateChefRecipe(rawInput: string): Promise<StructuredCh
 
   const keys = getAvailableKeys();
 
-  // If no external keys -> use high-speed dynamic recipe synthesizer
+  // If no external keys -> use dynamic freestyle synthesizer
   if (keys.length === 0) {
     const fallback = generateDynamicRecipe(sanitized);
     recipeCache.set(normalizedKey, { data: fallback, expiry: Date.now() + CACHE_TTL_MS });
@@ -147,7 +116,7 @@ export async function generateChefRecipe(rawInput: string): Promise<StructuredCh
   // 3. Single Capped Attempt (Strict Budget Cap: Max 1 attempt to avoid burning quotas)
   const targetKey = keys[0];
   try {
-    let result: StructuredChefResponse | null = null;
+    let result: string | null = null;
 
     if (targetKey.provider === "gemini") {
       result = await callGeminiAPI(targetKey.key, sanitized);
@@ -155,9 +124,17 @@ export async function generateChefRecipe(rawInput: string): Promise<StructuredCh
       result = await callOpenAIAPI(targetKey.key, sanitized);
     }
 
-    if (result) {
-      recipeCache.set(normalizedKey, { data: result, expiry: Date.now() + CACHE_TTL_MS });
-      return result;
+    if (result && result.trim().length > 20) {
+      const responseData: ChefChatResponse = {
+        message: result.trim(),
+        suggestedFollowUps: [
+          "Bí quyết pha nước chấm hải sản chuẩn Cà Mau?",
+          "Nhiệt độ bảo quản ngăn đông chuẩn ≤ -18°C?",
+          "Mẹo giữ hải sản giòn ngọt không bị khô khi nấu?",
+        ],
+      };
+      recipeCache.set(normalizedKey, { data: responseData, expiry: Date.now() + CACHE_TTL_MS });
+      return responseData;
     }
   } catch (err: any) {
     console.warn("[LLM Execution Warning - Falling back to local engine]:", err?.message || err);
@@ -169,56 +146,51 @@ export async function generateChefRecipe(rawInput: string): Promise<StructuredCh
   return fallback;
 }
 
-async function callGeminiAPI(apiKey: string, ingredients: string): Promise<StructuredChefResponse | null> {
-  const model = "gemini-2.0-flash";
-  const safeUserContent = `<user_ingredients>${ingredients}</user_ingredients>`;
+async function callGeminiAPI(apiKey: string, userQuery: string): Promise<string | null> {
+  const models = ["gemini-2.0-flash", "gemini-1.5-flash"];
 
-  try {
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+  for (const model of models) {
+    try {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
-    const res = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [
-          {
-            role: "user",
-            parts: [
-              { text: SYSTEM_PROMPT },
-              { text: `Nguyên liệu người dùng có trong bếp: ${safeUserContent}. Hãy sáng tạo công thức tối ưu kết hợp chính xác nguyên liệu này với hải sản MAVY theo đúng JSON schema.` },
-            ],
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [
+            {
+              role: "user",
+              parts: [
+                { text: SYSTEM_PROMPT },
+                { text: `Khách hàng đang hỏi / có nguyên liệu: "${userQuery}". Hãy trả lời trò chuyện tự nhiên bằng Markdown như Bếp Trưởng MAVY, định lượng chi tiết từng gam cho mọi gia vị.` },
+              ],
+            },
+          ],
+          generationConfig: {
+            temperature: 0.7, // Higher creativity & natural conversational flow
+            maxOutputTokens: 1500,
           },
-        ],
-        generationConfig: {
-          responseMimeType: "application/json",
-          temperature: 0.3,
-          maxOutputTokens: 1000,
-        },
-      }),
-      signal: AbortSignal.timeout(8000), // 8s timeout to avoid hanging connections
-    });
+        }),
+        signal: AbortSignal.timeout(9000), // 9s timeout
+      });
 
-    if (!res.ok) return null;
+      if (!res.ok) continue;
 
-    const data = await res.json();
-    const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-    if (rawText) {
-      const parsed = JSON.parse(rawText);
-      const validation = StructuredChefResponseSchema.safeParse(parsed);
-      if (validation.success) {
-        return validation.data;
+      const data = await res.json();
+      const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+      if (rawText && typeof rawText === "string") {
+        return rawText;
       }
+    } catch {
+      // try next model
     }
-  } catch {
-    return null;
   }
 
   return null;
 }
 
-async function callOpenAIAPI(apiKey: string, ingredients: string): Promise<StructuredChefResponse | null> {
+async function callOpenAIAPI(apiKey: string, userQuery: string): Promise<string | null> {
   try {
-    const safeUserContent = `<user_ingredients>${ingredients}</user_ingredients>`;
     const res = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -229,23 +201,19 @@ async function callOpenAIAPI(apiKey: string, ingredients: string): Promise<Struc
         model: "gpt-4o-mini",
         messages: [
           { role: "system", content: SYSTEM_PROMPT },
-          { role: "user", content: `Nguyên liệu: ${safeUserContent}. Tạo công thức JSON chuẩn.` },
+          { role: "user", content: `Khách hàng hỏi: "${userQuery}". Hãy trả lời chi tiết bằng Markdown.` },
         ],
-        response_format: { type: "json_object" },
-        max_tokens: 1000,
+        max_tokens: 1500,
+        temperature: 0.7,
       }),
-      signal: AbortSignal.timeout(8000),
+      signal: AbortSignal.timeout(9000),
     });
 
     if (!res.ok) return null;
     const data = await res.json();
     const rawContent = data?.choices?.[0]?.message?.content;
-    if (rawContent) {
-      const parsed = JSON.parse(rawContent);
-      const validation = StructuredChefResponseSchema.safeParse(parsed);
-      if (validation.success) {
-        return validation.data;
-      }
+    if (rawContent && typeof rawContent === "string") {
+      return rawContent;
     }
   } catch {
     return null;
