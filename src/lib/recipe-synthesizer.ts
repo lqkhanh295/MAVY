@@ -6,15 +6,58 @@ export interface FreestyleChefResponse {
 // Danh sách các từ khóa nhận diện hải sản chính
 const SEAFOOD_REGEX = /(?:^|\s+)(cua\s+gạch|cua\s+gach|cua|tôm\s+sú|tom\s+su|tôm|tom|mực\s+trứng|muc\s+trung|mực|muc|hải\s+sản|hai\s+san)(?:\s+|$)/i;
 
+// Từ dừng hành động / câu lệnh
+const STOP_WORDS_REGEX = /^(làm|nấu|chế biến|hướng dẫn|chỉ|cách|đi|nhé|nha|ạ|ơi|cho|tôi|tui|mình|muốn|ăn|món|hôm nay)$/i;
+
 export function generateDynamicRecipe(rawInput: string): FreestyleChefResponse {
   const input = rawInput.trim();
   const lower = input.toLowerCase();
 
-  // 1. Tách từ khóa chuẩn tiếng Việt (hỗ trợ dấu phẩy, dấu cộng, 'và', 'va', 'với', 'voi', xuống dòng)
+  // 0. Xử lý các câu hỏi đặc biệt theo ngữ cảnh (Lẩu, Nước chấm, Canh chua, Cháo...)
+  if (lower.includes("lẩu") || lower.includes("lau")) {
+    return {
+      message: `Chào bạn! Tôi là **Bếp Trưởng Điều Hành MAVY Seafood**. Để thưởng thức trọn vẹn hải sản tươi ngon, món **Lẩu Hải Sản Chua Cay MAVY Chuẩn Vị Nhà Hàng** là sự lựa chọn số 1 cho gia đình bạn:
+
+---
+
+### 📋 1. Chuẩn Bị Nguyên Liệu (Khẩu phần 4 người)
+
+* **Hải sản chính MAVY**: 
+  * Tôm sú biển MAVY: \`400g\`
+  * Mực trứng MAVY: \`300g\`
+  * Cua gạch Năm Căn (tùy chọn): \`1 - 2 con\`
+* **Nguyên liệu nấu nước dùng chua thanh**:
+  * Xương ống heo/gà hầm lấy nước dùng: \`1.5 lít\`
+  * Dứa (thơm): \`1/2 quả (150g)\` cắt lát
+  * Cà chua chín: \`2 quả (150g)\` bổ múi cau
+  * Sả cây đập dập: \`4 cây\` & Riềng thái lát: \`20g\`
+  * Nước cốt tắc (quất) hoặc cốt me: \`30ml\`
+  * Sa tế tôm thượng hạng: \`2 muỗng canh (30g)\`
+* **Gia vị nêm nước lẩu**: \`15g đường phèn, 10g hạt nêm, 20ml nước mắm, 4g muối\`.
+* **Rau & Nấm ăn kèm**: Nấm kim châm, cải thảo, rau muống cọng, hoa chuối, bún tươi/mì.
+
+---
+
+### 🍳 2. Các Bước Nấu Nước Lẩu Chuẩn Vị Bếp Trưởng
+
+1. **Nấu nước dùng thanh ngọt**: Hầm xương lấy 1.5 lít nước dùng trong vắt.
+2. **Phi thơm hương vị nền**: Phi thơm 20g tỏi, sả đập dập, riềng và sa tế với 20ml dầu ăn. Cho cà chua, dứa vào xào thơm trong 2 phút.
+3. **Hoàn thiện nước lẩu**: Đổ nước hầm xương vào đun sôi, nêm 15g đường phèn, 20ml nước mắm, 10g hạt nêm và 30ml nước cốt tắc để tạo vị chua cay mặn ngọt hài hòa.
+4. **Thưởng thức**: Đặt nồi lẩu giữa bàn, khi nước sôi bùng thả tôm sú, mực trứng vào nhúng **3 - 4 phút** là chín giòn ngọt lịm!
+
+💡 **Mẹo Bếp Trưởng**: Không nhúng hải sản quá lâu trong nồi lẩu để tránh thịt bị teo và mất đi vị ngọt biển tự nhiên!`,
+      suggestedFollowUps: [
+        "Cách pha nước chấm muối ớt xanh chấm lẩu hải sản?",
+        "Bảo quản hải sản đông lạnh trong tủ lạnh chuẩn ≤ -18°C?",
+      ],
+    };
+  }
+
+  // 1. Tách từ khóa chuẩn tiếng Việt
   const tokens = input
     .split(/[,+;\n]|\s+(?:và|va|với|voi|and|with)\s+/iu)
     .map((s) => s.trim().replace(/^[-*•\s]+/, ""))
-    .filter((s) => s.length > 0);
+    .filter((s) => s.length > 0 && !STOP_WORDS_REGEX.test(s));
 
   // 2. Tách riêng Hải Sản Chính và Các Nguyên Liệu Phụ của người dùng
   let detectedSeafoodType = "combo";
@@ -35,7 +78,7 @@ export function generateDynamicRecipe(rawInput: string): FreestyleChefResponse {
       isSeafood = true;
     }
 
-    if (!isSeafood && tLower.length > 0 && !SEAFOOD_REGEX.test(token)) {
+    if (!isSeafood && tLower.length > 0 && !SEAFOOD_REGEX.test(token) && !STOP_WORDS_REGEX.test(token)) {
       userIngredients.push(token.trim());
     }
   });
@@ -60,7 +103,7 @@ export function generateDynamicRecipe(rawInput: string): FreestyleChefResponse {
     seafoodAmount = "500g (12 - 14 con)";
   }
 
-  // 4. Định lượng chính xác từng gam CHỈ CHO CÁC NGUYÊN LIỆU NGƯỜI DÙNG NHẬP (Không thêm bất kỳ nguyên liệu ngoài)
+  // 4. Định lượng chính xác từng gam CHỈ CHO CÁC NGUYÊN LIỆU NGƯỜI DÙNG NHẬP
   const formattedIngredients = userIngredients.map((item, idx) => {
     const itemLower = item.toLowerCase();
     let gram = "150g";

@@ -157,42 +157,44 @@ export async function generateChefRecipe(rawInput: string): Promise<ChefChatResp
   return fallback;
 }
 
-// Fast Gemini API Caller with 4s strict timeout per key
+// Fast Gemini API Caller with 4.5s timeout and model fallback
 async function callGeminiAPI(apiKey: string, userQuery: string): Promise<string | null> {
-  const model = "gemini-3.6-flash";
+  const models = ["gemini-3.5-flash", "gemini-3.5-flash-lite", "gemini-3.1-flash-lite", "gemini-3-flash-preview"];
 
-  try {
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+  for (const model of models) {
+    try {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
-    const res = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [
-          {
-            role: "user",
-            parts: [
-              { text: `${SYSTEM_PROMPT}\n\nDanh sách nguyên liệu / Câu hỏi của khách hàng: "${userQuery}". Hãy sáng tạo món ăn kết hợp ĐẦY ĐỦ TẤT CẢ các nguyên liệu này cùng hải sản MAVY, định lượng chi tiết từng gam cho từng nguyên liệu và gia vị.` },
-            ],
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json; charset=utf-8" },
+        body: JSON.stringify({
+          contents: [
+            {
+              role: "user",
+              parts: [
+                { text: `${SYSTEM_PROMPT}\n\nNgười dùng yêu cầu / hỏi: "${userQuery}". Hãy trả lời trực tiếp, thông minh, đúng trọng tâm và tự nhiên bằng Markdown.` },
+              ],
+            },
+          ],
+          generationConfig: {
+            temperature: 0.7,
+            maxOutputTokens: 1500,
           },
-        ],
-        generationConfig: {
-          temperature: 0.7,
-          maxOutputTokens: 1500,
-        },
-      }),
-      signal: AbortSignal.timeout(4000),
-    });
+        }),
+        signal: AbortSignal.timeout(4500),
+      });
 
-    if (!res.ok) return null;
+      if (!res.ok) continue;
 
-    const data = await res.json();
-    const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-    if (rawText && typeof rawText === "string") {
-      return rawText;
+      const data = await res.json();
+      const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+      if (rawText && typeof rawText === "string" && rawText.trim().length > 10) {
+        return rawText.trim();
+      }
+    } catch {
+      // try next model
     }
-  } catch {
-    return null;
   }
 
   return null;
