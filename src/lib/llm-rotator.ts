@@ -56,7 +56,7 @@ export function getAvailableKeys(): { key: string; provider: "gemini" | "openai"
     list.forEach((k) => keys.push({ key: k, provider: "gemini" }));
   }
 
-  for (let i = 1; i <= 5; i++) {
+  for (let i = 1; i <= 20; i++) {
     const k = cleanKey(process.env[`GEMINI_API_KEY_${i}`]);
     if (k && !keys.some((item) => item.key === k)) {
       keys.push({ key: k, provider: "gemini" });
@@ -134,7 +134,7 @@ export async function generateChefRecipe(rawInput: string): Promise<ChefChatResp
 }
 
 async function callGeminiAPI(apiKey: string, userQuery: string): Promise<string | null> {
-  const models = ["gemini-2.0-flash", "gemini-1.5-flash"];
+  const models = ["gemini-3.6-flash", "gemini-3.7-flash", "gemini-flash-latest"];
 
   for (const model of models) {
     try {
