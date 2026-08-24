@@ -109,7 +109,16 @@ export function generateDynamicRecipe(rawInput: string): FreestyleChefResponse {
     let gram = "150g";
     let note = "sơ chế sạch, cắt miếng vừa ăn";
 
-    if (itemLower.includes("dứa") || itemLower.includes("khóm") || itemLower.includes("thơm")) {
+    if (itemLower.includes("trứng") || itemLower.includes("trung")) {
+      gram = "2 quả (khoảng 100g)";
+      note = "đập ra bát, dùng đũa đánh tan đều cùng 1g tiêu";
+    } else if (itemLower.includes("bơ") || itemLower.includes("bo")) {
+      gram = "40g";
+      note = "đun chảy trên lửa nhỏ phi thơm cùng tỏi";
+    } else if (itemLower.includes("phô mai")) {
+      gram = "100g";
+      note = "bào sợi mỏng, phủ đều lên bề mặt";
+    } else if (itemLower.includes("dứa") || itemLower.includes("khóm") || itemLower.includes("thơm")) {
       gram = "200g (khoảng 1/2 quả)";
       note = "gọt sạch mắt, bỏ cùi cứng, thái lát rẻ quạt 0.5cm";
     } else if (itemLower.includes("cà chua") || itemLower.includes("ca chua")) {
@@ -130,19 +139,28 @@ export function generateDynamicRecipe(rawInput: string): FreestyleChefResponse {
     } else if (itemLower.includes("me") || itemLower.includes("sốt me")) {
       gram = "40g cốt me đặc";
       note = "ngâm 30ml nước ấm lọc lấy nước cốt";
-    } else if (itemLower.includes("phô mai")) {
-      gram = "120g phô mai sợi";
-      note = "phủ đều lên bề mặt";
     } else {
       gram = `${120 + (idx % 3) * 30}g`;
-      note = "rửa sạch, sơ chế cắt khúc vừa ăn";
+      note = "rửa sạch, sơ chế cắt miếng vừa ăn";
     }
 
     return `* **${item.charAt(0).toUpperCase() + item.slice(1)}**: \`${gram}\` — *${note}*`;
   });
 
   const ingredientsSummary = userIngredients.join(" và ");
-  const dishTitle = `Món ${seafoodName.split("(")[0].trim()} Xào Sốt Chuẩn Vị Cùng ${ingredientsSummary}`;
+  let dishAction = "Xào Sốt";
+  if (lower.includes("trứng") || lower.includes("trung")) {
+    dishAction = "Đúc Trứng Thơm Lừng";
+  } else if (lower.includes("bơ") || lower.includes("bo")) {
+    dishAction = "Sốt Bơ Tỏi Béo Ngậy";
+  } else if (lower.includes("hấp") || lower.includes("gừng") || lower.includes("sả")) {
+    dishAction = "Hấp Gừng Sả";
+  } else if (lower.includes("nướng") || lower.includes("muối ớt")) {
+    dishAction = "Nướng Muối Ớt";
+  } else if (lower.includes("me") || lower.includes("sốt me")) {
+    dishAction = "Sốt Me Chua Ngọt";
+  }
+  const dishTitle = `Món ${seafoodName.split("(")[0].trim()} ${dishAction} Cùng ${ingredientsSummary}`;
 
   // 5. Tạo các bước nấu CHỈ DỰA TRÊN NGUYÊN LIỆU ĐÃ NHẬP
   const markdownContent = `Chào bạn! Tôi là **Bếp Trưởng Điều Hành MAVY Seafood**. Dựa trên **đúng chính xác** các nguyên liệu bạn đang có: **${ingredientsSummary}**, tôi xin hướng dẫn bạn thực hiện **${dishTitle}** mà không cần phải mua thêm bất kỳ nguyên liệu phức tạp nào khác nhé:
