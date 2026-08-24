@@ -21,8 +21,8 @@ const MAX_BODY_SIZE_BYTES = 8 * 1024;
 // -------------------------------------------------------------
 const ipRateMap = new Map<string, { count: number; resetTime: number }>();
 const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute
-const MAX_REQUESTS_PER_IP = 10; // Max 10 calls / min / IP
-const GLOBAL_BURST_CAP = 120; // Global circuit breaker
+const MAX_REQUESTS_PER_IP = 60; // Max 60 calls / min / IP
+const GLOBAL_BURST_CAP = 300; // Global circuit breaker
 
 let globalRequestCount = 0;
 let globalResetTime = Date.now() + RATE_LIMIT_WINDOW_MS;

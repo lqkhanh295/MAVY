@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { IoClose, IoSend, IoRefreshOutline, IoRestaurant, IoSyncOutline } from "react-icons/io5";
 import { ChatMessage as ChatMessageType } from "@/types";
 import ChatMessage from "./ChatMessage";
-import { generateDynamicRecipe } from "@/lib/recipe-synthesizer";
 
 interface ChatWindowProps {
   isOpen: boolean;
@@ -81,10 +80,6 @@ export default function ChatWindow({ isOpen, onClose, initialQuery }: ChatWindow
         body: JSON.stringify({ ingredients: query }),
       });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
       const result = await response.json();
 
       if (result.success && result.data && result.data.message) {
@@ -94,23 +89,26 @@ export default function ChatWindow({ isOpen, onClose, initialQuery }: ChatWindow
           text: result.data.message,
           suggestedFollowUps: result.data.suggestedFollowUps || [
             "Bí quyết làm nước chấm hải sản chuẩn Cà Mau?",
-            "Mẹo giữ hải sản mọng nước không bị khô khi nấu?",
             "Nhiệt độ bảo quản ngăn đông chuẩn ≤ -18°C?",
           ],
           timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
         };
         setMessages((prev) => [...prev, chefMsg]);
       } else {
-        throw new Error("Sử dụng bộ tổng hợp Freestyle chuyên sâu");
+        const errorText = result.message || "Bếp Trưởng MAVY đang bận phục vụ, vui lòng thử lại sau giây lát nhé!";
+        const fallbackMsg: ChatMessageType = {
+          id: `chef-err-${Date.now()}`,
+          sender: "chef",
+          text: errorText,
+          timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+        };
+        setMessages((prev) => [...prev, fallbackMsg]);
       }
     } catch {
-      // Dynamic freestyle fallback
-      const dynamicResult = generateDynamicRecipe(query);
       const fallbackMsg: ChatMessageType = {
-        id: `chef-fallback-${Date.now()}`,
+        id: `chef-net-err-${Date.now()}`,
         sender: "chef",
-        text: dynamicResult.message,
-        suggestedFollowUps: dynamicResult.suggestedFollowUps,
+        text: "Không thể kết nối đến máy chủ Bếp Trưởng. Vui lòng kiểm tra lại kết nối mạng nhé!",
         timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
       };
       setMessages((prev) => [...prev, fallbackMsg]);
