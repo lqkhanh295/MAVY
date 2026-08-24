@@ -90,42 +90,36 @@ export function getAvailableKeys(): { key: string; provider: "gemini" | "openai"
   return keys;
 }
 
-const SYSTEM_PROMPT = `Bạn là Bếp Trưởng Điều Hành & Chuyên Gia Ẩm Thực của MAVY Seafood (hải sản tự nhiên Năm Căn, Cà Mau: Cua gạch, Tôm sú, Mực trứng bảo quản ≤ -18°C).
+const SYSTEM_PROMPT = `Bạn là Bếp Trưởng Điều Hành & Nghệ Nhân Ẩm Thực của MAVY Seafood (hải sản tự nhiên Năm Căn, Cà Mau: Cua gạch, Tôm sú, Mực trứng bảo quản ≤ -18°C).
 
-QUY TẮC CỐT LÕI VỀ TÍNH ĐA DẠNG ẨM THỰC:
-1. TUYỆT ĐỐI KHÔNG ĐƯỢC CHỈ LÀM MÓN XÀO. Hãy sáng tạo kỹ thuật chế biến phù hợp nhất với nguyên liệu:
-   - Có trứng gà/vịt -> làm Chả trứng đúc hải sản, Trứng cuộn hải sản, hoặc Mực/Tôm lăn trứng chiên xù giòn rụm.
-   - Có bơ/tỏi/phô mai -> làm Hải sản sốt bơ tỏi, Nướng bơ tỏi, hoặc Đút lò phô mai.
-   - Có gừng/sả/lá chanh/hành hoa -> làm Hấp gừng sả, Hấp bia, hoặc Hấp nước dừa giữ trọn vị ngọt tự nhiên.
-   - Có me/ớt/đường/tiêu -> làm Rim sốt me chua ngọt, Nướng muối ớt cay nồng, hoặc Kho tiêu đậm đà.
-   - Có dứa/cà chua/dọc mùng -> làm Canh chua hải sản, Lẩu chua cay, hoặc Nấu riêu.
-   - Chỉ làm món xào khi nguyên liệu là các loại rau củ xào chuyên dụng (ớt chuông, cần tây, bông cải...).
+QUY TẮC ĐỘT PHÁ VỀ SÁNG TẠO ẨM THỰC:
+1. ĐA PHONG CÁCH & BIẾN TẤU BẤT NGỜ (KHÔNG RẬP KHUÔN):
+   - Mỗi lần nhận nguyên liệu, hãy sáng tạo một món ăn độc đáo, mới lạ theo nhiều trường phái ẩm thực khác nhau:
+     * Phong vị Cơm Nhà Việt Nam: Kho tộ đậm đà, Rim mặn ngọt, Đúc trứng béo ngậy, Nấu canh chua thanh mát, Hấp nước dừa gừng sả.
+     * Phong cách Tiệc Nướng Ven Biển: Nướng muối ớt sa tế than hồng, Nướng mỡ hành đậu phộng, Nướng bơ tỏi thảo mộc.
+     * Ẩm thực Âu - Á Sang Trọng: Sốt bơ tỏi đút lò, Lăn trứng chiên xù giòn rụm, Sốt me chua ngọt kẹo sánh, Sốt trứng muối béo bùi, Tempura giòn tan.
+     * Món Nước & Tiệc: Lẩu hải sản chua cay, Súp hải sản trứng bắc thảo, Cháo hải sản tía tô ấm bụng.
+   - TUYỆT ĐỐI KHÔNG mặc định làm món xào thông thường.
 2. SƠ CHẾ THỰC TẾ & CHUẨN XÁC:
-   - Trứng gà/vịt: Đập ra bát dùng đũa đánh tan (tuyệt đối KHÔNG hướng dẫn cắt khúc trứng).
-   - Bơ/phô mai: Đun chảy hoặc bào sợi.
-   - Hải sản: Rã đông tự nhiên, rửa sạch khử tanh, thấm khô.
-3. CHỈ DÙNG ĐÚNG NGUYÊN LIỆU NGƯỜI DÙNG NHẬP + Hải sản MAVY + Gia vị cơ bản trong bếp (không tự ý thêm rau củ lạ).
+   - Trứng gà/vịt: Đập ra bát dùng đũa đánh tan đều, hoặc tráng mỏng cuộn, hoặc luộc lòng đào (tuyệt đối KHÔNG cắt khúc trứng).
+   - Bơ/phô mai: Đun chảy hoặc bào sợi mỏng.
+   - Hải sản: Rã đông tự nhiên, khử tanh với rượu trắng/gừng, thấm thật khô ráo trước khi chế biến.
+3. CHỈ DÙNG ĐÚNG NGUYÊN LIỆU NGƯỜI DÙNG CUNG CẤP + Hải sản MAVY + Gia vị thông dụng (không tự ý thêm rau củ lạ).
 4. TÊN GIA VỊ GỌI ĐƠN GIẢN: "Nước mắm: 15ml", "Tiêu: 2g", "Muối: 4g", "Hạt nêm: 6g", "Đường: 8g", "Dầu ăn: 20ml", "Tỏi & hành băm: 20g"...
-5. Định lượng chi tiết từng gam (g/ml) cho khẩu phần 2 - 4 người.`;
+5. Định lượng chi tiết từng gam (g/ml) cho khẩu phần 2 - 4 người.
+6. Văn phong hào hứng, truyền cảm hứng nấu nướng, súc tích và hấp dẫn bằng Markdown.`;
 
 export async function generateChefRecipe(rawInput: string): Promise<ChefChatResponse> {
   const sanitized = sanitizeUserInput(rawInput);
-  const normalizedKey = sanitized.toLowerCase();
 
   // If prompt injection or adversarial prompt detected -> serve safe response
   if (isAdversarialInput(rawInput)) {
     return generateDynamicRecipe("hải sản tươi sạch MAVY");
   }
 
-  // 1. Check Cache (Instant response for identical questions)
-  const cached = recipeCache.get(normalizedKey);
-  if (cached && Date.now() < cached.expiry) {
-    return cached.data;
-  }
-
   const keys = getAvailableKeys();
 
-  // 2. Multi-Key Rotation: Try keys sequentially until finding an active one
+  // Multi-Key Rotation: Try keys sequentially with high creativity
   if (keys.length > 0) {
     const totalKeys = keys.length;
     const startIndex = currentKeyIndex % totalKeys;
@@ -147,12 +141,11 @@ export async function generateChefRecipe(rawInput: string): Promise<ChefChatResp
           const responseData: ChefChatResponse = {
             message: result.trim(),
             suggestedFollowUps: [
-              "Hỏi thêm về cách nêm nếm gia vị chuẩn",
-              "Bí quyết xào hải sản lửa lớn không ra nước",
-              "Nhiệt độ bảo quản ngăn đông chuẩn ≤ -18°C",
+              "Bí quyết làm nước sốt chấm hải sản chuẩn vị?",
+              "Mẹo sơ chế hải sản mọng nước không tanh?",
+              "Nhiệt độ bảo quản ngăn đông chuẩn ≤ -18°C?",
             ],
           };
-          recipeCache.set(normalizedKey, { data: responseData, expiry: Date.now() + CACHE_TTL_MS });
           return responseData;
         }
       } catch (err: any) {
@@ -161,13 +154,11 @@ export async function generateChefRecipe(rawInput: string): Promise<ChefChatResp
     }
   }
 
-  // 3. Ultra-fast local fallback integrating ALL user ingredients if all keys hit quota
-  const fallback = generateDynamicRecipe(sanitized);
-  recipeCache.set(normalizedKey, { data: fallback, expiry: Date.now() + CACHE_TTL_MS });
-  return fallback;
+  // Ultra-fast local fallback integrating ALL user ingredients if all keys hit quota
+  return generateDynamicRecipe(sanitized);
 }
 
-// Fast Gemini API Caller with 4.5s timeout and model fallback
+// Fast Gemini API Caller with high creativity (temperature: 0.95) and model fallback
 async function callGeminiAPI(apiKey: string, userQuery: string): Promise<string | null> {
   const models = ["gemini-3.5-flash", "gemini-3.5-flash-lite", "gemini-3.1-flash-lite", "gemini-3-flash-preview"];
 
@@ -183,16 +174,17 @@ async function callGeminiAPI(apiKey: string, userQuery: string): Promise<string 
             {
               role: "user",
               parts: [
-                { text: `${SYSTEM_PROMPT}\n\nNgười dùng yêu cầu / hỏi: "${userQuery}". Hãy trả lời trực tiếp, thông minh, đúng trọng tâm và tự nhiên bằng Markdown.` },
+                { text: `${SYSTEM_PROMPT}\n\nNgười dùng có nguyên liệu / yêu cầu: "${userQuery}". Hãy sáng tạo một món ăn độc đáo, mới lạ và hấp dẫn nhất, hướng dẫn chi tiết từng gam bằng Markdown.` },
               ],
             },
           ],
           generationConfig: {
-            temperature: 0.7,
+            temperature: 0.95,
+            topP: 0.95,
             maxOutputTokens: 1500,
           },
         }),
-        signal: AbortSignal.timeout(4500),
+        signal: AbortSignal.timeout(6500),
       });
 
       if (!res.ok) continue;
