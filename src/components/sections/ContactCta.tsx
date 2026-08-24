@@ -39,7 +39,7 @@ export default function ContactCta() {
                   <p className="text-[11px] text-ink-light/70 mt-1">Trọng lượng minh bạch, không độn dây vải ngấm nước.</p>
                 </div>
                 <div className="bg-white/[0.03] p-3.5 rounded-xl border border-white/[0.08]">
-                  <div className="font-bold text-white text-xs">Chuẩn IQF -40°C</div>
+                  <div className="font-bold text-white text-xs">Cấp Đông ≤ -18°C</div>
                   <p className="text-[11px] text-ink-light/70 mt-1">Dễ tách rời từng con, không cần rã đông cả túi lớn.</p>
                 </div>
               </div>

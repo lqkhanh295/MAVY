@@ -19,9 +19,9 @@ export default function AboutStorySection() {
     },
     {
       step: 2,
-      title: "Cấp Đông Siêu Tốc -40°C",
-      subtitle: "Hạ nhiệt độ cực nhanh trong chưa đầy 12 phút",
-      detail: "Băng chuyền IQF hạ nhiệt độ âm sâu -40°C lập tức đóng băng toàn bộ thân tôm, mực và cua trong thời gian kỷ lục.",
+      title: "Cấp Đông Tiêu Chuẩn ≤ -18°C",
+      subtitle: "Hạ nhiệt độ âm sâu cực nhanh trong chưa đầy 12 phút",
+      detail: "Băng chuyền hạ nhiệt độ âm sâu ≤ -18°C lập tức đóng băng toàn bộ thân tôm, mực và cua trong thời gian ngắn.",
       stat: "< 12 Phút",
     },
     {
@@ -63,16 +63,16 @@ export default function AboutStorySection() {
             </p>
 
             <p className="text-sm text-ink-light/75 leading-relaxed">
-              Chúng tôi nói <strong>KHÔNG</strong> với hóa chất bảo quản, nói <strong>KHÔNG</strong> với dây trói ngâm nước gian lận trọng lượng. Toàn bộ hải sản đều được bảo quản bằng công nghệ cấp đông siêu tốc <strong>IQF -40°C</strong> tiên tiến ngay tại bến.
+              Chúng tôi nói <strong>KHÔNG</strong> với hóa chất bảo quản, nói <strong>KHÔNG</strong> với dây trói ngâm nước gian lận trọng lượng. Toàn bộ hải sản đều được bảo quản bằng công nghệ cấp đông tiêu chuẩn <strong>≤ -18°C</strong> tiên tiến ngay tại bến.
             </p>
 
             {/* Factual Technical Stats (Clean Editorial Strip - NO nested boxes) */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t border-white/[0.08]">
               <div>
                 <div className="text-2xl font-black text-coral">
-                  <AnimeCounter targetValue={-40} suffix="°C" />
+                  <AnimeCounter targetValue={-18} suffix="°C" />
                 </div>
-                <div className="text-xs text-ink-light/60 mt-0.5">Cấp đông sâu IQF</div>
+                <div className="text-xs text-ink-light/60 mt-0.5">Cấp đông ≤ -18°C</div>
               </div>
 
               <div>

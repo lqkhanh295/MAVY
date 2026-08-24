@@ -53,10 +53,10 @@ export function generateDynamicRecipe(rawInput: string): FreestyleChefResponse {
     seafoodName = "Cua gạch Năm Căn MAVY (100% cua sống tự nhiên, gạch son béo bùi)";
     seafoodAmount = "700g (1 - 2 con chắc thịt)";
   } else if (detectedSeafoodType === "tom") {
-    seafoodName = "Tôm sú biển MAVY (Cấp đông siêu tốc IQF -40°C, bảo quản ≤ -18°C)";
+    seafoodName = "Tôm sú biển MAVY (Cấp đông tiêu chuẩn ≤ -18°C, bảo quản ≤ -18°C)";
     seafoodAmount = "500g (10 - 12 con size VIP)";
   } else if (detectedSeafoodType === "muc") {
-    seafoodName = "Mực trứng đông lạnh MAVY (Cấp đông rời IQF -40°C, ôm trọn túi trứng)";
+    seafoodName = "Mực trứng đông lạnh MAVY (Cấp đông rời tiêu chuẩn ≤ -18°C, ôm trọn túi trứng)";
     seafoodAmount = "500g (12 - 14 con)";
   }
 

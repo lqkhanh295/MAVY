@@ -47,7 +47,7 @@ export const SIGNATURE_PRODUCTS: Product[] = [
     category: "Tôm Sú",
     tagline: "Size đại chuẩn xuất khẩu – Vỏ mỏng bóng bẩy, thịt giòn ngọt săn chắc",
     description:
-      "Tôm sú đông lạnh MAVY được đánh bắt từ vùng biển sâu sạch, giữ nguyên độ tươi nguyên bản với công nghệ cấp đông siêu tốc IQF -40°C ngay khi lên tàu, giữ trọn 99% dinh dưỡng và độ giòn ngọt.",
+      "Tôm sú đông lạnh MAVY được đánh bắt từ vùng biển sâu sạch, giữ nguyên độ tươi nguyên bản với công nghệ cấp đông tiêu chuẩn ≤ -18°C ngay khi lên tàu, giữ trọn 99% dinh dưỡng và độ giòn ngọt.",
     price: "349.000 VNĐ",
     unit: "1 kg",
     image: "/assets/image/tom-su.png",
@@ -59,7 +59,7 @@ export const SIGNATURE_PRODUCTS: Product[] = [
     feedbackCount: "4.890+ đánh giá 5★",
     specifications: [
       { label: "Kích thước", value: "Size VIP (15 - 20 con/kg)" },
-      { label: "Công nghệ", value: "Cấp đông siêu tốc IQF -40°C chuẩn Châu Âu" },
+      { label: "Công nghệ", value: "Cấp đông tiêu chuẩn ≤ -18°C chuẩn Châu Âu" },
       { label: "Tình trạng", value: "Nguyên con, râu càng nguyên vẹn" },
       { label: "Hạn sử dụng", value: "12 tháng ở nhiệt độ ≤ -18°C" },
     ],
@@ -76,7 +76,7 @@ export const SIGNATURE_PRODUCTS: Product[] = [
       "Tôm sú rim tiêu đậm đà đưa cơm",
     ],
     features: [
-      "Cấp đông IQF -40°C trong 12 phút, thịt không bị bở nát",
+      "Cấp đông tiêu chuẩn ≤ -18°C nhanh chóng, thịt không bị bở nát",
       "Dễ dàng tách lấy từng con tiện lợi cho bữa ăn gia đình",
       "Đóng gói hút chân không chuyên nghiệp, vệ sinh an toàn tuyệt đối",
     ],
@@ -87,7 +87,7 @@ export const SIGNATURE_PRODUCTS: Product[] = [
     category: "Mực Biển",
     tagline: "Ôm trọn túi trứng béo bùi – Thân dày giòn sần sật, ngọt đậm đà",
     description:
-      "Mực trứng đông lạnh MAVY được đánh bắt vào mùa sinh sản khi mực ôm trọn túi trứng béo bùi. Cấp đông siêu tốc IQF -40°C khóa chặt độ giòn sần sật và vị ngọt đậm đà của biển cả.",
+      "Mực trứng đông lạnh MAVY được đánh bắt vào mùa sinh sản khi mực ôm trọn túi trứng béo bùi. Cấp đông tiêu chuẩn ≤ -18°C khóa chặt độ giòn sần sật và vị ngọt đậm đà của biển cả.",
     price: "319.000 VNĐ",
     unit: "1 kg",
     image: "/assets/image/muc.png",
@@ -99,7 +99,7 @@ export const SIGNATURE_PRODUCTS: Product[] = [
     feedbackCount: "2.680+ đánh giá 5★",
     specifications: [
       { label: "Quy cách", value: "Size 9 - 12cm, tỷ lệ trứng ≥ 80%" },
-      { label: "Chế biến", value: "Cấp đông rời IQF -40°C nguyên con" },
+      { label: "Chế biến", value: "Cấp đông rời tiêu chuẩn ≤ -18°C nguyên con" },
       { label: "Đặc điểm thịt", value: "Trứng bùi béo, thân mực giòn ngọt" },
       { label: "Bảo quản", value: "Ngăn đông tủ lạnh (nhiệt độ ≤ -18°C)" },
     ],

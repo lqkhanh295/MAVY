@@ -89,7 +89,7 @@ export default function VideoShowcase() {
             <span className="block text-gold leading-tight mt-2 sm:mt-3">Cấp Đông Trên Tàu</span>
           </h2>
           <p className="text-sm sm:text-base text-ink-light/80 leading-relaxed max-w-2xl mx-auto pt-2">
-            Xem thực tế quy trình kiểm định chất lượng và công nghệ cấp đông siêu tốc IQF -40°C giúp giữ trọn vẹn độ tươi giòn nguyên bản của hải sản MAVY.
+            Xem thực tế quy trình kiểm định chất lượng và công nghệ cấp đông tiêu chuẩn ≤ -18°C giúp giữ trọn vẹn độ tươi giòn nguyên bản của hải sản MAVY.
           </p>
         </div>
 
@@ -157,7 +157,7 @@ export default function VideoShowcase() {
 
             <div className="flex items-center gap-3">
               <span className="hidden sm:inline-block text-xs text-gold bg-navy-900 px-3 py-1 rounded border border-navy-800">
-                Chuẩn IQF -40°C
+                Chuẩn Cấp Đông ≤ -18°C
               </span>
 
               <button

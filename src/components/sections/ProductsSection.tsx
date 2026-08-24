@@ -74,7 +74,7 @@ export default function ProductsSection({ onSelectProductForChef }: ProductsSect
             <span className="block text-gold leading-tight mt-2.5 sm:mt-3.5">Tuyển Chọn Tự Nhiên</span>
           </h2>
           <p className="text-sm sm:text-base text-ink-light/80 leading-relaxed max-w-2xl mx-auto pt-2">
-            Đánh bắt tại vùng biển sạch, giữ sống hoặc cấp đông siêu tốc IQF -40°C trong 12 phút.
+            Đánh bắt tại vùng biển sạch Năm Căn, giữ sống hoặc cấp đông tiêu chuẩn ≤ -18°C nhanh chóng.
           </p>
         </div>
 

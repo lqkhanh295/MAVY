@@ -66,7 +66,7 @@ export default function QualityCertifications() {
     },
     {
       criteria: "Bảo quản & Kiểm định",
-      mavy: "Cấp đông rời IQF -40°C ngay tại bến, không ngâm hóa chất",
+      mavy: "Cấp đông tiêu chuẩn ≤ -18°C ngay tại bến, không ngâm hóa chất",
       traditional: "Ướp đá cây, có nguy cơ ngâm hàn the/urê giữ màu",
     },
     {

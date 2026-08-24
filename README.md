@@ -6,7 +6,7 @@
 
 ## 📌 1. Tổng Quan Dự Án
 
-**MAVY Seafood** là nền tảng giới thiệu và phân phối 3 dòng hải sản chủ lực tự nhiên tại Việt Nam (Cua gạch Cà Mau, Tôm sú đông lạnh VIP, Mực trứng đông lạnh) với tiêu chuẩn cấp đông siêu tốc **IQF -40°C** và chính sách giao hàng hỏa tốc trong 2 giờ.
+**MAVY Seafood** là nền tảng giới thiệu và phân phối 3 dòng hải sản chủ lực tự nhiên tại Việt Nam (Cua gạch Cà Mau, Tôm sú đông lạnh VIP, Mực trứng đông lạnh) với tiêu chuẩn cấp đông **≤ -18°C** và chính sách giao hàng hỏa tốc trong 2 giờ.
 
 ### ✨ Điểm Nổi Bật Về Trải Nghiệm & Kỹ Thuật:
 1. **Purposeful Storytelling Motion**: Hệ thống chuyển động có chủ đích giúp dẫn mắt và giải thích công nghệ (Orchestrated Hero Reveal, Shared-Element Transition, 4-Stage Cooking Stepper, Sơ đồ công nghệ cấp đông IQF).

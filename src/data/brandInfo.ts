@@ -2,7 +2,7 @@ export const BRAND_INFO = {
   name: "Công ty cổ phần Mavy Seafood",
   slogan: "Tinh Hoa Hải Sản Biển Sạch Cho Mọi Gian Bếp Việt",
   shortDesc:
-    "Thương hiệu tiên phong phân phối Cua gạch, Tôm sú đông lạnh & Mực trứng đông lạnh chuẩn xuất khẩu, áp dụng công nghệ cấp đông siêu tốc IQF -40°C giữ trọn vị tươi nguyên.",
+    "Thương hiệu tiên phong phân phối Cua gạch, Tôm sú đông lạnh & Mực trứng đông lạnh chuẩn xuất khẩu, áp dụng công nghệ cấp đông tiêu chuẩn ≤ -18°C giữ trọn vị tươi nguyên.",
   hotline: "090 132 5178",
   hotlineTel: "tel:0901325178",
   zaloUrl: "https://zalo.me/0901325178",
@@ -24,8 +24,8 @@ export const BRAND_INFO = {
       icon: "ShieldCheck",
     },
     {
-      title: "Chuẩn Cấp Đông IQF -40°C",
-      description: "Khóa chặt dinh dưỡng và độ tươi giòn trong 12 phút ngay sau đánh bắt.",
+      title: "Chuẩn Cấp Đông ≤ -18°C",
+      description: "Khóa chặt dinh dưỡng và độ tươi giòn nhanh chóng ngay sau đánh bắt.",
       icon: "Snowflake",
     },
     {

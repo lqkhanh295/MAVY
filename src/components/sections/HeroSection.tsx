@@ -148,7 +148,7 @@ export default function HeroSection() {
               variants={textItemVariants}
               className="text-sm sm:text-base md:text-lg text-ink-light/85 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal"
             >
-              MAVY phân phối 3 dòng hải sản chủ lực: Cua gạch Năm Căn, Tôm sú & Mực trứng đông lạnh chuẩn cấp đông siêu tốc <strong>IQF -40°C</strong>. Dây trói dưới 20g, bao ăn 1 đổi 1 và giao hỏa tốc 2 giờ tại TP.HCM.
+              MAVY phân phối 3 dòng hải sản chủ lực: Cua gạch Năm Căn, Tôm sú & Mực trứng đông lạnh chuẩn cấp đông tiêu chuẩn <strong>≤ -18°C</strong>. Dây trói dưới 20g, bao ăn 1 đổi 1 và giao hỏa tốc 2 giờ tại TP.HCM.
             </motion.p>
 
             {/* Sourcing Trust Strip */}
@@ -163,7 +163,7 @@ export default function HeroSection() {
               <span className="hidden sm:inline text-white/20 select-none">|</span>
               <div className="flex items-center gap-1.5">
                 <IoShieldCheckmarkOutline className="w-4 h-4 text-coral shrink-0" />
-                <span>Cấp đông IQF -40°C</span>
+                <span>Cấp đông ≤ -18°C</span>
               </div>
               <span className="hidden sm:inline text-white/20 select-none">|</span>
               <div className="flex items-center gap-1.5">

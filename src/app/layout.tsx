@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://mavyseafood.vn"),
   title: "MAVY SEAFOOD | Hải Sản Tự Nhiên - Cua Gạch, Tôm Sú Đông Lạnh, Mực Trứng Đông Lạnh",
   description:
-    "Công ty cổ phần Mavy Seafood chuyên cung cấp Cua gạch Cà Mau, Tôm sú đông lạnh và Mực trứng đông lạnh chuẩn xuất khẩu. Cấp đông siêu tốc IQF -40°C, bao ăn 1 đổi 1 và giao nhanh trong 2 giờ.",
+    "Công ty cổ phần Mavy Seafood chuyên cung cấp Cua gạch Cà Mau, Tôm sú đông lạnh và Mực trứng đông lạnh chuẩn xuất khẩu. Cấp đông tiêu chuẩn ≤ -18°C, bao ăn 1 đổi 1 và giao nhanh trong 2 giờ.",
   keywords: [
     "hải sản tự nhiên",
     "cua gạch",
