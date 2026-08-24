@@ -77,28 +77,20 @@ export function getAvailableKeys(): { key: string; provider: "gemini" | "openai"
   return keys;
 }
 
-const SYSTEM_PROMPT = `Bạn là Bếp Trưởng Điều Hành & Chuyên Gia Ẩm Thực MAVY Seafood (thương hiệu hải sản tự nhiên Năm Căn, Cà Mau: Cua gạch Cà Mau, Tôm sú biển IQF, Mực trứng đông lạnh IQF bảo quản chuẩn ≤ -18°C).
-
-PHONG CÁCH TRÒ CHUYỆN (FREESTYLE GEMINI CHAT):
-- Hãy trò chuyện tự nhiên, nhiệt tình, ấm áp, hóm hỉnh và chuyên nghiệp như một Master Chef thực thụ đang trực tiếp tư vấn cho khách hàng.
-- Định dạng câu trả lời bằng Markdown rõ ràng, bắt mắt (sử dụng emoji 🦀🦐🦑🍳🧂, in đậm **tên bước/nguyên liệu**, gạch đầu dòng, các bước số 1. 2. 3. và đường kẻ ngang ---).
-
-QUY TẮC ĐỊNH LƯỢNG & ẨM THỰC:
-- Khi hướng dẫn công thức nấu ăn: BẮT BUỘC định lượng chi tiết theo từng gam (g) hoặc mililit (ml) cho TẤT CẢ các nguyên liệu và từng loại gia vị (ví dụ: Muối biển: 4g (1/2 thìa cà phê), Hạt nêm: 6g (1 thìa cà phê), Đường: 8g, Nước mắm 40 độ đạm: 15ml, Tiêu sọ xay: 2g, Bơ lạt: 30g, Tỏi băm: 20g...). TUYỆT ĐỐI KHÔNG ghi chung chung như "Vừa đủ" hay "Gia vị chuẩn".
-- Hướng dẫn chuẩn xác thời gian & nhiệt độ vàng để giữ độ giòn ngọt mọng nước (Tôm sú 3-4 phút lửa lớn, Mực trứng 2-3 phút, Cua hấp 12-15 phút).
-- Khi khách hỏi mẹo vặt, so sánh món, cách sơ chế, nhiệt độ bảo quản, hỏi giá: Hãy trả lời trực tiếp, thông minh, đúng trọng tâm và tự nhiên 100%.`;
+const SYSTEM_PROMPT = `Bạn là trợ lý AI thông minh kiêm Chuyên Gia Ẩm Thực của MAVY Seafood (hải sản tự nhiên Năm Căn, Cà Mau: Cua gạch, Tôm sú IQF, Mực trứng IQF).
+Hãy trò chuyện, trả lời và hỗ trợ người dùng hoàn toàn tự nhiên, thân thiện, linh hoạt và tự do như Gemini thông thường.
+Người dùng hỏi gì thì bạn trả lời nấy (từ công thức nấu ăn, định lượng gia vị chi tiết theo gram, mẹo vặt nhà bếp, bảo quản, đến trò chuyện thoải mái). Không bị gò bó vào bất kỳ khuôn mẫu hay cấu trúc cứng nhắc nào. Định dạng Markdown tự nhiên, dễ đọc.`;
 
 export async function generateChefRecipe(rawInput: string): Promise<ChefChatResponse> {
-  // 1. Sanitize & Check Injection
   const sanitized = sanitizeUserInput(rawInput);
   const normalizedKey = sanitized.toLowerCase();
 
-  // If prompt injection or adversarial prompt detected -> immediately serve deterministic recipe without wasting LLM quota
+  // If prompt injection or adversarial prompt detected -> serve safe response
   if (isAdversarialInput(rawInput)) {
     return generateDynamicRecipe("hải sản tươi sạch MAVY");
   }
 
-  // 2. Check Cache
+  // Check Cache
   const cached = recipeCache.get(normalizedKey);
   if (cached && Date.now() < cached.expiry) {
     return cached.data;
@@ -106,41 +98,36 @@ export async function generateChefRecipe(rawInput: string): Promise<ChefChatResp
 
   const keys = getAvailableKeys();
 
-  // If no external keys -> use dynamic freestyle synthesizer
-  if (keys.length === 0) {
-    const fallback = generateDynamicRecipe(sanitized);
-    recipeCache.set(normalizedKey, { data: fallback, expiry: Date.now() + CACHE_TTL_MS });
-    return fallback;
+  // If keys are available, call Gemini / OpenAI directly
+  if (keys.length > 0) {
+    for (const { key, provider } of keys) {
+      try {
+        let result: string | null = null;
+        if (provider === "gemini") {
+          result = await callGeminiAPI(key, sanitized);
+        } else {
+          result = await callOpenAIAPI(key, sanitized);
+        }
+
+        if (result && result.trim().length > 10) {
+          const responseData: ChefChatResponse = {
+            message: result.trim(),
+            suggestedFollowUps: [
+              "Hỏi thêm về cách nêm nếm gia vị",
+              "Bí quyết bảo quản hải sản trong ngăn đông ≤ -18°C",
+              "Cách làm nước chấm hải sản ngon",
+            ],
+          };
+          recipeCache.set(normalizedKey, { data: responseData, expiry: Date.now() + CACHE_TTL_MS });
+          return responseData;
+        }
+      } catch (err: any) {
+        console.warn("[LLM Execution Error]:", err?.message || err);
+      }
+    }
   }
 
-  // 3. Single Capped Attempt (Strict Budget Cap: Max 1 attempt to avoid burning quotas)
-  const targetKey = keys[0];
-  try {
-    let result: string | null = null;
-
-    if (targetKey.provider === "gemini") {
-      result = await callGeminiAPI(targetKey.key, sanitized);
-    } else {
-      result = await callOpenAIAPI(targetKey.key, sanitized);
-    }
-
-    if (result && result.trim().length > 20) {
-      const responseData: ChefChatResponse = {
-        message: result.trim(),
-        suggestedFollowUps: [
-          "Bí quyết pha nước chấm hải sản chuẩn Cà Mau?",
-          "Nhiệt độ bảo quản ngăn đông chuẩn ≤ -18°C?",
-          "Mẹo giữ hải sản giòn ngọt không bị khô khi nấu?",
-        ],
-      };
-      recipeCache.set(normalizedKey, { data: responseData, expiry: Date.now() + CACHE_TTL_MS });
-      return responseData;
-    }
-  } catch (err: any) {
-    console.warn("[LLM Execution Warning - Falling back to local engine]:", err?.message || err);
-  }
-
-  // 4. Instant Deterministic Fallback Engine
+  // Fallback when no API keys are configured
   const fallback = generateDynamicRecipe(sanitized);
   recipeCache.set(normalizedKey, { data: fallback, expiry: Date.now() + CACHE_TTL_MS });
   return fallback;
@@ -161,17 +148,16 @@ async function callGeminiAPI(apiKey: string, userQuery: string): Promise<string 
             {
               role: "user",
               parts: [
-                { text: SYSTEM_PROMPT },
-                { text: `Khách hàng đang hỏi / có nguyên liệu: "${userQuery}". Hãy trả lời trò chuyện tự nhiên bằng Markdown như Bếp Trưởng MAVY, định lượng chi tiết từng gam cho mọi gia vị.` },
+                { text: `${SYSTEM_PROMPT}\n\nCâu hỏi / Yêu cầu của người dùng: ${userQuery}` },
               ],
             },
           ],
           generationConfig: {
-            temperature: 0.7, // Higher creativity & natural conversational flow
-            maxOutputTokens: 1500,
+            temperature: 0.8,
+            maxOutputTokens: 2048,
           },
         }),
-        signal: AbortSignal.timeout(9000), // 9s timeout
+        signal: AbortSignal.timeout(10000),
       });
 
       if (!res.ok) continue;
@@ -182,7 +168,7 @@ async function callGeminiAPI(apiKey: string, userQuery: string): Promise<string 
         return rawText;
       }
     } catch {
-      // try next model
+      // try next
     }
   }
 
