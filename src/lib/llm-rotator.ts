@@ -90,9 +90,12 @@ export function getAvailableKeys(): { key: string; provider: "gemini" | "openai"
   return keys;
 }
 
-const SYSTEM_PROMPT = `Bạn là trợ lý AI thông minh kiêm Chuyên Gia Ẩm Thực của MAVY Seafood (hải sản tự nhiên Năm Căn, Cà Mau: Cua gạch, Tôm sú IQF, Mực trứng IQF).
-Hãy trò chuyện, trả lời và hỗ trợ người dùng hoàn toàn tự nhiên, thân thiện, linh hoạt và thoải mái như Gemini thông thường.
-Người dùng hỏi gì thì bạn trả lời nấy (từ công thức nấu ăn, định lượng gia vị chi tiết theo gram, mẹo vặt nhà bếp, bảo quản, đến trò chuyện). Không bị gò bó vào bất kỳ khuôn mẫu cứng nhắc nào. Định dạng Markdown tự nhiên, dễ đọc.`;
+const SYSTEM_PROMPT = `Bạn là Bếp Trưởng Điều Hành & Chuyên Gia Ẩm Thực của MAVY Seafood (hải sản tự nhiên Năm Căn, Cà Mau: Cua gạch, Tôm sú IQF, Mực trứng IQF bảo quản ≤ -18°C).
+
+QUY TẮC BẮT BUỘC:
+1. Khi người dùng nhập danh sách nhiều nguyên liệu (ví dụ: dứa, cà chua, dưa leo, rau răm...): BẮT BUỘC phải đưa ĐẦY ĐỦ TẤT CẢ các nguyên liệu đó vào món ăn, cả trong tiêu đề món, bảng định lượng từng gam (g/ml) và từng bước chế biến (sơ chế, xào sốt, nêm nếm, hoàn thiện). TUYỆT ĐỐI KHÔNG được bỏ sót bất kỳ nguyên liệu nào của khách hàng.
+2. Định lượng chi tiết chính xác theo từng gam (g) hoặc mililit (ml) cho cả nguyên liệu phụ và từng loại gia vị (muối, đường, hạt nêm, nước mắm, tiêu, bơ/dầu...). Không ghi chung chung như "vừa đủ".
+3. Trả lời tự nhiên, thân thiện, sáng tạo và hấp dẫn bằng Markdown.`;
 
 export async function generateChefRecipe(rawInput: string): Promise<ChefChatResponse> {
   const sanitized = sanitizeUserInput(rawInput);
@@ -111,16 +114,13 @@ export async function generateChefRecipe(rawInput: string): Promise<ChefChatResp
 
   const keys = getAvailableKeys();
 
-  // 2. Fast Key Rotation (Round-Robin load balancing across unique keys, max 2 quick attempts)
+  // 2. Multi-Key Rotation: Try keys sequentially until finding an active one
   if (keys.length > 0) {
     const totalKeys = keys.length;
     const startIndex = currentKeyIndex % totalKeys;
     currentKeyIndex = (currentKeyIndex + 1) % totalKeys;
 
-    // Try at most 2 keys for ultra-fast response (< 3s total)
-    const attempts = Math.min(2, totalKeys);
-
-    for (let attempt = 0; attempt < attempts; attempt++) {
+    for (let attempt = 0; attempt < totalKeys; attempt++) {
       const activeIndex = (startIndex + attempt) % totalKeys;
       const { key, provider } = keys[activeIndex];
 
@@ -132,31 +132,31 @@ export async function generateChefRecipe(rawInput: string): Promise<ChefChatResp
           result = await callOpenAIAPI(key, sanitized);
         }
 
-        if (result && result.trim().length > 10) {
+        if (result && result.trim().length > 20) {
           const responseData: ChefChatResponse = {
             message: result.trim(),
             suggestedFollowUps: [
-              "Hỏi thêm về cách nêm nếm gia vị",
-              "Bí quyết bảo quản hải sản trong ngăn đông ≤ -18°C",
-              "Cách làm nước chấm hải sản ngon",
+              "Hỏi thêm về cách nêm nếm gia vị chuẩn",
+              "Bí quyết xào hải sản lửa lớn không ra nước",
+              "Nhiệt độ bảo quản ngăn đông chuẩn ≤ -18°C",
             ],
           };
           recipeCache.set(normalizedKey, { data: responseData, expiry: Date.now() + CACHE_TTL_MS });
           return responseData;
         }
       } catch (err: any) {
-        console.warn(`[Key #${activeIndex + 1} timeout/error - Trying next key]:`, err?.message || err);
+        console.warn(`[Key #${activeIndex + 1} 429/busy - Trying next key]:`, err?.message || err);
       }
     }
   }
 
-  // 3. Ultra-fast local fallback if keys exhausted or network offline
+  // 3. Ultra-fast local fallback integrating ALL user ingredients if all keys hit quota
   const fallback = generateDynamicRecipe(sanitized);
   recipeCache.set(normalizedKey, { data: fallback, expiry: Date.now() + CACHE_TTL_MS });
   return fallback;
 }
 
-// Fast Gemini API Caller with 4.5s strict timeout
+// Fast Gemini API Caller with 4s strict timeout per key
 async function callGeminiAPI(apiKey: string, userQuery: string): Promise<string | null> {
   const model = "gemini-3.6-flash";
 
@@ -171,16 +171,16 @@ async function callGeminiAPI(apiKey: string, userQuery: string): Promise<string 
           {
             role: "user",
             parts: [
-              { text: `${SYSTEM_PROMPT}\n\nCâu hỏi / Yêu cầu của người dùng: ${userQuery}` },
+              { text: `${SYSTEM_PROMPT}\n\nDanh sách nguyên liệu / Câu hỏi của khách hàng: "${userQuery}". Hãy sáng tạo món ăn kết hợp ĐẦY ĐỦ TẤT CẢ các nguyên liệu này cùng hải sản MAVY, định lượng chi tiết từng gam cho từng nguyên liệu và gia vị.` },
             ],
           },
         ],
         generationConfig: {
-          temperature: 0.8,
-          maxOutputTokens: 1200,
+          temperature: 0.7,
+          maxOutputTokens: 1500,
         },
       }),
-      signal: AbortSignal.timeout(4500), // 4.5 seconds timeout for super snappy response
+      signal: AbortSignal.timeout(4000),
     });
 
     if (!res.ok) return null;
@@ -209,12 +209,12 @@ async function callOpenAIAPI(apiKey: string, userQuery: string): Promise<string 
         model: "gpt-4o-mini",
         messages: [
           { role: "system", content: SYSTEM_PROMPT },
-          { role: "user", content: `Khách hàng hỏi: "${userQuery}". Hãy trả lời chi tiết bằng Markdown.` },
+          { role: "user", content: `Khách hàng có các nguyên liệu: "${userQuery}". Hãy sáng tạo món ăn kết hợp đầy đủ tất cả nguyên liệu này.` },
         ],
         max_tokens: 1200,
         temperature: 0.7,
       }),
-      signal: AbortSignal.timeout(4500),
+      signal: AbortSignal.timeout(4000),
     });
 
     if (!res.ok) return null;
