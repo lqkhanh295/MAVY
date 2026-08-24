@@ -155,14 +155,14 @@ export function generateDynamicRecipe(rawInput: string): FreestyleChefResponse {
 * **Hải sản chính**: ${seafoodName} — \`${seafoodAmount}\`
 ${formattedIngredients.join("\n")}
 
-#### B. Gia Vị Cơ Bản Trong Gian Bếp (Định lượng chuẩn từng gram):
-* **Tỏi tép & hành tím băm**: \`20g\` (3 tép tỏi + 2 củ hành tím)
-* **Muối biển tinh khiết**: \`4g\` (khoảng 1/2 thìa cà phê)
-* **Hạt nêm cao cấp**: \`6g\` (1 thìa cà phê)
-* **Đường cát / đường phèn**: \`8g\` (1 thìa cà phê để cân bằng vị)
-* **Nước mắm nhĩ 40 độ đạm**: \`15ml\` (1 muỗng canh)
-* **Tiêu sọ Phú Quốc xay**: \`2g\` (1/3 thìa cà phê)
-* **Dầu ăn thực vật hoặc bơ lạt**: \`25ml / 25g\` (1.5 muỗng canh)
+#### B. Gia Vị Trong Gian Bếp (Định lượng từng gram):
+* **Tỏi & hành tím băm**: \`20g\` (3 tép tỏi + 2 củ hành)
+* **Muối**: \`4g\` (1/2 thìa cà phê)
+* **Hạt nêm**: \`6g\` (1 thìa cà phê)
+* **Đường**: \`8g\` (1 thìa cà phê)
+* **Nước mắm**: \`15ml\` (1 muỗng canh)
+* **Tiêu**: \`2g\` (1/3 thìa cà phê)
+* **Dầu ăn (hoặc bơ)**: \`25ml\` (1.5 muỗng canh)
 
 ---
 
