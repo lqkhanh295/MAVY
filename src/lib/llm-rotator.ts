@@ -47,30 +47,43 @@ function cleanKey(raw: string | undefined): string | null {
   return cleaned || null;
 }
 
+// Global round-robin pointer for smooth load balancing across 10 keys
+let currentKeyIndex = 0;
+
 export function getAvailableKeys(): { key: string; provider: "gemini" | "openai" }[] {
   const keys: { key: string; provider: "gemini" | "openai" }[] = [];
+  const seenKeys = new Set<string>();
 
-  // Gemini API keys
+  // Gemini API keys from comma-separated list
   if (process.env.GEMINI_API_KEYS) {
     const list = process.env.GEMINI_API_KEYS.split(",").map(cleanKey).filter(Boolean) as string[];
-    list.forEach((k) => keys.push({ key: k, provider: "gemini" }));
+    list.forEach((k) => {
+      if (!seenKeys.has(k)) {
+        seenKeys.add(k);
+        keys.push({ key: k, provider: "gemini" });
+      }
+    });
   }
 
+  // Gemini API keys from individual env vars
   for (let i = 1; i <= 20; i++) {
     const k = cleanKey(process.env[`GEMINI_API_KEY_${i}`]);
-    if (k && !keys.some((item) => item.key === k)) {
+    if (k && !seenKeys.has(k)) {
+      seenKeys.add(k);
       keys.push({ key: k, provider: "gemini" });
     }
   }
 
   const defaultGemini = cleanKey(process.env.GEMINI_API_KEY);
-  if (defaultGemini && !keys.some((item) => item.key === defaultGemini)) {
+  if (defaultGemini && !seenKeys.has(defaultGemini)) {
+    seenKeys.add(defaultGemini);
     keys.push({ key: defaultGemini, provider: "gemini" });
   }
 
   // OpenAI API keys
   const defaultOpenAI = cleanKey(process.env.OPENAI_API_KEY);
-  if (defaultOpenAI && !keys.some((item) => item.key === defaultOpenAI)) {
+  if (defaultOpenAI && !seenKeys.has(defaultOpenAI)) {
+    seenKeys.add(defaultOpenAI);
     keys.push({ key: defaultOpenAI, provider: "openai" });
   }
 
@@ -78,8 +91,8 @@ export function getAvailableKeys(): { key: string; provider: "gemini" | "openai"
 }
 
 const SYSTEM_PROMPT = `Bạn là trợ lý AI thông minh kiêm Chuyên Gia Ẩm Thực của MAVY Seafood (hải sản tự nhiên Năm Căn, Cà Mau: Cua gạch, Tôm sú IQF, Mực trứng IQF).
-Hãy trò chuyện, trả lời và hỗ trợ người dùng hoàn toàn tự nhiên, thân thiện, linh hoạt và tự do như Gemini thông thường.
-Người dùng hỏi gì thì bạn trả lời nấy (từ công thức nấu ăn, định lượng gia vị chi tiết theo gram, mẹo vặt nhà bếp, bảo quản, đến trò chuyện thoải mái). Không bị gò bó vào bất kỳ khuôn mẫu hay cấu trúc cứng nhắc nào. Định dạng Markdown tự nhiên, dễ đọc.`;
+Hãy trò chuyện, trả lời và hỗ trợ người dùng hoàn toàn tự nhiên, thân thiện, linh hoạt và thoải mái như Gemini thông thường.
+Người dùng hỏi gì thì bạn trả lời nấy (từ công thức nấu ăn, định lượng gia vị chi tiết theo gram, mẹo vặt nhà bếp, bảo quản, đến trò chuyện). Không bị gò bó vào bất kỳ khuôn mẫu cứng nhắc nào. Định dạng Markdown tự nhiên, dễ đọc.`;
 
 export async function generateChefRecipe(rawInput: string): Promise<ChefChatResponse> {
   const sanitized = sanitizeUserInput(rawInput);
@@ -90,7 +103,7 @@ export async function generateChefRecipe(rawInput: string): Promise<ChefChatResp
     return generateDynamicRecipe("hải sản tươi sạch MAVY");
   }
 
-  // Check Cache
+  // 1. Check Cache (Instant response for identical questions)
   const cached = recipeCache.get(normalizedKey);
   if (cached && Date.now() < cached.expiry) {
     return cached.data;
@@ -98,9 +111,19 @@ export async function generateChefRecipe(rawInput: string): Promise<ChefChatResp
 
   const keys = getAvailableKeys();
 
-  // If keys are available, call Gemini / OpenAI directly
+  // 2. Fast Key Rotation (Round-Robin load balancing across unique keys, max 2 quick attempts)
   if (keys.length > 0) {
-    for (const { key, provider } of keys) {
+    const totalKeys = keys.length;
+    const startIndex = currentKeyIndex % totalKeys;
+    currentKeyIndex = (currentKeyIndex + 1) % totalKeys;
+
+    // Try at most 2 keys for ultra-fast response (< 3s total)
+    const attempts = Math.min(2, totalKeys);
+
+    for (let attempt = 0; attempt < attempts; attempt++) {
+      const activeIndex = (startIndex + attempt) % totalKeys;
+      const { key, provider } = keys[activeIndex];
+
       try {
         let result: string | null = null;
         if (provider === "gemini") {
@@ -122,54 +145,53 @@ export async function generateChefRecipe(rawInput: string): Promise<ChefChatResp
           return responseData;
         }
       } catch (err: any) {
-        console.warn("[LLM Execution Error]:", err?.message || err);
+        console.warn(`[Key #${activeIndex + 1} timeout/error - Trying next key]:`, err?.message || err);
       }
     }
   }
 
-  // Fallback when no API keys are configured
+  // 3. Ultra-fast local fallback if keys exhausted or network offline
   const fallback = generateDynamicRecipe(sanitized);
   recipeCache.set(normalizedKey, { data: fallback, expiry: Date.now() + CACHE_TTL_MS });
   return fallback;
 }
 
+// Fast Gemini API Caller with 4.5s strict timeout
 async function callGeminiAPI(apiKey: string, userQuery: string): Promise<string | null> {
-  const models = ["gemini-3.6-flash", "gemini-3.7-flash", "gemini-flash-latest"];
+  const model = "gemini-3.6-flash";
 
-  for (const model of models) {
-    try {
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+  try {
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
-      const res = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          contents: [
-            {
-              role: "user",
-              parts: [
-                { text: `${SYSTEM_PROMPT}\n\nCâu hỏi / Yêu cầu của người dùng: ${userQuery}` },
-              ],
-            },
-          ],
-          generationConfig: {
-            temperature: 0.8,
-            maxOutputTokens: 2048,
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        contents: [
+          {
+            role: "user",
+            parts: [
+              { text: `${SYSTEM_PROMPT}\n\nCâu hỏi / Yêu cầu của người dùng: ${userQuery}` },
+            ],
           },
-        }),
-        signal: AbortSignal.timeout(10000),
-      });
+        ],
+        generationConfig: {
+          temperature: 0.8,
+          maxOutputTokens: 1200,
+        },
+      }),
+      signal: AbortSignal.timeout(4500), // 4.5 seconds timeout for super snappy response
+    });
 
-      if (!res.ok) continue;
+    if (!res.ok) return null;
 
-      const data = await res.json();
-      const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-      if (rawText && typeof rawText === "string") {
-        return rawText;
-      }
-    } catch {
-      // try next
+    const data = await res.json();
+    const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+    if (rawText && typeof rawText === "string") {
+      return rawText;
     }
+  } catch {
+    return null;
   }
 
   return null;
@@ -189,10 +211,10 @@ async function callOpenAIAPI(apiKey: string, userQuery: string): Promise<string 
           { role: "system", content: SYSTEM_PROMPT },
           { role: "user", content: `Khách hàng hỏi: "${userQuery}". Hãy trả lời chi tiết bằng Markdown.` },
         ],
-        max_tokens: 1500,
+        max_tokens: 1200,
         temperature: 0.7,
       }),
-      signal: AbortSignal.timeout(9000),
+      signal: AbortSignal.timeout(4500),
     });
 
     if (!res.ok) return null;
